@@ -40,3 +40,10 @@ public/uploads/*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+flask_session/
