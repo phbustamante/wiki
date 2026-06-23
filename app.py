@@ -4,7 +4,7 @@ from flask import Flask, render_template, abort
 
 app = Flask(__name__)
 
-DATA_DIR = Path(__file__).parent / "src" / "data"
+DATA_DIR = Path(__file__).parent / "data"
 
 
 def _load(filename):
