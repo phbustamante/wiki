@@ -1,0 +1,158 @@
+{
+  "atualizacoes": [
+    {
+      "id": "jc181",
+      "equipamento": "JC181",
+      "descricao": "Procedimentos de atualização da JC181: módulo de vídeo (cartão SD) e módulo de comunicação 4G (cabo + ResearchDownload). Versão atual: WAAP 2.5.4.3 / SGKS 2.5.4.3.",
+      "categoria": "Dashcam",
+      "procedimentos": [
+        {
+          "id": "modulo-video",
+          "titulo": "Módulo de vídeo (cartão SD)",
+          "descricao": "Atualização do módulo de vídeo da JC181 via cartão SD.",
+          "passos": [
+            { "descricao": "Baixar o arquivo de firmware da JC181 (arquivo .bin) e copiar para a raiz do cartão SD, sem colocar em pastas." },
+            { "descricao": "Desligar o equipamento, conectar positivo e negativo, mantendo a ACC desligada até que todos os LEDs estejam apagados." },
+            { "descricao": "Inserir o cartão de memória com o firmware no slot da JC181." },
+            { "descricao": "Ligar a ignição (ACC ON) mantendo o dispositivo alimentado; os LEDs indicam que a atualização está em andamento." },
+            { "descricao": "Aguardar a câmera detectar o firmware e concluir a atualização automaticamente, sem cortar a alimentação." },
+            { "descricao": "Após cerca de 1 minuto, verificar que o equipamento voltou ao funcionamento normal, confirmando o fim da atualização do módulo de vídeo." }
+          ]
+        },
+        {
+          "id": "modulo-comunicacao",
+          "titulo": "Módulo de comunicação 4G (ResearchDownload)",
+          "descricao": "Atualização do módulo de comunicação (4G) da JC181 via cabo e ferramenta ResearchDownload.",
+          "passos": [
+            { "descricao": "No Windows, habilitar o modo sem assinatura de driver: Configurações > Atualização e Segurança > Recuperação > Inicialização avançada > Reiniciar agora; depois Solução de problemas > Opções avançadas > Configurações de inicialização > Reiniciar e selecionar a opção para desabilitar imposição de assinatura de driver (F7)." },
+            { "descricao": "Instalar o driver e a ferramenta: na pasta de instalação, abrir Win10 ou Win7/8, escolher 32 ou 64 bits, executar o instalador de driver e depois ResearchDownload.exe." },
+            { "descricao": "Na ferramenta ResearchDownload, clicar no ícone de firmware e selecionar o arquivo .pac correspondente ao modem da JC181, aguardando o carregamento completo." },
+            { "descricao": "Clicar no ícone de configuração, ajustar a baudrate para 115200, marcar FMT_FSSYS e a opção para selecionar todos os arquivos, e confirmar em OK." },
+            { "descricao": "Clicar em Start na ResearchDownload para deixar a ferramenta aguardando o dispositivo." },
+            { "descricao": "Desligar a fonte de alimentação da JC181, manter o botão U-Boot pressionado e conectar o cabo de dados Type-C entre o dispositivo e o computador." },
+            { "descricao": "Aguardar a ferramenta reconhecer o dispositivo e iniciar a atualização; soltar o botão U-Boot somente após o início da barra de progresso." },
+            { "descricao": "Aguardar até a mensagem de sucesso (Passed) na ResearchDownload, o que leva cerca de 1 minuto." },
+            { "descricao": "Clicar em Stop na ferramenta, desconectar o cabo USB, religar a alimentação normal da JC181 e validar a versão de firmware com o comando VERSION." }
+          ]
+        }
+      ],
+      "downloads": [
+        { "nome": "Firmware do vídeo — OTA / link direto (.bin)", "url": "https://jimi-ota.oss-cn-hongkong.aliyuncs.com/C181_Firmware/C181_SGKS_ver_v2.5.4.3_251210.1624(OTA)/SGKS_720X_V2.5.4.3.bin", "versao": "SGKS 2.5.4.3" },
+        { "nome": "Firmware do vídeo — cartão SD", "url": "https://newtectelemetria-my.sharepoint.com/:u:/g/personal/administracao_akrozgroup_com_br/IQAFZnmXFcw8T67Bmdls2WdZAQXxLLIQzeRb8dby40jB8tM?e=tTskRx", "versao": "2.5.4.3" },
+        { "nome": "Firmware do vídeo — via cabo", "url": "https://newtectelemetria-my.sharepoint.com/:u:/g/personal/administracao_akrozgroup_com_br/IQBg4NrE8TI3Sair8xTBthDYAQ9mBMiMLCaHVt8XVsEnf88?e=BrZ3uR", "versao": "2.5.4.3" },
+        { "nome": "Driver (USB)", "url": "https://newtectelemetria-my.sharepoint.com/:f:/g/personal/administracao_akrozgroup_com_br/IgDA8ijv1Xr6RYmefaxSJI2IAdysXTxNmhVBaS4KqrU3sfE?e=GptPHn" },
+        { "nome": "Software (ResearchDownload)", "url": "https://newtectelemetria-my.sharepoint.com/:f:/g/personal/administracao_akrozgroup_com_br/IgB11ZCjFEtjR6TA498OqvtTAV0DSRRetUu6vE-G7SEl9Jk?e=3zu4S2" }
+      ],
+      "imagens": []
+    },
+    {
+      "id": "jc450",
+      "equipamento": "JC450",
+      "descricao": "Procedimentos de atualização da JC450: cartão SD (update_SE), Android local (Vysor) e PhoenixSuit (U-Boot). Versão atual: 2.2.1.5.",
+      "categoria": "Dashcam",
+      "procedimentos": [
+        {
+          "id": "firmware-sdcard",
+          "titulo": "Cartão SD (update_SE)",
+          "descricao": "Atualização de firmware da JC450 via cartão SD (arquivo update_SE).",
+          "passos": [
+            { "descricao": "Ligar o dispositivo JC450 normalmente, garantindo alimentação estável." },
+            { "descricao": "Baixar o arquivo de atualização da JC450 com o nome update_SE, mantendo o nome conforme instruído." },
+            { "descricao": "Copiar o arquivo update_SE para a pasta raiz de um cartão SD, sem criar pastas." },
+            { "descricao": "Inserir o cartão SD no Slot 1 da JC450." },
+            { "descricao": "Aguardar o equipamento detectar o arquivo e emitir a mensagem de voz indicando o início da atualização, sem desligar o equipamento." },
+            { "descricao": "Esperar aproximadamente 4 a 5 minutos para que a atualização seja concluída e o dispositivo reinicie automaticamente." },
+            { "descricao": "Após o reboot, validar a versão de firmware utilizando o comando VERSION# ou pela interface do aplicativo WiFiKit." }
+          ]
+        },
+        {
+          "id": "firmware-android-local",
+          "titulo": "Android local (Vysor)",
+          "descricao": "Atualização de firmware/ROM da JC450 via interface Android usando Vysor (atualização local).",
+          "passos": [
+            { "descricao": "Preparar o cartão SD com o arquivo update_SE na raiz e inserir no Slot 1 da JC450." },
+            { "descricao": "No computador, executar o programa Vysor." },
+            { "descricao": "Ligar a JC450 com positivo, negativo e ACC ligados." },
+            { "descricao": "Conectar o cabo USB entre o computador e a JC450 e aguardar o reconhecimento pelo Vysor." },
+            { "descricao": "No Vysor, acessar a tela do Android da câmera e abrir o aplicativo de atualização indicado no wiki." },
+            { "descricao": "Escolher a opção de atualização local, selecionar o arquivo de atualização que o sistema encontrar no cartão SD e confirmar o início da atualização." },
+            { "descricao": "Acompanhar a barra de progresso até o fim e aguardar o reinício automático do dispositivo." },
+            { "descricao": "Depois do reboot, conferir a versão de firmware pela interface Android ou com o comando VERSION#." }
+          ]
+        },
+        {
+          "id": "firmware-phoenixsuit",
+          "titulo": "PhoenixSuit (U-Boot)",
+          "descricao": "Atualização completa da JC450 via PhoenixSuit e modo U-Boot.",
+          "passos": [
+            { "descricao": "No Windows, acessar Configurações > Atualização e Segurança > Recuperação > Inicialização avançada e clicar em Reiniciar agora." },
+            { "descricao": "Na tela de recuperação, navegar em Solução de problemas > Opções avançadas > Configurações de inicialização, clicar em Reiniciar e, ao reiniciar, pressionar F7 para desativar a imposição de assinatura de driver." },
+            { "descricao": "Instalar o pacote de atualização fornecido (drivers e PhoenixSuit), conforme o link/documento do suporte." },
+            { "descricao": "Abrir o PhoenixSuit, acessar o módulo de firmware, clicar em Image e selecionar o arquivo .img correto da JC450." },
+            { "descricao": "Clicar em Upgrade e confirmar todas as janelas de aviso exibidas pelo PhoenixSuit." },
+            { "descricao": "Certificar-se de que o equipamento não está alimentado por positivo/negativo/ACC." },
+            { "descricao": "Pressionar e manter pressionado o ponto de U-Boot da JC450 e conectar o cabo USB entre o PC e o dispositivo." },
+            { "descricao": "Confirmar os dois avisos (Yes) exibidos pelo PhoenixSuit, soltando o U-Boot apenas após o reconhecimento do equipamento e o início da barra de progresso." },
+            { "descricao": "Aguardar a conclusão da barra de progresso (aproximadamente 1 minuto) e confirmar as mensagens finais de sucesso." },
+            { "descricao": "Desconectar o cabo USB, religar o equipamento na alimentação normal e verificar a versão de firmware para confirmar a atualização." }
+          ]
+        }
+      ],
+      "downloads": [
+        { "nome": "Firmware — OTA / cartão SD (update.zip)", "url": "https://jimi-ota.oss-cn-hongkong.aliyuncs.com/JC450%20Pro%20Firmware/T%20Card%20Upgrade/update_C450Pro_FullOta_V2.2.1.5/update.zip", "versao": "2.2.1.5" },
+        { "nome": "Firmware — via cabo", "url": "https://newtectelemetria-my.sharepoint.com/:u:/g/personal/engenharia_jimibrasil_com_br/IQCidD9kdxRISINaIC-QKtUPAUV0Z5d_AZO4R2v-AUIBMfw?e=eLaaPH", "versao": "2.2.1.5" },
+        { "nome": "Software (ResearchDownload)", "url": "https://newtectelemetria-my.sharepoint.com/:u:/g/personal/engenharia_jimibrasil_com_br/EVyivlAs9wpNgAwkbuO1yp4B4-GlzoiMqAVPjTuj1fYXWQ?e=0ICAIH" }
+      ],
+      "imagens": []
+    },
+    {
+      "id": "jc400ad",
+      "equipamento": "JC400AD",
+      "descricao": "Procedimentos de atualização da JC400AD (JC261): firmware via PhoenixSuit (U-Boot) e componentes Android (Vysor). Versão atual: 1.8.1.3.",
+      "categoria": "Dashcam",
+      "procedimentos": [
+        {
+          "id": "firmware-phoenixsuit",
+          "titulo": "PhoenixSuit (U-Boot)",
+          "descricao": "Atualização de firmware da JC400AD (JC261) via PhoenixSuit e modo U-Boot.",
+          "passos": [
+            { "descricao": "No Windows, acessar Configurações > Atualização e Segurança > Recuperação > Inicialização avançada e clicar em Reiniciar agora." },
+            { "descricao": "Na tela de recuperação, navegar em Solução de problemas > Opções avançadas > Configurações de inicialização, clicar em Reiniciar e, ao reiniciar, pressionar F7 para desativar a imposição de assinatura de driver." },
+            { "descricao": "Baixar e instalar o pacote de atualização específico da JC400AD (JC261), incluindo drivers e a ferramenta PhoenixSuit." },
+            { "descricao": "Abrir o PhoenixSuit, ir em Firmware, clicar em Image e selecionar o arquivo .img correspondente à JC400AD (JC261)." },
+            { "descricao": "Clicar em Upgrade no PhoenixSuit e confirmar os pop-ups de aviso." },
+            { "descricao": "Garantir que o dispositivo esteja completamente desligado da alimentação externa (sem positivo, negativo ou ACC)." },
+            { "descricao": "Pressionar e manter pressionado o ponto de U-Boot do JC400AD e conectar o cabo USB entre o PC e o dispositivo." },
+            { "descricao": "Confirmar os avisos (Yes) exibidos pelo PhoenixSuit e soltar o U-Boot após a ferramenta reconhecer o dispositivo e iniciar a barra de progresso." },
+            { "descricao": "Aguardar a conclusão da atualização (cerca de 1 minuto) até o PhoenixSuit exibir a mensagem de sucesso." },
+            { "descricao": "Desconectar o cabo USB, religar a JC400AD na alimentação normal e validar a versão de firmware pela interface Android ou comando VERSION." }
+          ]
+        },
+        {
+          "id": "android-componentes",
+          "titulo": "Componentes Android (Vysor)",
+          "descricao": "Atualização de aplicativos/componentes Android na JC400AD (JC261) via Vysor.",
+          "passos": [
+            { "descricao": "Preparar o pacote de atualização (APK ou ferramenta de update) conforme documentação da JC400AD." },
+            { "descricao": "No computador, abrir o Vysor." },
+            { "descricao": "Ligar o JC400AD com alimentação completa (positivo, negativo e ACC)." },
+            { "descricao": "Conectar o cabo USB entre o PC e o JC400AD, aguardando o dispositivo aparecer no Vysor." },
+            { "descricao": "No Android exibido pelo Vysor, abrir o aplicativo de atualização ou o gerenciador de arquivos indicado pelo fabricante." },
+            { "descricao": "Selecionar a opção de atualização local e apontar para o arquivo de atualização armazenado no armazenamento interno ou cartão SD." },
+            { "descricao": "Confirmar o início da atualização e aguardar a conclusão conforme a barra de progresso exibida." },
+            { "descricao": "Se o processo solicitar, permitir o reinício do dispositivo e validar o funcionamento dos aplicativos após o boot." }
+          ]
+        }
+      ],
+      "downloads": [
+        { "nome": "Firmware — OTA / link direto (update.zip)", "url": "https://jimi-ota.oss-cn-hongkong.aliyuncs.com/JC261%20Firmware/T%20Card%20Upgrade/KMC28_0_0_STD_JM_C261_V1.8.1.3_250925.1127/update.zip", "versao": "1.8.1.3" },
+        { "nome": "Firmware — cartão SD", "url": "https://newtectelemetria-my.sharepoint.com/:u:/g/personal/administracao_akrozgroup_com_br/IQCFIOG6HAX3RqWIegsVB-kmAQd40bzzyCnH4NjbglGD4Ts?e=eeVPPn", "versao": "1.8.1.3" },
+        { "nome": "Firmware — via cabo (.pac)", "url": "https://newtectelemetria-my.sharepoint.com/:u:/g/personal/administracao_akrozgroup_com_br/IQBZcc_w9tRVSKQifWluTXQGAawcxBWK69YIvDeMk41MpjU?e=NpdSRG", "versao": "1.8.1.3" },
+        { "nome": "Passo a passo (wiki)", "url": "https://wiki-foconavia.newtectelemetria.com.br/pt-br/Atualização-de-Firmware-JC400AD" },
+        { "nome": "Driver (USB)", "url": "https://newtectelemetria-my.sharepoint.com/:f:/g/personal/administracao_akrozgroup_com_br/IgDA8ijv1Xr6RYmefaxSJI2IAdysXTxNmhVBaS4KqrU3sfE?e=GptPHn" },
+        { "nome": "Software (ResearchDownload)", "url": "https://newtectelemetria-my.sharepoint.com/:f:/g/personal/administracao_akrozgroup_com_br/IgB11ZCjFEtjR6TA498OqvtTAV0DSRRetUu6vE-G7SEl9Jk?e=3zu4S2" }
+      ],
+      "imagens": []
+    }
+  ]
+}

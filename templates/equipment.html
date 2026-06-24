@@ -1,0 +1,225 @@
+{% extends "base.html" %}
+{% block title %}{{ equipamento.equipamento }} - JIMI{% endblock %}
+{% block content %}
+
+<script id="equipamento-data" type="application/json">{{ equipamento | tojson }}</script>
+<div x-data="equipmentPage(JSON.parse(document.getElementById('equipamento-data').textContent))">
+
+  <!-- Voltar -->
+  <a href="/"
+     class="mb-6 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground">
+    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+    Equipamentos
+  </a>
+
+  <!-- Cabecalho do equipamento -->
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">{{ equipamento.equipamento }}</h1>
+    {% if equipamento.descricao %}
+    <p class="mt-2 max-w-prose text-muted-foreground">{{ equipamento.descricao }}</p>
+    {% endif %}
+  </div>
+
+  <div class="grid gap-6 lg:grid-cols-[260px_1fr] lg:items-start">
+
+    <!-- Lista de comandos -->
+    <div class="lg:sticky lg:top-32">
+
+      <!-- Busca de comandos -->
+      <div class="relative mb-3">
+        <svg class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input x-model="busca" type="search" placeholder="Buscar comando..."
+               aria-label="Buscar comando"
+               class="h-10 w-full rounded-xl border border-input bg-background pl-9 pr-4 text-sm outline-none placeholder:text-muted-foreground focus:border-ring focus:ring-2 focus:ring-ring/30" />
+      </div>
+
+      <!-- Contagem -->
+      <div class="mb-2 flex items-center justify-between px-1">
+        <span class="text-xs font-medium uppercase tracking-wider text-muted-foreground">Comandos</span>
+        <span class="text-xs tabular-nums text-muted-foreground" x-text="comandosFiltrados.length"></span>
+      </div>
+
+      <!-- Lista (mobile: chips; desktop: lista vertical) -->
+      <div class="-mx-1 flex gap-1.5 overflow-x-auto px-1 pb-1 scroll-thin
+                  lg:mx-0 lg:max-h-[calc(100dvh-12rem)] lg:flex-col lg:gap-0.5 lg:overflow-x-visible lg:overflow-y-auto lg:px-0 lg:pb-0 lg:pr-1">
+        <template x-for="c in comandosFiltrados" :key="c.nome">
+          <button @click="selecionar(c.nome)"
+                  :title="c.descricao || ''"
+                  :class="comandoAtivo && comandoAtivo.nome === c.nome
+                    ? 'border-primary/30 bg-primary/10 text-primary'
+                    : 'border-transparent text-foreground hover:border-border hover:bg-accent'"
+                  class="shrink-0 rounded-lg border px-3 py-1.5 text-left font-mono text-[13px] font-medium transition-colors duration-150 lg:w-full lg:truncate"
+                  x-text="c.nome">
+          </button>
+        </template>
+        <p x-show="comandosFiltrados.length === 0"
+           class="px-1 py-4 text-sm text-muted-foreground">
+          Nenhum comando encontrado.
+        </p>
+      </div>
+    </div>
+
+    <!-- Construtor de comandos -->
+    <div class="rounded-2xl border border-border bg-card p-6 shadow-soft sm:p-7">
+
+      <!-- Sem comando ativo -->
+      <p x-show="!comandoAtivo" class="text-sm text-muted-foreground">
+        Selecione um comando a esquerda para comecar.
+      </p>
+
+      <!-- Comando ativo -->
+      <div x-show="comandoAtivo">
+
+        <!-- Cabecalho do comando -->
+        <div class="mb-6 flex items-center gap-2.5">
+          <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-accent text-foreground">
+            <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/></svg>
+          </span>
+          <div>
+            <h2 class="font-mono text-lg font-semibold leading-none" x-text="comandoAtivo && comandoAtivo.nome"></h2>
+            <p class="mt-1 text-xs text-muted-foreground">Selecione os parametros</p>
+          </div>
+        </div>
+
+        <!-- Grid: parametros + resultado -->
+        <div class="grid gap-6 lg:grid-cols-[1fr_minmax(320px,400px)] lg:items-start">
+
+          <!-- Parametros -->
+          <div class="space-y-6">
+            <p x-show="comandoAtivo && comandoAtivo.descricao"
+               x-text="comandoAtivo && comandoAtivo.descricao"
+               class="text-sm text-muted-foreground"></p>
+
+            <p x-show="builderVisiveis.length === 0" class="text-sm text-muted-foreground">
+              Este comando nao possui parametros - ja esta pronto para copiar.
+            </p>
+
+            <template x-for="(p, i) in builderVisiveis" :key="i">
+              <div>
+                <!-- Rotulo -->
+                <div class="mb-2.5 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                  <span class="text-sm font-semibold" x-text="p.nome"></span>
+                  <span x-show="!builderIsObrigatorio(p)" class="text-xs text-muted-foreground">opcional</span>
+                  <span x-show="builderIsObrigatorio(p)" class="text-xs text-primary">obrigatorio</span>
+                  <span x-show="p.descricao" x-text="`- ${p.descricao}`"
+                        class="text-xs text-muted-foreground"></span>
+                </div>
+
+                <!-- SELECT: pills -->
+                <div x-show="builderTipoDe(p) === 'select'"
+                     role="radiogroup" :aria-label="p.nome"
+                     class="flex flex-wrap gap-2">
+                  <template x-for="op in builderOpcoesDe(p)" :key="op.valor">
+                    <button @click="builderToggleOpcao(p, op.valor)"
+                            role="radio"
+                            :aria-checked="builderSelecao[p.nome] === op.valor"
+                            :class="builderSelecao[p.nome] === op.valor
+                              ? 'border-primary bg-primary text-primary-foreground shadow-soft'
+                              : 'border-border bg-card text-foreground hover:border-primary/40 hover:bg-accent'"
+                            class="inline-flex items-center gap-1.5 rounded-xl border px-3.5 py-2 text-sm font-medium transition-all duration-200 active:scale-[0.97]">
+                      <svg x-show="builderSelecao[p.nome] === op.valor"
+                           class="h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                      <span x-text="op.label"></span>
+                    </button>
+                  </template>
+                </div>
+
+                <!-- NUMERO: slider + input -->
+                <div x-show="builderTipoDe(p) === 'numero'" class="max-w-md space-y-3">
+                  <div class="flex items-center gap-3">
+                    <input type="number"
+                           :min="p.min ?? 0" :max="p.max ?? 100" :step="p.step ?? 1"
+                           :value="builderSelecao[p.nome] ?? ''"
+                           :placeholder="p.placeholder || `${p.min ?? 0}-${p.max ?? 100}`"
+                           @input="builderSetValor(p.nome, $event.target.value)"
+                           class="w-32 rounded-xl border border-input bg-background px-3 py-2 text-sm outline-none focus:border-ring focus:ring-2 focus:ring-ring/30" />
+                    <span x-show="p.unidade" x-text="p.unidade"
+                          class="text-sm text-muted-foreground"></span>
+                    <span x-show="p.min !== undefined && p.max !== undefined"
+                          x-text="`${p.min}-${p.max}`"
+                          class="ml-auto text-xs text-muted-foreground"></span>
+                  </div>
+                  <input x-show="p.min !== undefined && p.max !== undefined"
+                         type="range"
+                         :min="p.min ?? 0" :max="p.max ?? 100" :step="p.step ?? 1"
+                         :value="builderSelecao[p.nome] ?? p.min ?? 0"
+                         @input="builderSetValor(p.nome, $event.target.value)"
+                         :aria-label="p.nome"
+                         class="h-1.5 w-full cursor-pointer appearance-none rounded-full bg-accent accent-primary" />
+                </div>
+
+                <!-- TEXTO: input livre -->
+                <input x-show="builderTipoDe(p) === 'texto'"
+                       type="text"
+                       :maxlength="p.maxLength || undefined"
+                       :placeholder="p.placeholder || 'Digite o valor...'"
+                       :value="builderSelecao[p.nome] ?? ''"
+                       @input="builderSetValor(p.nome, $event.target.value)"
+                       class="max-w-md w-full rounded-xl border border-input bg-background px-3 py-2 text-sm outline-none placeholder:text-muted-foreground focus:border-ring focus:ring-2 focus:ring-ring/30" />
+              </div>
+            </template>
+          </div>
+
+          <!-- Resultado (sticky no desktop) -->
+          <div class="lg:sticky lg:top-32">
+            <div class="rounded-2xl border border-border bg-gradient-to-b from-accent/40 to-card p-5">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-medium uppercase tracking-wider text-muted-foreground">Comando gerado</span>
+                <span x-show="builderResultado.completo"
+                      class="inline-flex items-center gap-1 text-xs font-medium text-emerald-500">
+                  <svg class="h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                  pronto
+                </span>
+                <span x-show="!builderResultado.completo && builderResultado.faltando && builderResultado.faltando.length > 0"
+                      class="text-xs text-amber-500"
+                      x-text="`faltam: ${(builderResultado.faltando || []).join(', ')}`"></span>
+              </div>
+
+              <div class="mt-3 overflow-x-auto scroll-thin">
+                <code class="block whitespace-nowrap font-mono text-2xl font-semibold tracking-tight"
+                      x-text="builderResultado.texto || '-'"></code>
+              </div>
+
+              <div class="mt-5 flex gap-2">
+                <!-- Botao Copiar -->
+                <button @click="builderCopiar()"
+                        :disabled="!builderResultado.completo"
+                        :class="!builderResultado.completo ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-90'"
+                        class="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-soft transition-all">
+                  <template x-if="builderCopiado">
+                    <span class="inline-flex items-center gap-2">
+                      <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                      Copiado!
+                    </span>
+                  </template>
+                  <template x-if="!builderCopiado">
+                    <span class="inline-flex items-center gap-2">
+                      <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                      Copiar comando
+                    </span>
+                  </template>
+                </button>
+
+                <!-- Botao Favoritar -->
+                <button @click="builderFavoritar()"
+                        :aria-pressed="builderFavorito"
+                        :title="builderFavorito ? 'Remover dos favoritos' : 'Salvar nos favoritos'"
+                        class="inline-flex items-center justify-center rounded-xl border border-border bg-card px-4 py-2.5 text-sm font-semibold shadow-soft transition-all hover:bg-accent">
+                  <svg :class="builderFavorito ? 'fill-amber-400 text-amber-400' : ''"
+                       class="h-4 w-4 transition-colors"
+                       xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /grid parametros + resultado -->
+      </div><!-- /comando ativo -->
+    </div><!-- /construtor -->
+
+  </div><!-- /grid lista + construtor -->
+</div><!-- /x-data equipmentPage -->
+
+{% endblock %}

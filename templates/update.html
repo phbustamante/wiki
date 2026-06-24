@@ -1,0 +1,237 @@
+{% extends "base.html" %}
+{% block title %}{{ atualizacao.equipamento }} — Atualização JIMI{% endblock %}
+{% block content %}
+
+<div>
+  <!-- Voltar -->
+  <a href="/"
+     class="mb-6 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground">
+    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+    Início
+  </a>
+
+  <!-- Cabeçalho -->
+  <div class="mb-8">
+    <span class="text-xs font-medium uppercase tracking-wider text-emerald-500">Atualização de firmware</span>
+    <h1 class="mt-1 text-3xl font-bold tracking-tight sm:text-4xl">{{ atualizacao.equipamento }}</h1>
+    {% if atualizacao.descricao %}
+    <p class="mt-2 max-w-prose text-muted-foreground">{{ atualizacao.descricao }}</p>
+    {% endif %}
+  </div>
+
+  <div class="grid gap-6 lg:grid-cols-2 lg:items-start">
+
+    <!-- ── Passo a passo ── -->
+    <div class="rounded-2xl border border-border bg-card p-5 shadow-soft sm:p-6 lg:col-span-2"
+         {% if atualizacao.procedimentos | length > 1 %}
+         x-data="{ procIndex: 0 }"
+         {% endif %}>
+
+      <div class="mb-4 flex items-center gap-2.5">
+        <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-accent text-foreground">
+          <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/><path d="M13 6h8"/><path d="M13 12h8"/><path d="M13 18h8"/></svg>
+        </span>
+        <h2 class="text-base font-semibold tracking-tight">Passo a passo</h2>
+      </div>
+
+      {% if not atualizacao.procedimentos %}
+      <p class="rounded-xl border border-dashed border-border px-4 py-6 text-center text-sm text-muted-foreground">
+        Nenhum procedimento cadastrado ainda.
+      </p>
+
+      {% elif atualizacao.procedimentos | length == 1 %}
+      {% set proc = atualizacao.procedimentos[0] %}
+      {% if proc.descricao %}
+      <p class="mb-5 text-sm text-muted-foreground">{{ proc.descricao }}</p>
+      {% endif %}
+      <ol class="space-y-4">
+        {% for passo in proc.passos %}
+        <li class="flex gap-3.5">
+          <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground">
+            {{ loop.index }}
+          </span>
+          <div class="pt-0.5">
+            {% if passo.titulo %}
+            <p class="font-medium">{{ passo.titulo }}</p>
+            <p class="mt-0.5 text-sm leading-relaxed text-muted-foreground">{{ passo.descricao }}</p>
+            {% else %}
+            <p class="text-sm leading-relaxed">{{ passo.descricao }}</p>
+            {% endif %}
+          </div>
+        </li>
+        {% endfor %}
+      </ol>
+
+      {% else %}
+      {# Múltiplos procedimentos — Alpine controla qual está ativo #}
+      <div x-data="{ procIndex: 0 }">
+        <!-- Seletor de procedimentos -->
+        <div class="mb-5 flex flex-wrap gap-2">
+          {% for proc in atualizacao.procedimentos %}
+          <button @click="procIndex = {{ loop.index0 }}"
+                  :class="procIndex === {{ loop.index0 }}
+                    ? 'border-primary bg-primary text-primary-foreground shadow-soft'
+                    : 'border-border bg-card text-foreground hover:border-primary/40 hover:bg-accent'"
+                  class="rounded-xl border px-3.5 py-2 text-sm font-medium transition-all duration-200 active:scale-[0.98]">
+            {{ proc.titulo }}
+          </button>
+          {% endfor %}
+        </div>
+
+        {% for proc in atualizacao.procedimentos %}
+        <div x-show="procIndex === {{ loop.index0 }}">
+          {% if proc.descricao %}
+          <p class="mb-5 text-sm text-muted-foreground">{{ proc.descricao }}</p>
+          {% endif %}
+          <ol class="space-y-4">
+            {% for passo in proc.passos %}
+            <li class="flex gap-3.5">
+              <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground">
+                {{ loop.index }}
+              </span>
+              <div class="pt-0.5">
+                {% if passo.titulo %}
+                <p class="font-medium">{{ passo.titulo }}</p>
+                <p class="mt-0.5 text-sm leading-relaxed text-muted-foreground">{{ passo.descricao }}</p>
+                {% else %}
+                <p class="text-sm leading-relaxed">{{ passo.descricao }}</p>
+                {% endif %}
+              </div>
+            </li>
+            {% endfor %}
+          </ol>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- ── Downloads ── -->
+    <div class="rounded-2xl border border-border bg-card p-5 shadow-soft sm:p-6">
+      <div class="mb-4 flex items-center gap-2.5">
+        <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-accent text-foreground">
+          <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+        </span>
+        <h2 class="text-base font-semibold tracking-tight">Arquivos para download</h2>
+      </div>
+
+      {% if not atualizacao.downloads %}
+      <p class="rounded-xl border border-dashed border-border px-4 py-6 text-center text-sm text-muted-foreground">
+        Nenhum arquivo disponível ainda.
+      </p>
+      {% else %}
+      <ul class="space-y-2">
+        {% for d in atualizacao.downloads %}
+        {% set disponivel = d.url and d.url != '#' %}
+        {% set meta_parts = [] %}
+        {% if d.versao %}{% set _ = meta_parts.append('v' ~ d.versao) %}{% endif %}
+        {% if d.tamanho %}{% set _ = meta_parts.append(d.tamanho) %}{% endif %}
+        {% set meta = meta_parts | join(' · ') if meta_parts else ('' if disponivel else 'link em breve') %}
+        <li>
+          {% if disponivel %}
+          <a href="{{ d.url }}" target="_blank" rel="noopener noreferrer"
+             class="group flex items-center gap-3 rounded-xl border border-border bg-card px-3.5 py-3 transition-colors hover:bg-accent">
+          {% else %}
+          <div class="flex cursor-not-allowed items-center gap-3 rounded-xl border border-dashed border-border px-3.5 py-3 opacity-70">
+          {% endif %}
+            <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg {{ 'bg-emerald-500/10 text-emerald-500' if disponivel else 'bg-muted text-muted-foreground' }}">
+              <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+            </span>
+            <div class="min-w-0 flex-1">
+              <p class="truncate text-sm font-medium">{{ d.nome }}</p>
+              {% if meta %}
+              <p class="text-xs text-muted-foreground">{{ meta }}</p>
+              {% endif %}
+            </div>
+          {% if disponivel %}</a>{% else %}</div>{% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+
+    <!-- ── Imagens ── -->
+    <div class="rounded-2xl border border-border bg-card p-5 shadow-soft sm:p-6">
+      <div class="mb-4 flex items-center gap-2.5">
+        <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-accent text-foreground">
+          <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 22H4a2 2 0 0 1-2-2V6"/><path d="m22 13-1.296-1.296a2.41 2.41 0 0 0-3.408 0L11 18"/><circle cx="12" cy="8" r="2"/><rect width="16" height="16" x="6" y="2" rx="2"/></svg>
+        </span>
+        <h2 class="text-base font-semibold tracking-tight">Imagens</h2>
+      </div>
+
+      {% if not atualizacao.imagens %}
+      <p class="rounded-xl border border-dashed border-border px-4 py-6 text-center text-sm text-muted-foreground">
+        Nenhuma imagem cadastrada ainda.
+      </p>
+      {% else %}
+      <div class="grid grid-cols-2 gap-3">
+        {% for img in atualizacao.imagens %}
+        <figure class="overflow-hidden rounded-xl border border-border">
+          <img src="{{ img.url }}"
+               alt="{{ img.legenda or ('Imagem ' ~ loop.index) }}"
+               loading="lazy"
+               class="aspect-video w-full object-cover" />
+          {% if img.legenda %}
+          <figcaption class="px-3 py-2 text-xs text-muted-foreground">{{ img.legenda }}</figcaption>
+          {% endif %}
+        </figure>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- ── Vídeo do processo ── -->
+    <div class="rounded-2xl border border-border bg-card p-5 shadow-soft sm:p-6 lg:col-span-2"
+         x-data="videoUpload()">
+      <div class="mb-4 flex items-center gap-2.5">
+        <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-accent text-foreground">
+          <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m10 11 5 3-5 3v-6Z"/></svg>
+        </span>
+        <h2 class="text-base font-semibold tracking-tight">Vídeo do processo</h2>
+      </div>
+
+      <!-- Vídeo selecionado -->
+      <div x-show="video" class="space-y-3">
+        <video :src="video && video.url" controls
+               class="w-full rounded-xl border border-border bg-black"></video>
+        <div class="flex items-center gap-3 rounded-xl border border-border bg-card px-3.5 py-2.5">
+          <svg class="h-4 w-4 shrink-0 text-emerald-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m10 11 5 3-5 3v-6Z"/></svg>
+          <div class="min-w-0 flex-1">
+            <p class="truncate text-sm font-medium" x-text="video && video.nome"></p>
+            <p class="text-xs text-muted-foreground" x-text="video && video.tamanho"></p>
+          </div>
+          <button @click="remover()"
+                  class="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground">
+            <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+            Remover
+          </button>
+        </div>
+        <p class="text-xs text-muted-foreground">
+          Pré-visualização local. O envio ao servidor será habilitado com o backend (fase 2).
+        </p>
+      </div>
+
+      <!-- Área de upload -->
+      <div x-show="!video">
+        <button type="button"
+                @click="$refs.fileInput.click()"
+                @dragover.prevent="arrastando = true"
+                @dragleave="arrastando = false"
+                @drop="onDrop($event)"
+                :class="arrastando ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/40 hover:bg-accent/40'"
+                class="flex w-full flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed px-6 py-10 text-center transition-colors duration-200">
+          <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent text-foreground">
+            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 16 12 12 8 16"/><line x1="12" x2="12" y1="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
+          </span>
+          <span class="text-sm font-medium">Arraste um vídeo ou clique para selecionar</span>
+          <span class="text-xs text-muted-foreground">MP4, MOV ou WebM</span>
+        </button>
+        <input x-ref="fileInput" type="file" accept="video/*" class="hidden"
+               @change="selecionar($event.target.files[0])" />
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
