@@ -373,9 +373,9 @@
         },
         {
           "nome": "URLTYPE",
-          "descricao": "Protocolo de comunicação.",
+          "descricao": "Protocolo de comunicação. 1 = HTTPS; 2 = HTTP.",
           "parametros": [
-            { "nome": "protocolo", "opcoes": ["HTTPS", "HTTP"], "padrao": "HTTPS" }
+            { "nome": "protocolo", "opcoes": ["1", "2"], "padrao": "1" }
           ]
         },
         {

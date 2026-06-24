@@ -1,8 +1,8 @@
 {% extends "base.html" %}
-{% block title %}Central de Automação JIMI{% endblock %}
+{% block title %}Central de Automacao JIMI{% endblock %}
 {% block content %}
 
-{# SVG reutilizáveis como macros #}
+{# SVG reutilizaveis como macros #}
 {% macro icon_cpu(cls="h-5 w-5") %}
 <svg class="{{ cls }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2"/></svg>
 {% endmacro %}
@@ -11,19 +11,20 @@
 <svg class="{{ cls }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
 {% endmacro %}
 
-<script>
-var _equipamentos = {{ equipamentos | tojson }};
-var _atualizacoes = {{ atualizacoes | tojson }};
-</script>
-<div x-data="homePage(_equipamentos, _atualizacoes)"
+<script id="equipamentos-data" type="application/json">{{ equipamentos | tojson }}</script>
+<script id="atualizacoes-data" type="application/json">{{ atualizacoes | tojson }}</script>
+<div x-data="homePage(
+       JSON.parse(document.getElementById('equipamentos-data').textContent),
+       JSON.parse(document.getElementById('atualizacoes-data').textContent)
+     )"
      class="grid gap-8 lg:grid-cols-[1fr_320px] lg:items-start">
 
   <div>
-    <!-- Cabeçalho da seção -->
+    <!-- Cabecalho da secao -->
     <div class="mb-7">
-      <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">Central de Automação JIMI</h1>
+      <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">Central de Automacao JIMI</h1>
       <p class="mt-2 max-w-prose text-muted-foreground">
-        Gerencie comandos, atualizações e processos operacionais dos equipamentos JIMI com mais rapidez e controle.
+        Gerencie comandos, atualizacoes e processos operacionais dos equipamentos JIMI com mais rapidez e controle.
       </p>
     </div>
 
@@ -38,9 +39,9 @@ var _atualizacoes = {{ atualizacoes | tojson }};
       </div>
     </div>
 
-    <!-- ── Automação de Comandos ── -->
+    <!-- Automacao de Comandos -->
     <section>
-      <h2 class="mb-5 text-2xl font-bold tracking-tight sm:text-3xl">Automação de Comandos</h2>
+      <h2 class="mb-5 text-2xl font-bold tracking-tight sm:text-3xl">Automacao de Comandos</h2>
 
       <!-- Estado vazio -->
       <div x-show="filtrados.length === 0"
@@ -82,15 +83,15 @@ var _atualizacoes = {{ atualizacoes | tojson }};
       </div>
     </section>
 
-    <!-- ── Atualização de Equipamentos ── -->
+    <!-- Atualizacao de Equipamentos -->
     <section class="mt-12">
       <div class="mb-6">
         <h2 class="flex items-center gap-2 text-2xl font-bold tracking-tight sm:text-3xl">
           <svg class="h-6 w-6 text-emerald-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
-          Atualização de Equipamentos
+          Atualizacao de Equipamentos
         </h2>
         <p class="mt-2 max-w-prose text-muted-foreground">
-          Tutoriais de atualização de firmware: passo a passo, arquivos para download, imagens e o vídeo do processo.
+          Tutoriais de atualizacao de firmware: passo a passo, arquivos para download, imagens e o video do processo.
         </p>
       </div>
 
@@ -99,14 +100,14 @@ var _atualizacoes = {{ atualizacoes | tojson }};
            class="flex flex-col items-center justify-center gap-3 rounded-2xl border border-border bg-card p-10 text-center shadow-soft">
         <svg class="h-9 w-9 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
         <p class="text-sm text-muted-foreground">
-          Nenhuma atualização encontrada
+          Nenhuma atualizacao encontrada
           <template x-if="busca">
             <span> para <span x-text="`"${busca}"`" class="font-medium text-foreground"></span></span>
           </template>.
         </p>
       </div>
 
-      <!-- Grid de atualizações -->
+      <!-- Grid de atualizacoes -->
       <div x-show="atualizacoesFiltradas.length > 0" class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
         <template x-for="a in atualizacoesFiltradas" :key="a.id">
           <a :href="`/atualizacao/${a.id}`"
@@ -126,7 +127,7 @@ var _atualizacoes = {{ atualizacoes | tojson }};
               </div>
               <div class="mt-4 flex items-center gap-2">
                 <span class="inline-flex items-center rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-foreground"
-                      x-text="`${a.procedimentos.length} método${a.procedimentos.length === 1 ? '' : 's'}`"></span>
+                      x-text="`${a.procedimentos.length} metodo${a.procedimentos.length === 1 ? '' : 's'}`"></span>
                 <span x-show="a.downloads && a.downloads.length > 0"
                       class="inline-flex items-center rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-xs font-medium text-emerald-500"
                       x-text="`${a.downloads.length} arquivo${a.downloads.length === 1 ? '' : 's'}`"></span>
@@ -138,90 +139,140 @@ var _atualizacoes = {{ atualizacoes | tojson }};
     </section>
   </div>
 
-  <!-- ── Sidebar: Favoritos + Histórico ── -->
+  <!-- Sidebar: Favoritos + Historico -->
   <aside class="space-y-4 lg:sticky lg:top-32" x-data>
 
     <!-- Favoritos -->
     <div class="rounded-2xl border border-border bg-card p-4 shadow-soft">
-      <header class="mb-2 flex items-center gap-2 px-1">
-        <svg class="h-4 w-4 text-amber-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-        <h2 class="text-sm font-semibold">Favoritos</h2>
+      <header class="mb-2 flex items-center justify-between px-1">
+        <div class="flex items-center gap-2">
+          <svg class="h-4 w-4 text-amber-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <h2 class="text-sm font-semibold">Favoritos</h2>
+        </div>
       </header>
       <p x-show="$store.app.favoritos.length === 0"
          class="px-2.5 py-6 text-center text-sm text-muted-foreground">
-        Salve comandos frequentes com a estrela ⭐.
+        Salve comandos frequentes com a estrela.
       </p>
-      <div x-show="$store.app.favoritos.length > 0" class="space-y-0.5">
-        <template x-for="item in $store.app.favoritos" :key="item.id">
-          <div x-data="{ copiado: false }"
-               class="group flex items-center gap-3 rounded-xl border border-transparent px-2.5 py-2 transition-colors hover:border-border hover:bg-accent/50">
-            <div class="min-w-0 flex-1">
-              <code class="block truncate font-mono text-sm font-semibold" x-text="item.resultado"></code>
-              <div class="mt-0.5 flex items-center gap-1.5 text-xs text-muted-foreground">
-                <a :href="`/equipamento/${item.equipamentoId}`"
-                   class="truncate hover:text-foreground hover:underline" x-text="item.equipamentoNome"></a>
-                <span aria-hidden>·</span>
-                <span class="truncate" x-text="item.comandoNome"></span>
+      <div x-show="$store.app.favoritos.length > 0" class="space-y-2">
+        <template x-for="grupo in $store.app.agruparPorEquipamento($store.app.favoritos)" :key="grupo.id">
+          <div class="rounded-xl border border-border/70">
+            <div class="flex items-center gap-1 px-2 py-2">
+              <button @click="$store.app.alternarGrupo('favoritos', grupo.id)"
+                      :title="$store.app.grupoAberto('favoritos', grupo.id) ? 'Minimizar' : 'Expandir'"
+                      class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-accent hover:text-foreground">
+                <svg :class="$store.app.grupoAberto('favoritos', grupo.id) ? 'rotate-90' : ''"
+                     class="h-3.5 w-3.5 transition-transform" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </button>
+              <div class="min-w-0 flex-1">
+                <a :href="`/equipamento/${grupo.id}`"
+                   class="block truncate text-sm font-semibold hover:underline" x-text="grupo.nome"></a>
+                <span class="text-xs text-muted-foreground" x-text="`${grupo.itens.length} comando${grupo.itens.length === 1 ? '' : 's'}`"></span>
               </div>
+              <button @click="$store.app.exportarWriteconfig('favoritos', grupo.itens, grupo.nome)"
+                      title="Exportar este modelo para writeconfig.txt"
+                      class="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground">
+                <svg class="h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                Exportar
+              </button>
             </div>
-            <button @click="navigator.clipboard.writeText(item.resultado).then(() => { copiado = true; setTimeout(() => copiado = false, 2000) })"
-                    title="Copiar"
-                    class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-card hover:text-foreground">
-              <svg x-show="copiado" class="h-4 w-4 text-emerald-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-              <svg x-show="!copiado" class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-            </button>
-            <button @click="$store.app.removerFavorito(item.id)" title="Remover"
-                    class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-muted-foreground opacity-0 transition-all hover:bg-card hover:text-red-500 focus-visible:opacity-100 group-hover:opacity-100">
-              <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
-            </button>
+            <div x-show="$store.app.grupoAberto('favoritos', grupo.id)" class="border-t border-border/70 py-1">
+              <template x-for="item in grupo.itens" :key="item.id">
+                <div x-data="{ copiado: false }"
+                     class="group flex items-center gap-3 px-2.5 py-2 transition-colors hover:bg-accent/50">
+                  <div class="min-w-0 flex-1">
+                    <code class="block truncate font-mono text-sm font-semibold" x-text="item.resultado"></code>
+                    <div class="mt-0.5 text-xs text-muted-foreground" x-text="item.comandoNome"></div>
+                  </div>
+                  <button @click="navigator.clipboard.writeText(item.resultado).then(() => { copiado = true; setTimeout(() => copiado = false, 2000) })"
+                          title="Copiar"
+                          class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-card hover:text-foreground">
+                    <svg x-show="copiado" class="h-4 w-4 text-emerald-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                    <svg x-show="!copiado" class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                  </button>
+                  <button @click="$store.app.removerFavorito(item.id)" title="Remover"
+                          class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-muted-foreground opacity-0 transition-all hover:bg-card hover:text-red-500 focus-visible:opacity-100 group-hover:opacity-100">
+                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                  </button>
+                </div>
+              </template>
+            </div>
           </div>
         </template>
       </div>
     </div>
 
-    <!-- Histórico -->
+    <!-- Historico -->
     <div class="rounded-2xl border border-border bg-card p-4 shadow-soft">
       <header class="mb-2 flex items-center justify-between px-1">
         <div class="flex items-center gap-2">
           <svg class="h-4 w-4 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <h2 class="text-sm font-semibold">Histórico recente</h2>
+          <h2 class="text-sm font-semibold">Historico recente</h2>
         </div>
-        <button x-show="$store.app.historico.length > 0"
-                @click="$store.app.limparHistorico()"
-                class="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground">
-          <svg class="h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
-          Limpar
-        </button>
+        <div class="flex items-center gap-1">
+          <button x-show="$store.app.historico.length > 0"
+                  @click="$store.app.limparHistorico()"
+                  class="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground">
+            <svg class="h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+            Limpar
+          </button>
+        </div>
       </header>
       <p x-show="$store.app.historico.length === 0"
          class="px-2.5 py-6 text-center text-sm text-muted-foreground">
-        Os comandos que você copiar aparecem aqui.
+        Os comandos que voce copiar aparecem aqui.
       </p>
-      <div x-show="$store.app.historico.length > 0" class="space-y-0.5">
-        <template x-for="item in $store.app.historico" :key="item.id">
-          <div x-data="{ copiado: false }"
-               class="group flex items-center gap-3 rounded-xl border border-transparent px-2.5 py-2 transition-colors hover:border-border hover:bg-accent/50">
-            <div class="min-w-0 flex-1">
-              <code class="block truncate font-mono text-sm font-semibold" x-text="item.resultado"></code>
-              <div class="mt-0.5 flex items-center gap-1.5 text-xs text-muted-foreground">
-                <a :href="`/equipamento/${item.equipamentoId}`"
-                   class="truncate hover:text-foreground hover:underline" x-text="item.equipamentoNome"></a>
-                <span aria-hidden>·</span>
-                <span class="truncate" x-text="item.comandoNome"></span>
-                <span aria-hidden>·</span>
-                <span class="shrink-0" x-text="$store.app.tempoRelativo(item.criadoEm)"></span>
+      <div x-show="$store.app.historico.length > 0" class="space-y-2">
+        <template x-for="grupo in $store.app.agruparPorEquipamento($store.app.historico)" :key="grupo.id">
+          <div class="rounded-xl border border-border/70">
+            <div class="flex items-center gap-1 px-2 py-2">
+              <button @click="$store.app.alternarGrupo('historico', grupo.id)"
+                      :title="$store.app.grupoAberto('historico', grupo.id) ? 'Minimizar' : 'Expandir'"
+                      class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-accent hover:text-foreground">
+                <svg :class="$store.app.grupoAberto('historico', grupo.id) ? 'rotate-90' : ''"
+                     class="h-3.5 w-3.5 transition-transform" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </button>
+              <div class="min-w-0 flex-1">
+                <a :href="`/equipamento/${grupo.id}`"
+                   class="block truncate text-sm font-semibold hover:underline" x-text="grupo.nome"></a>
+                <span class="text-xs text-muted-foreground" x-text="`${grupo.itens.length} comando${grupo.itens.length === 1 ? '' : 's'}`"></span>
               </div>
+              <button @click="$store.app.exportarWriteconfig('historico', grupo.itens, grupo.nome)"
+                      title="Exportar este modelo para writeconfig.txt"
+                      class="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground">
+                <svg class="h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                Exportar
+              </button>
             </div>
-            <button @click="navigator.clipboard.writeText(item.resultado).then(() => { copiado = true; setTimeout(() => copiado = false, 2000) })"
-                    title="Copiar"
-                    class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-card hover:text-foreground">
-              <svg x-show="copiado" class="h-4 w-4 text-emerald-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-              <svg x-show="!copiado" class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-            </button>
+            <div x-show="$store.app.grupoAberto('historico', grupo.id)" class="border-t border-border/70 py-1">
+              <template x-for="item in grupo.itens" :key="item.id">
+                <div x-data="{ copiado: false }"
+                     class="group flex items-center gap-3 px-2.5 py-2 transition-colors hover:bg-accent/50">
+                  <div class="min-w-0 flex-1">
+                    <code class="block truncate font-mono text-sm font-semibold" x-text="item.resultado"></code>
+                    <div class="mt-0.5 flex items-center gap-1.5 text-xs text-muted-foreground">
+                      <span class="truncate" x-text="item.comandoNome"></span>
+                      <span aria-hidden>-</span>
+                      <span class="shrink-0" x-text="$store.app.tempoRelativo(item.criadoEm)"></span>
+                    </div>
+                  </div>
+                  <button @click="navigator.clipboard.writeText(item.resultado).then(() => { copiado = true; setTimeout(() => copiado = false, 2000) })"
+                          title="Copiar"
+                          class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-card hover:text-foreground">
+                    <svg x-show="copiado" class="h-4 w-4 text-emerald-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                    <svg x-show="!copiado" class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                  </button>
+                </div>
+              </template>
+            </div>
           </div>
         </template>
       </div>
     </div>
+
+    <p x-show="$store.app.writeconfigStatus"
+       x-text="$store.app.writeconfigStatus"
+       class="px-2 text-xs text-muted-foreground"></p>
 
   </aside>
 </div>
