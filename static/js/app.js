@@ -208,18 +208,21 @@ document.addEventListener("alpine:init", () => {
         if (!response.ok) throw new Error("Falha ao exportar");
 
         const blob = await response.blob();
+        const disposition = response.headers.get("Content-Disposition") || "";
+        const filenameMatch = disposition.match(/filename="?([^"]+)"?/i);
+        const filename = filenameMatch ? filenameMatch[1] : "writeconfig.txt";
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.href = url;
-        link.download = "writeconfig.txt";
+        link.download = filename;
         document.body.appendChild(link);
         link.click();
         link.remove();
         URL.revokeObjectURL(url);
 
         this.writeconfigStatus = modelo
-          ? `Download do writeconfig.txt iniciado para ${modelo}`
-          : "Download do writeconfig.txt iniciado";
+          ? `Download do ${filename} iniciado para ${modelo}`
+          : `Download do ${filename} iniciado`;
       } catch {
         this.writeconfigStatus = "Nao foi possivel gerar o writeconfig.txt";
       }

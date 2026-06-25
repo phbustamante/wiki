@@ -56,19 +56,22 @@ def writeconfig(origem):
     if origem not in ("favoritos", "historico"):
         abort(404)
 
-    modelos = {item.get("equipamentoId") for item in itens if isinstance(item, dict) and item.get("equipamentoId")}
+    modelos = {item.get("equipamentoId") for item in itens if isinstance(
+        item, dict) and item.get("equipamentoId")}
     if len(modelos) > 1:
         abort(400)
+    nome_arquivo = "config.txt" if "jc182" in modelos else "writeconfig.txt"
 
     conteudo = gerar_conteudo_writeconfig(itens).encode("utf-8")
     arquivo = BytesIO(conteudo)
     arquivo.seek(0)
 
     return send_file(
+
         arquivo,
         mimetype="text/plain; charset=utf-8",
         as_attachment=True,
-        download_name="writeconfig.txt",
+        download_name=nome_arquivo,
     )
 
 
