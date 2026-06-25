@@ -433,9 +433,11 @@
         },
         {
           "nome": "WIFIAP",
-          "descricao": "Liga/desliga o hotspot Wi-Fi.",
+          "descricao": "Liga/desliga o hotspot Wi-Fi. P2 e P3 opcionais: alteram o nome e senha do hotspot (padrão: IMEI como nome, 8 últimos dígitos como senha).",
           "parametros": [
-            { "nome": "status", "opcoes": ["ON", "OFF"], "padrao": "OFF" }
+            { "nome": "status", "opcoes": ["ON", "OFF"], "padrao": "OFF" },
+            { "nome": "nome_hotspot", "tipo": "texto", "obrigatorio": false, "placeholder": "padrão: IMEI do dispositivo" },
+            { "nome": "senha_hotspot", "tipo": "texto", "obrigatorio": false, "placeholder": "padrão: 8 últimos dígitos do IMEI" }
           ]
         },
         {
@@ -870,6 +872,13 @@
           "parametros": [
             { "nome": "x", "tipo": "numero", "min": 0, "max": 10000, "placeholder": "ex.: 320" },
             { "nome": "y", "tipo": "numero", "min": 0, "max": 10000, "placeholder": "ex.: 271" }
+          ]
+        },
+        {
+          "nome": "HTTPMP3",
+          "descricao": "Faz o dispositivo baixar e reproduzir imediatamente um arquivo de áudio MP3. O áudio não pode ser interrompido após iniciado. Use arquivos curtos.",
+          "parametros": [
+            { "nome": "url_audio", "tipo": "texto", "placeholder": "http://servidor.com/aviso.mp3" }
           ]
         }
       ]
@@ -1579,6 +1588,1170 @@
             { "nome": "tempo_espera_segundos", "tipo": "numero", "min": 0, "max": 3600, "padrao": "60", "unidade": "s" }
           ]
         }
+      ]
+    },
+    {
+      "id": "jc182",
+      "equipamento": "JC182",
+      "descricao": "Câmera de videotelemetria 4G com GPS e Wi-Fi integrado. Comandos de configuração via SMS ou plataforma.",
+      "categoria": "Câmera Veicular",
+      "comandos": [
+        { "nome": "STATUS", "descricao": "Status geral do dispositivo (rede, GPS, ACC, SD, etc.).", "parametros": [] },
+        { "nome": "STATUSVIDEO", "descricao": "Status atual do módulo de câmera.", "parametros": [] },
+        { "nome": "VERSION", "descricao": "Versões de firmware dos módulos de vídeo e comunicação.", "parametros": [] },
+        { "nome": "CHECK", "descricao": "Informações completas (IMEI, servidor, APN, IP, etc.).", "parametros": [] },
+        { "nome": "CHECKVIDEO", "descricao": "Configurações atuais de câmera (servidor, porta).", "parametros": [] },
+        {
+          "nome": "APN",
+          "descricao": "Configura o APN da operadora manualmente. Dispositivo reinicia em 10 s.",
+          "parametros": [
+            { "nome": "apn", "tipo": "texto", "placeholder": "endereço do APN" }
+          ]
+        },
+        {
+          "nome": "ASETAPN",
+          "descricao": "APN automático por MCC/MNC. ON=automático, OFF=usa configuração manual. Padrão: ON.",
+          "parametros": [
+            { "nome": "status", "opcoes": ["ON", "OFF"], "padrao": "ON" }
+          ]
+        },
+        {
+          "nome": "SERVER",
+          "descricao": "Define servidor e porta de comunicação com a plataforma.",
+          "parametros": [
+            { "nome": "servidor", "tipo": "texto", "placeholder": "domínio ou IP" },
+            { "nome": "porta", "tipo": "texto", "placeholder": "ex.: 21100" }
+          ]
+        },
+        {
+          "nome": "URLTYPE",
+          "descricao": "Protocolo para upload de mídia. HTTPS para a maioria das plataformas. Padrão: HTTPS.",
+          "parametros": [
+            { "nome": "protocolo", "opcoes": ["HTTPS", "HTTP"], "padrao": "HTTPS" }
+          ]
+        },
+        {
+          "nome": "VIDEOTIMEZONE",
+          "descricao": "Fuso horário da marca d'água do vídeo. L=Leste, O=Oeste do GMT, AUTO usa NITZ.",
+          "parametros": [
+            { "nome": "modo", "opcoes": [
+              { "label": "AUTO — Automático (NITZ)", "valor": "AUTO" },
+              { "label": "L — Leste do GMT", "valor": "L" },
+              { "label": "O — Oeste do GMT (Brasil: use O,3,0)", "valor": "O" }
+            ], "padrao": "AUTO" },
+            { "nome": "horas", "tipo": "numero", "min": 0, "max": 12, "obrigatorio": false, "padrao": "3", "unidade": "h" },
+            { "nome": "minutos", "opcoes": ["0", "15", "30", "45"], "obrigatorio": false, "padrao": "0" }
+          ]
+        },
+        {
+          "nome": "SF",
+          "descricao": "Filtro de efeito estrela (star filter). Suaviza iluminação forte à noite. Padrão: ON,100.",
+          "parametros": [
+            { "nome": "status", "opcoes": ["ON", "OFF"], "padrao": "ON" },
+            { "nome": "raio_metros", "tipo": "numero", "min": 10, "max": 1000, "padrao": "100", "unidade": "m" }
+          ]
+        },
+        {
+          "nome": "TIMER",
+          "descricao": "Intervalo de envio de localização GPS. Padrão: 60 s.",
+          "parametros": [
+            { "nome": "intervalo_segundos", "tipo": "numero", "min": 1, "max": 600, "padrao": "60", "unidade": "s" }
+          ]
+        },
+        {
+          "nome": "BCD",
+          "descricao": "Tipo de ID reportado à plataforma. Padrão: 0 (Tracksolid Pro).",
+          "parametros": [
+            { "nome": "tipo_id", "opcoes": [
+              { "label": "0 — 14 primeiros dígitos do IMEI em hex (Tracksolid Pro)", "valor": "0" },
+              { "label": "1 — Últimos 12 dígitos do IMEI", "valor": "1" }
+            ], "padrao": "0" }
+          ]
+        },
+        {
+          "nome": "SNAP",
+          "descricao": "Captura foto instantânea da câmera e envia para a plataforma.",
+          "parametros": []
+        },
+        {
+          "nome": "TLR",
+          "descricao": "Time-lapse após ignição desligada. Padrão: OFF,30,120.",
+          "parametros": [
+            { "nome": "status", "opcoes": ["ON", "OFF"], "padrao": "OFF" },
+            { "nome": "duracao_minutos", "tipo": "numero", "min": 10, "max": 720, "padrao": "30", "unidade": "min" },
+            { "nome": "tensao_parada", "tipo": "numero", "min": 10, "max": 330, "padrao": "120", "placeholder": "sem decimal: 12V=120" }
+          ]
+        },
+        {
+          "nome": "RECORDSW,1",
+          "descricao": "Ativa ou desativa a gravação principal no cartão SD. Padrão: ON.",
+          "parametros": [
+            { "nome": "status", "opcoes": ["ON", "OFF"], "padrao": "ON" }
+          ]
+        },
+        {
+          "nome": "RECORDAUDIO,1",
+          "descricao": "Ativa ou desativa a gravação de áudio. Padrão: ON.",
+          "parametros": [
+            { "nome": "status", "opcoes": ["ON", "OFF"], "padrao": "ON" }
+          ]
+        },
+        {
+          "nome": "LIGHT",
+          "descricao": "Controla a luz de aviso LED. Padrão: OFF.",
+          "parametros": [
+            { "nome": "modo", "opcoes": [
+              { "label": "OFF — Desligado", "valor": "OFF" },
+              { "label": "ON — Aceso continuamente", "valor": "ON" },
+              { "label": "FLICKER — Pisca até próxima mudança de ACC", "valor": "FLICKER" },
+              { "label": "10 — Pisca por 10 s", "valor": "10" },
+              { "label": "30 — Pisca por 30 s", "valor": "30" },
+              { "label": "60 — Pisca por 60 s", "valor": "60" }
+            ], "padrao": "OFF" }
+          ]
+        },
+        {
+          "nome": "MILE",
+          "descricao": "Unidade de velocidade exibida na marca d'água do vídeo. Padrão: 0 (KM/H).",
+          "parametros": [
+            { "nome": "unidade", "opcoes": [
+              { "label": "0 — KM/H", "valor": "0" },
+              { "label": "1 — MPH", "valor": "1" }
+            ], "padrao": "0" }
+          ]
+        },
+        {
+          "nome": "FORMAT,1",
+          "descricao": "Formata o cartão microSD. Não desligue o dispositivo durante o processo (~1 min).",
+          "parametros": []
+        },
+        {
+          "nome": "CAMERA,TF",
+          "descricao": "Exibe informações do cartão microSD (espaço total e livre).",
+          "parametros": []
+        },
+        {
+          "nome": "ANGLEREP",
+          "descricao": "Ângulo mínimo de curva para enviar posição adicional. Padrão: 30°.",
+          "parametros": [
+            { "nome": "angulo_graus", "tipo": "numero", "min": 10, "max": 180, "padrao": "30", "unidade": "°" }
+          ]
+        },
+        {
+          "nome": "EVENTSET,AOSD",
+          "descricao": "Alarme de excesso de velocidade. P1=limite em km/h (OFF para desativar). P2=duração mínima em segundos. Padrão: OFF,0.",
+          "parametros": [
+            { "nome": "limite_kmh", "tipo": "texto", "padrao": "OFF", "placeholder": "OFF ou 60–255 km/h" },
+            { "nome": "duracao_segundos", "tipo": "numero", "min": 5, "max": 600, "padrao": "0", "unidade": "s" }
+          ]
+        },
+        {
+          "nome": "EVENTSET,AVD",
+          "descricao": "Alarme de vibração no estacionamento. Padrão: 3,10,3,30.",
+          "parametros": [
+            { "nome": "sensibilidade", "opcoes": [
+              { "label": "OFF — Desativado", "valor": "OFF" },
+              { "label": "1 — Muito alta", "valor": "1" },
+              { "label": "2 — Alta", "valor": "2" },
+              { "label": "3 — Média", "valor": "3" },
+              { "label": "4 — Baixa", "valor": "4" },
+              { "label": "5 — Muito baixa", "valor": "5" }
+            ], "padrao": "3" },
+            { "nome": "tempo_deteccao_segundos", "tipo": "numero", "min": 1, "max": 300, "padrao": "10", "unidade": "s" },
+            { "nome": "limite_vibracoes", "tipo": "numero", "min": 1, "max": 20, "padrao": "3" },
+            { "nome": "atraso_confirmacao_segundos", "tipo": "numero", "min": 10, "max": 60, "padrao": "30", "unidade": "s" }
+          ]
+        },
+        {
+          "nome": "EVENTSET,AEPLV",
+          "descricao": "Alarme de bateria fraca. Voltagem sem decimal (12V=120). Padrão: 112,120,10.",
+          "parametros": [
+            { "nome": "tensao_baixa", "tipo": "numero", "min": 10, "max": 360, "padrao": "112", "placeholder": "sem decimal: 11.2V=112" },
+            { "nome": "tensao_recuperacao", "tipo": "numero", "min": 10, "max": 360, "padrao": "120", "placeholder": "sem decimal: 12V=120" },
+            { "nome": "tempo_deteccao_segundos", "tipo": "numero", "min": 1, "max": 300, "padrao": "10", "unidade": "s" }
+          ]
+        },
+        {
+          "nome": "EVENTSET,ACD",
+          "descricao": "Alarme de colisão. Valor menor = mais sensível. Padrão: 80.",
+          "parametros": [
+            { "nome": "sensibilidade", "tipo": "texto", "padrao": "80", "placeholder": "OFF ou 0–255" }
+          ]
+        },
+        {
+          "nome": "ACC",
+          "descricao": "Modo de detecção da ignição (ACC). Padrão: ON,0.",
+          "parametros": [
+            { "tipo": "fixo", "valor": "ON", "nome": "ativo" },
+            { "nome": "metodo", "opcoes": [
+              { "label": "0 — ACC físico (fio dedicado)", "valor": "0" },
+              { "label": "1 — ACC virtual por tensão (ICEV/ADC)", "valor": "1" },
+              { "label": "5 — ACC virtual por sensor G (NEV)", "valor": "5" }
+            ], "padrao": "0" }
+          ]
+        },
+        {
+          "nome": "ACCV",
+          "descricao": "Limites de tensão para ACC virtual. Voltagem sem decimal (13V=130). Padrão: 130,3,128,180.",
+          "parametros": [
+            { "nome": "tensao_ligado", "tipo": "numero", "min": 90, "max": 360, "padrao": "130", "placeholder": "sem decimal: 13V=130" },
+            { "nome": "tempo_confirmacao_on_segundos", "tipo": "numero", "min": 1, "max": 300, "padrao": "3", "unidade": "s" },
+            { "nome": "tensao_desligado", "tipo": "numero", "min": 90, "max": 360, "padrao": "128", "placeholder": "sem decimal: 12.8V=128" },
+            { "nome": "tempo_confirmacao_off_segundos", "tipo": "numero", "min": 1, "max": 300, "padrao": "180", "unidade": "s" }
+          ]
+        },
+        {
+          "nome": "WIFIAP",
+          "descricao": "Ativa/desativa o hotspot Wi-Fi. Padrão: ON. SSID padrão: últimos 8 dígitos do IMEI.",
+          "parametros": [
+            { "nome": "status", "opcoes": ["ON", "OFF"], "padrao": "ON" }
+          ]
+        },
+        {
+          "nome": "WIFIAPT",
+          "descricao": "Duração do hotspot Wi-Fi após ser ativado. Padrão: 30 min.",
+          "parametros": [
+            { "nome": "duracao", "opcoes": [
+              { "label": "-1 — Sempre ativo com ACC ON", "valor": "-1" },
+              { "label": "0 — Desativar Wi-Fi", "valor": "0" },
+              { "label": "ON — Reativar hotspot agora", "valor": "ON" },
+              { "label": "15 min", "valor": "15" },
+              { "label": "30 min (padrão)", "valor": "30" },
+              { "label": "60 min", "valor": "60" },
+              { "label": "120 min", "valor": "120" }
+            ], "padrao": "30" }
+          ]
+        },
+        {
+          "nome": "SSID",
+          "descricao": "Conecta a uma rede Wi-Fi externa (desativa hotspot). Use RM para remover redes salvas.",
+          "parametros": [
+            { "nome": "status", "opcoes": [
+              { "label": "ON — Ativar e conectar", "valor": "ON" },
+              { "label": "OFF — Desativar", "valor": "OFF" },
+              { "label": "RM — Remover redes salvas", "valor": "RM" }
+            ], "padrao": "ON" },
+            { "nome": "nome_wifi", "tipo": "texto", "placeholder": "nome da rede" },
+            { "nome": "senha_wifi", "tipo": "texto", "placeholder": "senha da rede" }
+          ]
+        },
+        {
+          "nome": "VIDEOUPLOAD",
+          "descricao": "Solicita upload de mídia de um evento para servidor HTTP externo.",
+          "parametros": [
+            { "nome": "servidor_http", "tipo": "texto", "placeholder": "domínio ou IP" },
+            { "nome": "porta_http", "tipo": "numero", "min": 1, "max": 65535, "placeholder": "ex.: 443" },
+            { "nome": "id_alerta_hex32", "tipo": "texto", "maxLength": 32, "placeholder": "32 caracteres hexadecimais" },
+            { "nome": "canal_camera", "opcoes": [
+              { "label": "1 — Canal principal", "valor": "1" },
+              { "label": "2 — Canal secundário", "valor": "2" }
+            ], "padrao": "1" },
+            { "nome": "tipo_arquivo", "opcoes": [
+              { "label": "0 — Apenas imagens", "valor": "0" },
+              { "label": "1 — Apenas vídeo", "valor": "1" },
+              { "label": "2 — Imagem e vídeo", "valor": "2" }
+            ], "padrao": "2" }
+          ]
+        },
+        {
+          "nome": "VOLUME",
+          "descricao": "Volume do alto-falante. Padrão: 3 (máximo).",
+          "parametros": [
+            { "nome": "nivel", "opcoes": [
+              { "label": "0 — Mudo", "valor": "0" },
+              { "label": "1 — Baixo", "valor": "1" },
+              { "label": "2 — Médio", "valor": "2" },
+              { "label": "3 — Alto (padrão)", "valor": "3" }
+            ], "padrao": "3" }
+          ]
+        },
+        { "nome": "REBOOT", "descricao": "Reinício simples (soft reboot).", "parametros": [] },
+        { "nome": "RESTART", "descricao": "Reinício do sistema (reinicia serviços internos).", "parametros": [] },
+        { "nome": "RESET", "descricao": "Reset do dispositivo.", "parametros": [] },
+        { "nome": "RESTORE", "descricao": "Restaura padrão de fábrica. ATENÇÃO: apaga todas as configurações.", "parametros": [] }
+      ]
+    },
+    {
+      "id": "jc371",
+      "equipamento": "JC371",
+      "descricao": "Dashcam 4G de 3 canais (estrada + cabine + DMS) com ADAS integrado. Comandos via SMS ou plataforma.",
+      "categoria": "Dashcam",
+      "comandos": [
+        { "nome": "STATUS", "descricao": "Status geral do dispositivo (rede, GPS, ACC, SD, etc.).", "parametros": [] },
+        { "nome": "STATUSVIDEO", "descricao": "Status atual do módulo de vídeo.", "parametros": [] },
+        { "nome": "VERSION", "descricao": "Versões de firmware dos módulos.", "parametros": [] },
+        { "nome": "CHECK", "descricao": "Informações completas do dispositivo.", "parametros": [] },
+        { "nome": "CHECKVIDEO", "descricao": "Configurações atuais de câmera.", "parametros": [] },
+        { "nome": "PARAM", "descricao": "IMEI e fuso horário configurado.", "parametros": [] },
+        {
+          "nome": "APN",
+          "descricao": "Configura o APN da operadora. P2–P4 são opcionais. Dispositivo reinicia em 10 s.",
+          "parametros": [
+            { "nome": "apn", "tipo": "texto", "placeholder": "endereço do APN" },
+            { "nome": "usuario", "tipo": "texto", "obrigatorio": false, "placeholder": "usuário (opcional)" },
+            { "nome": "senha", "tipo": "texto", "obrigatorio": false, "placeholder": "senha (opcional)" },
+            { "nome": "protocolo", "tipo": "texto", "obrigatorio": false, "placeholder": "ex.: IPV4V6 (opcional)" }
+          ]
+        },
+        {
+          "nome": "ASETAPN",
+          "descricao": "APN automático por MCC/MNC. Padrão: ON.",
+          "parametros": [
+            { "nome": "status", "opcoes": ["ON", "OFF"], "padrao": "ON" }
+          ]
+        },
+        {
+          "nome": "SERVER",
+          "descricao": "Define servidor principal e, opcionalmente, servidor secundário. Vídeos de eventos só vão para o principal.",
+          "parametros": [
+            { "nome": "servidor_principal", "tipo": "texto", "placeholder": "domínio ou IP" },
+            { "nome": "porta_principal", "tipo": "texto", "placeholder": "ex.: 21122" },
+            { "nome": "servidor_secundario", "tipo": "texto", "obrigatorio": false, "placeholder": "domínio ou IP (opcional)" },
+            { "nome": "porta_secundaria", "tipo": "texto", "obrigatorio": false, "placeholder": "porta (opcional)" }
+          ]
+        },
+        {
+          "nome": "URLTYPE",
+          "descricao": "Protocolo para upload. HTTPS=Tracksolid Pro, HTTP=IoT Hub. Padrão: HTTPS.",
+          "parametros": [
+            { "nome": "protocolo", "opcoes": [
+              { "label": "HTTPS — Tracksolid Pro", "valor": "HTTPS" },
+              { "label": "HTTP — IoT Hub", "valor": "HTTP" }
+            ], "padrao": "HTTPS" }
+          ]
+        },
+        {
+          "nome": "BCD",
+          "descricao": "Tipo de ID reportado à plataforma. Padrão: 0.",
+          "parametros": [
+            { "nome": "tipo_id", "opcoes": [
+              { "label": "0 — 14 primeiros dígitos do IMEI em hex (JT/T 808-2013)", "valor": "0" },
+              { "label": "1 — Últimos 12 dígitos do IMEI (JT/T 808-2013)", "valor": "1" },
+              { "label": "2 — Modo Jimi (protocolo 2019)", "valor": "2" },
+              { "label": "3 — Modo Tradicional (protocolo 2019)", "valor": "3" }
+            ], "padrao": "0" }
+          ]
+        },
+        {
+          "nome": "TIMESYNC",
+          "descricao": "Modo de sincronização de horário. Padrão: ALL.",
+          "parametros": [
+            { "nome": "modo", "opcoes": [
+              { "label": "ALL — GPS + rede (padrão)", "valor": "ALL" },
+              { "label": "NETWORK — Apenas rede celular", "valor": "NETWORK" },
+              { "label": "GPS — Apenas GPS", "valor": "GPS" }
+            ], "padrao": "ALL" }
+          ]
+        },
+        {
+          "nome": "VIDEOTIMEZONE",
+          "descricao": "Fuso horário da marca d'água. E=Leste, W=Oeste do GMT. AUTO usa NITZ.",
+          "parametros": [
+            { "nome": "modo", "opcoes": [
+              { "label": "AUTO — Automático (NITZ)", "valor": "AUTO" },
+              { "label": "E — Leste do GMT", "valor": "E" },
+              { "label": "W — Oeste do GMT (Brasil: W,3,0)", "valor": "W" }
+            ], "padrao": "AUTO" },
+            { "nome": "horas", "tipo": "numero", "min": 0, "max": 12, "obrigatorio": false, "padrao": "3", "unidade": "h" },
+            { "nome": "minutos", "opcoes": ["0", "15", "30", "45"], "obrigatorio": false, "padrao": "0" }
+          ]
+        },
+        {
+          "nome": "ACC",
+          "descricao": "Modo de detecção da ignição (Soft ACC). Padrão: OFF,0.",
+          "parametros": [
+            { "nome": "status", "opcoes": ["ON", "OFF"], "padrao": "OFF" },
+            { "nome": "metodo", "opcoes": [
+              { "label": "0 — ACC físico (fio dedicado)", "valor": "0" },
+              { "label": "1 — ACC virtual por tensão (ADC)", "valor": "1" },
+              { "label": "3 — ACC virtual por sensor G + tensão", "valor": "3" },
+              { "label": "4 — ACC virtual por sensor G", "valor": "4" }
+            ], "padrao": "0" }
+          ]
+        },
+        {
+          "nome": "ACCV",
+          "descricao": "Limites de tensão para ACC virtual. Voltagem sem decimal (13V=130). Padrão: 300,3,128,180.",
+          "parametros": [
+            { "nome": "tensao_ligado", "tipo": "numero", "min": 90, "max": 360, "padrao": "130", "placeholder": "sem decimal: 13V=130" },
+            { "nome": "tempo_confirmacao_on_segundos", "tipo": "numero", "min": 1, "max": 300, "padrao": "3", "unidade": "s" },
+            { "nome": "tensao_desligado", "tipo": "numero", "min": 90, "max": 360, "padrao": "128", "placeholder": "sem decimal: 12.8V=128" },
+            { "nome": "tempo_confirmacao_off_segundos", "tipo": "numero", "min": 1, "max": 300, "padrao": "180", "unidade": "s" }
+          ]
+        },
+        {
+          "nome": "SENSORSET",
+          "descricao": "Parâmetros de detecção de vibração. Padrão: 1,3,3,1.",
+          "parametros": [
+            { "nome": "janela_segundos", "tipo": "numero", "min": 1, "max": 300, "padrao": "1", "unidade": "s" },
+            { "nome": "contagem_acc", "tipo": "numero", "min": 1, "max": 20, "padrao": "3" },
+            { "nome": "contagem_alerta", "tipo": "numero", "min": 1, "max": 20, "padrao": "3" },
+            { "nome": "intervalo_janelas", "tipo": "numero", "min": 1, "max": 3, "padrao": "1" }
+          ]
+        },
+        {
+          "nome": "SHUTDOWNTIME",
+          "descricao": "Tempo para entrar em modo de suspensão após ignição desligada. Padrão: 10 s.",
+          "parametros": [
+            { "nome": "atraso_segundos", "tipo": "numero", "min": 10, "max": 64800, "padrao": "10", "unidade": "s" }
+          ]
+        },
+        {
+          "nome": "TIMER",
+          "descricao": "Intervalo de envio de localização GPS. Padrão: 10 s.",
+          "parametros": [
+            { "nome": "intervalo_segundos", "tipo": "numero", "min": 5, "max": 60, "padrao": "10", "unidade": "s" }
+          ]
+        },
+        {
+          "nome": "ANGLEREP",
+          "descricao": "Ângulo mínimo de curva para enviar posição adicional. Padrão: 30°.",
+          "parametros": [
+            { "nome": "angulo_graus", "tipo": "numero", "min": 10, "max": 180, "padrao": "30", "unidade": "°" }
+          ]
+        },
+        {
+          "nome": "MILEAGE",
+          "descricao": "Define a quilometragem inicial do hodômetro. Insira o valor em km (sem decimais).",
+          "parametros": [
+            { "nome": "quilometragem_km", "tipo": "numero", "min": 0, "max": 1000000, "padrao": "0", "unidade": "km" }
+          ]
+        },
+        {
+          "nome": "VIDEORSL",
+          "descricao": "Resolução de gravação no cartão SD por canal. Padrão CH1: 1080,25,8,2 / CH2-3: 480,25,4,2.",
+          "parametros": [
+            { "nome": "canal", "opcoes": [
+              { "label": "1 — CH1 (frontal/ADAS)", "valor": "1" },
+              { "label": "2 — CH2 (cabine)", "valor": "2" },
+              { "label": "3 — CH3 (DMS)", "valor": "3" }
+            ], "padrao": "1" },
+            { "nome": "resolucao_p", "opcoes": [
+              { "label": "1080 — 1080p (CH1 apenas)", "valor": "1080" },
+              { "label": "720 — 720p", "valor": "720" },
+              { "label": "480 — 480p", "valor": "480" },
+              { "label": "360 — 360p", "valor": "360" }
+            ], "padrao": "1080" },
+            { "nome": "fps", "tipo": "numero", "min": 1, "max": 30, "padrao": "25" },
+            { "nome": "bitrate_mbps", "tipo": "numero", "min": 0.1, "max": 8, "padrao": "8" },
+            { "nome": "codec", "opcoes": [
+              { "label": "1 — H.264", "valor": "1" },
+              { "label": "2 — H.265 (padrão)", "valor": "2" }
+            ], "padrao": "2" }
+          ]
+        },
+        {
+          "nome": "VIDEORSL_SUB",
+          "descricao": "Resolução de transmissão ao vivo / histórico / eventos por canal. Padrão: 360,10,0.5,1.",
+          "parametros": [
+            { "nome": "canal", "opcoes": [
+              { "label": "1 — CH1", "valor": "1" },
+              { "label": "2 — CH2", "valor": "2" },
+              { "label": "3 — CH3", "valor": "3" }
+            ], "padrao": "1" },
+            { "nome": "resolucao_p", "opcoes": ["480", "360"], "padrao": "360" },
+            { "nome": "fps", "tipo": "numero", "min": 5, "max": 15, "padrao": "10" },
+            { "nome": "bitrate_mbps", "tipo": "numero", "min": 0.1, "max": 2, "padrao": "0.5" },
+            { "nome": "codec", "opcoes": [
+              { "label": "1 — H.264 (padrão sub)", "valor": "1" },
+              { "label": "2 — H.265", "valor": "2" }
+            ], "padrao": "1" }
+          ]
+        },
+        {
+          "nome": "RECORDSW",
+          "descricao": "Ativa ou desativa a gravação de um canal no cartão SD. Reinicie o dispositivo para aplicar.",
+          "parametros": [
+            { "nome": "canal", "opcoes": [
+              { "label": "1 — CH1", "valor": "1" },
+              { "label": "2 — CH2", "valor": "2" },
+              { "label": "3 — CH3", "valor": "3" }
+            ], "padrao": "1" },
+            { "nome": "status", "opcoes": ["ON", "OFF"], "padrao": "ON" }
+          ]
+        },
+        {
+          "nome": "RECORDSW_SUB",
+          "descricao": "Ativa ou desativa a gravação histórica (memória interna) de um canal. Reinicie para aplicar.",
+          "parametros": [
+            { "nome": "canal", "opcoes": [
+              { "label": "1 — CH1", "valor": "1" },
+              { "label": "2 — CH2", "valor": "2" },
+              { "label": "3 — CH3", "valor": "3" }
+            ], "padrao": "1" },
+            { "nome": "status", "opcoes": ["ON", "OFF"], "padrao": "ON" }
+          ]
+        },
+        {
+          "nome": "RECORDAUDIO",
+          "descricao": "Ativa ou desativa o áudio nos vídeos do cartão SD de um canal. Reinicie para aplicar.",
+          "parametros": [
+            { "nome": "canal", "opcoes": ["1", "2", "3"], "padrao": "1" },
+            { "nome": "status", "opcoes": ["ON", "OFF"], "padrao": "ON" }
+          ]
+        },
+        {
+          "nome": "RECORDAUDIO_SUB",
+          "descricao": "Ativa ou desativa o áudio em vídeos históricos/eventos de um canal. Reinicie para aplicar.",
+          "parametros": [
+            { "nome": "canal", "opcoes": ["1", "2", "3"], "padrao": "1" },
+            { "nome": "status", "opcoes": ["ON", "OFF"], "padrao": "ON" }
+          ]
+        },
+        {
+          "nome": "MILE",
+          "descricao": "Unidade de velocidade exibida na marca d'água. Padrão: 0 (KM/H).",
+          "parametros": [
+            { "nome": "unidade", "opcoes": [
+              { "label": "0 — KM/H (padrão)", "valor": "0" },
+              { "label": "1 — MPH", "valor": "1" }
+            ], "padrao": "0" }
+          ]
+        },
+        {
+          "nome": "RATATION",
+          "descricao": "Rotação, espelhamento e resolução de câmeras remotas (CH2/CH3).",
+          "parametros": [
+            { "nome": "canal", "opcoes": ["1", "2", "3"], "padrao": "2" },
+            { "nome": "angulo", "opcoes": [
+              { "label": "0 — Sem rotação", "valor": "0" },
+              { "label": "180 — Rotação 180°", "valor": "180" }
+            ], "padrao": "0" },
+            { "nome": "espelho", "opcoes": [
+              { "label": "0 — Sem espelho", "valor": "0" },
+              { "label": "1 — Espelho horizontal", "valor": "1" }
+            ], "padrao": "0" },
+            { "nome": "resolucao_suportada", "opcoes": ["720", "1080"], "padrao": "720" }
+          ]
+        },
+        {
+          "nome": "WIFIAP",
+          "descricao": "Liga/desliga o hotspot Wi-Fi. P2 e P3 opcionais para nome e senha personalizados. Padrão: ON.",
+          "parametros": [
+            { "nome": "status", "opcoes": ["ON", "OFF"], "padrao": "ON" },
+            { "nome": "nome_hotspot", "tipo": "texto", "obrigatorio": false, "placeholder": "padrão: IMEI do dispositivo" },
+            { "nome": "senha_hotspot", "tipo": "texto", "obrigatorio": false, "placeholder": "padrão: 8 últimos dígitos do IMEI" }
+          ]
+        },
+        {
+          "nome": "WIFIAPT",
+          "descricao": "Duração do hotspot Wi-Fi. -1=sempre ativo com ACC ON, 0=desativar. Padrão: -1.",
+          "parametros": [
+            { "nome": "duracao", "opcoes": [
+              { "label": "-1 — Sempre ativo com ACC ON (padrão)", "valor": "-1" },
+              { "label": "0 — Desativar Wi-Fi", "valor": "0" },
+              { "label": "10 min", "valor": "10" },
+              { "label": "30 min", "valor": "30" },
+              { "label": "60 min", "valor": "60" }
+            ], "padrao": "-1" }
+          ]
+        },
+        {
+          "nome": "SSID",
+          "descricao": "Conecta a uma rede Wi-Fi externa (desativa o hotspot). Use RM para remover redes salvas.",
+          "parametros": [
+            { "nome": "status", "opcoes": [
+              { "label": "ON — Ativar e conectar", "valor": "ON" },
+              { "label": "OFF — Desativar", "valor": "OFF" },
+              { "label": "RM — Remover redes salvas", "valor": "RM" }
+            ], "padrao": "ON" },
+            { "nome": "nome_wifi", "tipo": "texto", "placeholder": "nome da rede" },
+            { "nome": "senha_wifi", "tipo": "texto", "placeholder": "senha da rede" }
+          ]
+        },
+        {
+          "nome": "HDS",
+          "descricao": "Compartilhamento de dados (internet) via hotspot Wi-Fi. Padrão: ON.",
+          "parametros": [
+            { "nome": "status", "opcoes": ["ON", "OFF"], "padrao": "ON" }
+          ]
+        },
+        {
+          "nome": "LED",
+          "descricao": "Controla os indicadores LED do dispositivo. Padrão: ON.",
+          "parametros": [
+            { "nome": "status", "opcoes": ["ON", "OFF"], "padrao": "ON" }
+          ]
+        },
+        {
+          "nome": "DISK",
+          "descricao": "Modo de acesso ao disco via USB. 0=sempre desligado, 1=sempre ligado. Padrão: 0.",
+          "parametros": [
+            { "nome": "modo", "opcoes": [
+              { "label": "0 — Sempre desligado (padrão)", "valor": "0" },
+              { "label": "1 — Sempre ligado", "valor": "1" }
+            ], "padrao": "0" }
+          ]
+        },
+        {
+          "nome": "KEYFUN",
+          "descricao": "Funções dos botões físicos. P1 sempre fixo em 1. P2=clique curto, P3=clique longo.",
+          "parametros": [
+            { "tipo": "fixo", "valor": "1", "nome": "botao" },
+            { "nome": "clique_curto", "opcoes": [
+              { "label": "0 — Sem função", "valor": "0" },
+              { "label": "1 — Tirar foto", "valor": "1" },
+              { "label": "2 — SOS", "valor": "2" },
+              { "label": "3 — Alternância de câmera", "valor": "3" }
+            ], "padrao": "0" },
+            { "nome": "clique_longo", "opcoes": [
+              { "label": "0 — Sem função", "valor": "0" },
+              { "label": "1 — Tirar foto", "valor": "1" },
+              { "label": "2 — SOS", "valor": "2" },
+              { "label": "3 — Alternância de câmera", "valor": "3" }
+            ], "padrao": "0" }
+          ]
+        },
+        {
+          "nome": "VOICESW",
+          "descricao": "Idioma do sistema de voz. 100=idioma personalizado (requer AUDIOURL). Padrão: varia.",
+          "parametros": [
+            { "nome": "idioma", "opcoes": [
+              { "label": "0 — English", "valor": "0" },
+              { "label": "1 — Chinese", "valor": "1" },
+              { "label": "2 — Português", "valor": "2" },
+              { "label": "3 — Español", "valor": "3" },
+              { "label": "100 — Personalizado (AUDIOURL)", "valor": "100" }
+            ], "padrao": "2" }
+          ]
+        },
+        {
+          "nome": "VOLUME",
+          "descricao": "Volume do alto-falante. Padrão: 2.",
+          "parametros": [
+            { "nome": "nivel", "opcoes": [
+              { "label": "0 — Mudo", "valor": "0" },
+              { "label": "1 — Baixo", "valor": "1" },
+              { "label": "2 — Médio (padrão)", "valor": "2" },
+              { "label": "3 — Alto", "valor": "3" }
+            ], "padrao": "2" }
+          ]
+        },
+        {
+          "nome": "TFMODE",
+          "descricao": "Modo de armazenamento. Padrão: 1.",
+          "parametros": [
+            { "nome": "modo", "opcoes": [
+              { "label": "1 — EMMC + TF (cartão SD) (padrão)", "valor": "1" },
+              { "label": "2 — Apenas EMMC interna", "valor": "2" }
+            ], "padrao": "1" }
+          ]
+        },
+        {
+          "nome": "PWDSW",
+          "descricao": "Ativa ou desativa autenticação por senha nos comandos. Padrão: OFF.",
+          "parametros": [
+            { "nome": "status", "opcoes": ["ON", "OFF"], "padrao": "OFF" }
+          ]
+        },
+        {
+          "nome": "PASSWORD",
+          "descricao": "Altera a senha de autenticação de comandos.",
+          "parametros": [
+            { "nome": "senha_atual", "tipo": "texto", "placeholder": "senha atual" },
+            { "nome": "senha_nova", "tipo": "texto", "placeholder": "nova senha" }
+          ]
+        },
+        {
+          "nome": "AUDIOURL",
+          "descricao": "URL para download de pacote de áudio personalizado. Requer VOICESW,100 antes.",
+          "parametros": [
+            { "nome": "url_pacote", "tipo": "texto", "placeholder": "http://servidor.com/audio.zip" }
+          ]
+        },
+        {
+          "nome": "UPFILESIZE",
+          "descricao": "Tamanho máximo por arquivo de upload de evento. Padrão: 200 MB.",
+          "parametros": [
+            { "nome": "tamanho_mb", "tipo": "numero", "min": 1, "max": 1024, "padrao": "200", "unidade": "MB" }
+          ]
+        },
+        {
+          "nome": "DMSVSP",
+          "descricao": "Velocidade virtual para testar DMS em bancada (sem GPS). 0 desativa. Padrão: 0.",
+          "parametros": [
+            { "nome": "velocidade_kmh", "tipo": "numero", "min": 0, "max": 120, "padrao": "0", "unidade": "km/h" }
+          ]
+        },
+        {
+          "nome": "LOG,ALL",
+          "descricao": "Envia todos os logs do dispositivo para o servidor padrão Jimi IoT. Não desligue durante o upload.",
+          "parametros": []
+        },
+        { "nome": "REBOOT", "descricao": "Reinício simples (soft reboot).", "parametros": [] },
+        { "nome": "RESTORE", "descricao": "Restaura padrão de fábrica. ATENÇÃO: apaga todas as configurações.", "parametros": [] }
+      ]
+    },
+    {
+      "id": "jc400",
+      "equipamento": "JC400",
+      "descricao": "Dashcam ADAS/DMS 4G de 2 canais (também conhecido como JC261 / JC400AD). Comandos via SMS ou plataforma.",
+      "categoria": "Dashcam",
+      "comandos": [
+        { "nome": "STATUS", "descricao": "Status geral do dispositivo.", "parametros": [] },
+        { "nome": "VERSION", "descricao": "Versão de firmware.", "parametros": [] },
+        { "nome": "PARAM", "descricao": "IMEI e fuso horário configurado.", "parametros": [] },
+        {
+          "nome": "COREKITSW,0",
+          "descricao": "Desativa o protocolo proprietário TrackSolid. ENVIE ESTE COMANDO ANTES DE QUALQUER OUTRA CONFIGURAÇÃO ao usar plataformas não-TrackSolid.",
+          "parametros": []
+        },
+        {
+          "nome": "APN",
+          "descricao": "Configura o APN da operadora. Dispositivo reinicia em 10 s.",
+          "parametros": [
+            { "nome": "apn", "tipo": "texto", "placeholder": "endereço do APN" },
+            { "nome": "usuario", "tipo": "texto", "obrigatorio": false, "placeholder": "usuário (opcional)" },
+            { "nome": "senha", "tipo": "texto", "obrigatorio": false, "placeholder": "senha (opcional)" }
+          ]
+        },
+        {
+          "nome": "DMSSW",
+          "descricao": "Habilita o módulo DMS externo (JC170). Envie DMSSW,3 para ativar.",
+          "parametros": [
+            { "nome": "modo", "opcoes": [
+              { "label": "3 — Ativar comunicação com JC170/DMS", "valor": "3" },
+              { "label": "0 — Desativar DMS", "valor": "0" }
+            ], "padrao": "3" }
+          ]
+        },
+        {
+          "nome": "SERVER",
+          "descricao": "Define servidor de comunicação. A=tipo (0=IP, 1=domínio), B=endereço, C=porta.",
+          "parametros": [
+            { "nome": "tipo_destino", "opcoes": [
+              { "label": "0 — Endereço IP", "valor": "0" },
+              { "label": "1 — Domínio DNS", "valor": "1" }
+            ], "padrao": "1" },
+            { "nome": "servidor", "tipo": "texto", "placeholder": "domínio ou IP" },
+            { "nome": "porta", "tipo": "texto", "placeholder": "ex.: 21100" }
+          ]
+        },
+        {
+          "nome": "WIFIAP",
+          "descricao": "Ativa/desativa o hotspot Wi-Fi do dispositivo.",
+          "parametros": [
+            { "nome": "status", "opcoes": ["ON", "OFF"], "padrao": "ON" }
+          ]
+        },
+        {
+          "nome": "SSID",
+          "descricao": "Conecta a uma rede Wi-Fi externa (desativa o hotspot).",
+          "parametros": [
+            { "nome": "status", "opcoes": ["ON", "OFF", "RM"], "padrao": "ON" },
+            { "nome": "nome_wifi", "tipo": "texto", "placeholder": "nome da rede" },
+            { "nome": "senha_wifi", "tipo": "texto", "placeholder": "senha da rede" }
+          ]
+        },
+        {
+          "nome": "UPLOAD",
+          "descricao": "Define o servidor para upload de fotos periódicas. Deve começar com http:// ou https://.",
+          "parametros": [
+            { "nome": "url_servidor", "tipo": "texto", "placeholder": "http://servidor.com/upload" }
+          ]
+        },
+        {
+          "nome": "TIMER",
+          "descricao": "Intervalo de envio de posição GPS com ACC ligado. A=ON, B=intervalo em segundos (1–600).",
+          "parametros": [
+            { "tipo": "fixo", "valor": "ON", "nome": "acc_on" },
+            { "nome": "intervalo_segundos", "tipo": "numero", "min": 1, "max": 600, "padrao": "30", "unidade": "s" }
+          ]
+        },
+        {
+          "nome": "TIMER1",
+          "descricao": "Intervalo de envio de posição GPS com ACC desligado. A=OFF, B=intervalo em segundos (1–600).",
+          "parametros": [
+            { "tipo": "fixo", "valor": "OFF", "nome": "acc_off" },
+            { "nome": "intervalo_segundos", "tipo": "numero", "min": 1, "max": 600, "padrao": "600", "unidade": "s" }
+          ]
+        },
+        {
+          "nome": "ANGLEREP",
+          "descricao": "Ângulo mínimo para envio adicional de posição. A=ON/OFF, B=ângulo 5–45°. Padrão: ON,5.",
+          "parametros": [
+            { "nome": "status", "opcoes": ["ON", "OFF"], "padrao": "ON" },
+            { "nome": "angulo_graus", "tipo": "numero", "min": 5, "max": 45, "padrao": "5", "unidade": "°" }
+          ]
+        },
+        {
+          "nome": "SHUTDOWNTIME",
+          "descricao": "Atraso para corte de energia após ACC desligar. 0=sem atraso.",
+          "parametros": [
+            { "nome": "atraso_segundos", "tipo": "numero", "min": 0, "max": 64800, "padrao": "0", "unidade": "s" }
+          ]
+        },
+        {
+          "nome": "MILEAGE",
+          "descricao": "Define quilometragem inicial do hodômetro (em km, sem decimais).",
+          "parametros": [
+            { "nome": "quilometragem_km", "tipo": "numero", "min": 0, "max": 9999999, "padrao": "0", "unidade": "km" }
+          ]
+        },
+        {
+          "nome": "RATATION",
+          "descricao": "Rotação da câmera. A=IN (cabine) ou OUT (estrada), B=ângulo 0/90/180/270°.",
+          "parametros": [
+            { "nome": "canal", "opcoes": [
+              { "label": "IN — Câmera interna/cabine", "valor": "IN" },
+              { "label": "OUT — Câmera externa/estrada", "valor": "OUT" }
+            ], "padrao": "OUT" },
+            { "nome": "angulo", "opcoes": ["0", "90", "180", "270"], "padrao": "0" }
+          ]
+        },
+        {
+          "nome": "CAMERA",
+          "descricao": "Define resolução por canal. A=IN/OUT, B=preset de resolução.",
+          "parametros": [
+            { "nome": "canal", "opcoes": [
+              { "label": "IN — Câmera interna", "valor": "IN" },
+              { "label": "OUT — Câmera externa", "valor": "OUT" }
+            ], "padrao": "OUT" },
+            { "nome": "resolucao", "opcoes": [
+              { "label": "1 — 1080p", "valor": "1" },
+              { "label": "2 — 720p", "valor": "2" },
+              { "label": "3 — 480p", "valor": "3" },
+              { "label": "4 — 360p", "valor": "4" }
+            ], "padrao": "1" }
+          ]
+        },
+        {
+          "nome": "CAR",
+          "descricao": "Marca d'água com placa, frota e motorista. Sem acentos, símbolos ou espaços. Máx. 15 chars cada.",
+          "parametros": [
+            { "nome": "placa", "tipo": "texto", "maxLength": 15, "placeholder": "ex.: ABC1234" },
+            { "nome": "frota", "tipo": "texto", "maxLength": 15, "obrigatorio": false, "placeholder": "ex.: FROTANORTE" },
+            { "nome": "motorista", "tipo": "texto", "maxLength": 15, "obrigatorio": false, "placeholder": "ex.: JOAO" }
+          ]
+        },
+        {
+          "nome": "VOICESW",
+          "descricao": "Idioma do sistema de voz. 100=personalizado (requer AUDIOURL). Padrão: 0.",
+          "parametros": [
+            { "nome": "idioma", "opcoes": [
+              { "label": "0 — English (padrão de fábrica)", "valor": "0" },
+              { "label": "2 — Português", "valor": "2" },
+              { "label": "3 — Español", "valor": "3" },
+              { "label": "100 — Personalizado (use AUDIOURL)", "valor": "100" }
+            ], "padrao": "100" }
+          ]
+        },
+        {
+          "nome": "AUDIOURL",
+          "descricao": "URL para download do pacote de voz em Português. Use após VOICESW,100.",
+          "parametros": [
+            { "nome": "url_pacote", "tipo": "texto", "placeholder": "http://servidor.com/audio_pt.zip" }
+          ]
+        },
+        {
+          "nome": "LED",
+          "descricao": "Controla os indicadores LED. Padrão: ON.",
+          "parametros": [
+            { "nome": "status", "opcoes": ["ON", "OFF"], "padrao": "ON" }
+          ]
+        },
+        {
+          "nome": "TIMESYNC",
+          "descricao": "Modo de sincronização de horário. Padrão: ALL.",
+          "parametros": [
+            { "nome": "modo", "opcoes": [
+              { "label": "ALL — GPS + rede", "valor": "ALL" },
+              { "label": "NETWORK — Apenas rede", "valor": "NETWORK" },
+              { "label": "GPS — Apenas GPS", "valor": "GPS" }
+            ], "padrao": "ALL" }
+          ]
+        },
+        {
+          "nome": "VOLUME",
+          "descricao": "Volume do alto-falante. Padrão: 2.",
+          "parametros": [
+            { "nome": "nivel", "opcoes": [
+              { "label": "0 — Mudo", "valor": "0" },
+              { "label": "1 — Baixo", "valor": "1" },
+              { "label": "2 — Médio (padrão)", "valor": "2" },
+              { "label": "3 — Alto", "valor": "3" }
+            ], "padrao": "2" }
+          ]
+        },
+        {
+          "nome": "RECORDAUDIO",
+          "descricao": "Ativa ou desativa o áudio na câmera especificada. A=1(externa)/2(interna), B=ON/OFF.",
+          "parametros": [
+            { "nome": "canal", "opcoes": [
+              { "label": "1 — Externa (estrada)", "valor": "1" },
+              { "label": "2 — Interna (cabine)", "valor": "2" }
+            ], "padrao": "1" },
+            { "nome": "status", "opcoes": ["ON", "OFF"], "padrao": "ON" }
+          ]
+        },
+        {
+          "nome": "RECORDSW",
+          "descricao": "Ativa ou desativa gravação no cartão SD por canal. A=1(externa)/2(interna), B=ON/OFF.",
+          "parametros": [
+            { "nome": "canal", "opcoes": [
+              { "label": "1 — Externa (estrada)", "valor": "1" },
+              { "label": "2 — Interna (cabine)", "valor": "2" }
+            ], "padrao": "1" },
+            { "nome": "status", "opcoes": ["ON", "OFF"], "padrao": "ON" }
+          ]
+        },
+        {
+          "nome": "SENALM",
+          "descricao": "Alarme de vibração no estacionamento. Padrão: OFF.",
+          "parametros": [
+            { "nome": "status", "opcoes": ["ON", "OFF"], "padrao": "OFF" },
+            { "nome": "sensibilidade", "opcoes": [
+              { "label": "1 — Baixa (26)", "valor": "1" },
+              { "label": "2 — Média (20)", "valor": "2" },
+              { "label": "3 — Alta (16)", "valor": "3" }
+            ], "padrao": "2" }
+          ]
+        },
+        {
+          "nome": "SHOCK",
+          "descricao": "Sensibilidade do sensor de vibração. Lógica invertida: menor = mais sensível. Padrão: 20.",
+          "parametros": [
+            { "nome": "nivel", "tipo": "numero", "min": 1, "max": 255, "padrao": "20" }
+          ]
+        },
+        {
+          "nome": "SHAKEDELAY",
+          "descricao": "Tempo de silêncio após ligar ignição para evitar falsos alarmes de vibração. Padrão: 60 s.",
+          "parametros": [
+            { "nome": "atraso_segundos", "tipo": "numero", "min": 10, "max": 600, "padrao": "60", "unidade": "s" }
+          ]
+        },
+        {
+          "nome": "CRASHALM",
+          "descricao": "Alarme de colisão. Padrão: ON,2.",
+          "parametros": [
+            { "nome": "status", "opcoes": ["ON", "OFF"], "padrao": "ON" },
+            { "nome": "sensibilidade", "opcoes": [
+              { "label": "1 — Baixa (200)", "valor": "1" },
+              { "label": "2 — Média (150) — padrão", "valor": "2" },
+              { "label": "3 — Alta (120)", "valor": "3" }
+            ], "padrao": "2" }
+          ]
+        },
+        {
+          "nome": "SENSOR",
+          "descricao": "Sensibilidade avançada do acelerômetro em movimento. Lógica invertida: menor = mais sensível. Padrão: 150.",
+          "parametros": [
+            { "nome": "nivel", "tipo": "numero", "min": 1, "max": 255, "padrao": "150" }
+          ]
+        },
+        {
+          "nome": "SPEED",
+          "descricao": "Alarme de excesso de velocidade. A=ON/OFF, B=tempo acima (5–600s), C=velocidade (1–255 km/h), D=modo envio. Padrão: OFF.",
+          "parametros": [
+            { "nome": "status", "opcoes": ["ON", "OFF"], "padrao": "OFF" },
+            { "nome": "tempo_segundos", "tipo": "numero", "min": 5, "max": 600, "padrao": "5", "unidade": "s" },
+            { "nome": "velocidade_kmh", "tipo": "numero", "min": 1, "max": 255, "padrao": "100", "unidade": "km/h" },
+            { "nome": "modo_envio", "opcoes": [
+              { "label": "0 — GPRS (plataforma)", "valor": "0" },
+              { "label": "1 — SMS + GPRS", "valor": "1" }
+            ], "padrao": "0" }
+          ]
+        },
+        {
+          "nome": "RAPIDACC",
+          "descricao": "Alarme de aceleração brusca (janela de 3 s). Padrão: 0 (OFF).",
+          "parametros": [
+            { "nome": "sensibilidade", "opcoes": [
+              { "label": "0 — Desativado (padrão)", "valor": "0" },
+              { "label": "1 — Baixa (45 km/h)", "valor": "1" },
+              { "label": "2 — Média (35 km/h)", "valor": "2" },
+              { "label": "3 — Alta (25 km/h)", "valor": "3" }
+            ], "padrao": "0" }
+          ]
+        },
+        {
+          "nome": "RAPIDDEC",
+          "descricao": "Alarme de frenagem brusca (janela de 3 s). Padrão: 0 (OFF).",
+          "parametros": [
+            { "nome": "sensibilidade", "opcoes": [
+              { "label": "0 — Desativado (padrão)", "valor": "0" },
+              { "label": "1 — Baixa (55 km/h)", "valor": "1" },
+              { "label": "2 — Média (45 km/h)", "valor": "2" },
+              { "label": "3 — Alta (25 km/h)", "valor": "3" }
+            ], "padrao": "0" }
+          ]
+        },
+        {
+          "nome": "RAPIDTURN",
+          "descricao": "Alarme de curva brusca (janela de 3 s, ângulo fixo de 15°). Padrão: 0 (OFF).",
+          "parametros": [
+            { "nome": "sensibilidade", "opcoes": [
+              { "label": "0 — Desativado (padrão)", "valor": "0" },
+              { "label": "1 — Baixa (60 km/h)", "valor": "1" },
+              { "label": "2 — Média (40 km/h)", "valor": "2" },
+              { "label": "3 — Alta (30 km/h)", "valor": "3" }
+            ], "padrao": "0" }
+          ]
+        },
+        {
+          "nome": "FATIGUE",
+          "descricao": "Alarme de fadiga ao volante. A=ON/OFF, T1=horas de direção (4–12h), T2=intervalo GPS em fadiga (1–30min). Padrão: OFF.",
+          "parametros": [
+            { "nome": "status", "opcoes": ["ON", "OFF"], "padrao": "OFF" },
+            { "nome": "horas_conducao", "tipo": "numero", "min": 4, "max": 12, "padrao": "4", "unidade": "h" },
+            { "nome": "intervalo_gps_minutos", "tipo": "numero", "min": 1, "max": 30, "padrao": "5", "unidade": "min" }
+          ]
+        },
+        {
+          "nome": "SOSALM",
+          "descricao": "Modo de alerta do botão SOS. Padrão: 2 (GPRS + SMS + Ligação).",
+          "parametros": [
+            { "nome": "status", "opcoes": ["ON", "OFF"], "padrao": "ON" },
+            { "nome": "modo_alerta", "opcoes": [
+              { "label": "0 — Apenas GPRS (plataforma)", "valor": "0" },
+              { "label": "1 — SMS + GPRS", "valor": "1" },
+              { "label": "2 — GPRS + SMS + Ligação", "valor": "2" },
+              { "label": "3 — GPRS + Ligação", "valor": "3" }
+            ], "padrao": "2" }
+          ]
+        },
+        {
+          "nome": "SOS",
+          "descricao": "Cadastra números para o alarme SOS. Use A (adicionar) ou D (deletar). Máximo 3 números.",
+          "parametros": [
+            { "nome": "acao", "opcoes": [
+              { "label": "A — Adicionar números", "valor": "A" },
+              { "label": "D — Deletar números", "valor": "D" }
+            ], "padrao": "A" },
+            { "nome": "numero1", "tipo": "texto", "placeholder": "ex.: 11987654321" },
+            { "nome": "numero2", "tipo": "texto", "obrigatorio": false, "placeholder": "número 2 (opcional)" },
+            { "nome": "numero3", "tipo": "texto", "obrigatorio": false, "placeholder": "número 3 (opcional)" }
+          ]
+        },
+        {
+          "nome": "EXBATALM",
+          "descricao": "Alarme de bateria baixa. Voltagem sem decimal (11.8V=118). 12V: 90–130; 24V: 180–255.",
+          "parametros": [
+            { "nome": "tipo_veiculo", "opcoes": [
+              { "label": "0 — 12V (carros)", "valor": "0" },
+              { "label": "1 — 24V (caminhões/ônibus)", "valor": "1" }
+            ], "padrao": "0" },
+            { "nome": "voltagem_limite", "tipo": "numero", "min": 90, "max": 255, "padrao": "118", "placeholder": "ex.: 118 = 11.8V" },
+            { "nome": "modo_alerta", "opcoes": [
+              { "label": "0 — Apenas plataforma", "valor": "0" },
+              { "label": "1 — SMS + plataforma", "valor": "1" }
+            ], "padrao": "0" }
+          ]
+        },
+        {
+          "nome": "ADASVSP",
+          "descricao": "Velocidade virtual para testar ADAS em bancada (sem GPS). 0 desativa.",
+          "parametros": [
+            { "nome": "velocidade_kmh", "tipo": "numero", "min": 0, "max": 120, "padrao": "0", "unidade": "km/h" }
+          ]
+        },
+        {
+          "nome": "SNAPNUM",
+          "descricao": "Define quais câmeras gravam vídeo/foto para cada tipo de evento.",
+          "parametros": [
+            { "nome": "tipo_evento", "opcoes": [
+              { "label": "JJS — Aceleração brusca", "valor": "JJS" },
+              { "label": "JDS — Frenagem brusca", "valor": "JDS" },
+              { "label": "JZW — Curva brusca", "valor": "JZW" },
+              { "label": "CRASH — Colisão", "valor": "CRASH" },
+              { "label": "PARK — Vibração estacionamento", "valor": "PARK" },
+              { "label": "SOS — Evento SOS", "valor": "SOS" },
+              { "label": "CHAOSU — Excesso velocidade", "valor": "CHAOSU" },
+              { "label": "LDW — Eventos ADAS", "valor": "LDW" },
+              { "label": "DFW — Eventos DMS", "valor": "DFW" }
+            ], "padrao": "LDW" },
+            { "nome": "canais", "tipo": "texto", "placeholder": "ex.: 1-2 para câmeras 1 e 2" }
+          ]
+        },
+        {
+          "nome": "DMSSEP",
+          "descricao": "Ativa ou desativa eventos individuais de ADAS/DMS. Padrão: todos ativos exceto YCW.",
+          "parametros": [
+            { "nome": "tipo_evento", "opcoes": [
+              { "label": "1 — FCW (colisão frontal ADAS)", "valor": "1" },
+              { "label": "2 — HMW (veículo próximo ADAS)", "valor": "2" },
+              { "label": "3 — LDW (saída de faixa ADAS)", "valor": "3" },
+              { "label": "5 — DFW (olhos fechados DMS)", "valor": "5" },
+              { "label": "6 — YAWN (bocejo DMS)", "valor": "6" },
+              { "label": "7 — FSW (distração DMS)", "valor": "7" },
+              { "label": "8 — CALL (celular DMS)", "valor": "8" },
+              { "label": "9 — SMOKE (cigarro DMS)", "valor": "9" },
+              { "label": "10 — YCW (sem rosto DMS)", "valor": "10" }
+            ], "padrao": "1" },
+            { "nome": "status", "opcoes": [
+              { "label": "0 — Desativar", "valor": "0" },
+              { "label": "1 — Ativar", "valor": "1" }
+            ], "padrao": "1" }
+          ]
+        },
+        {
+          "nome": "DMSSP",
+          "descricao": "Velocidade mínima para acionar alertas ADAS/DMS. Padrão: ADAS=57km/h, DMS=28km/h.",
+          "parametros": [
+            { "nome": "sistema", "opcoes": [
+              { "label": "1 — ADAS", "valor": "1" },
+              { "label": "2 — DMS", "valor": "2" }
+            ], "padrao": "2" },
+            { "nome": "velocidade_kmh", "tipo": "numero", "min": 0, "max": 150, "padrao": "28", "unidade": "km/h" }
+          ]
+        },
+        {
+          "nome": "DMSPI",
+          "descricao": "Intervalo de upload de eventos ADAS/DMS. Padrão: 60 s para todos.",
+          "parametros": [
+            { "nome": "tipo_evento", "opcoes": [
+              { "label": "1 — FCW (ADAS)", "valor": "1" },
+              { "label": "2 — HMW (ADAS)", "valor": "2" },
+              { "label": "3 — LDW (ADAS)", "valor": "3" },
+              { "label": "4 — DFW olhos (DMS)", "valor": "4" },
+              { "label": "5 — YAWN bocejo (DMS)", "valor": "5" },
+              { "label": "6 — FSW distração (DMS)", "valor": "6" },
+              { "label": "7 — CALL celular (DMS)", "valor": "7" },
+              { "label": "8 — SMOKE cigarro (DMS)", "valor": "8" },
+              { "label": "9 — YCW sem rosto (DMS)", "valor": "9" }
+            ], "padrao": "1" },
+            { "nome": "intervalo_segundos", "tipo": "numero", "min": 0, "max": 3600, "padrao": "60", "unidade": "s" }
+          ]
+        },
+        {
+          "nome": "ADAS,CALIBRATION",
+          "descricao": "Calibração manual do ADAS. Todas as medidas em mm (1 a 100000).",
+          "parametros": [
+            { "nome": "altura_camera_mm", "tipo": "numero", "min": 1, "max": 100000, "unidade": "mm" },
+            { "nome": "dist_parachoque_mm", "tipo": "numero", "min": 1, "max": 100000, "unidade": "mm" },
+            { "nome": "dist_roda_esq_mm", "tipo": "numero", "min": 1, "max": 100000, "unidade": "mm" },
+            { "nome": "dist_roda_dir_mm", "tipo": "numero", "min": 1, "max": 100000, "unidade": "mm" },
+            { "nome": "dist_eixo_mm", "tipo": "numero", "min": 1, "max": 100000, "unidade": "mm" }
+          ]
+        },
+        {
+          "nome": "ADASSEN",
+          "descricao": "Sensibilidade do ADAS por tipo de evento. Tipo 1 (LDW): B de -0.3 a 0.6, C=nível. Tipos 2/3: B de 0 a 10 s.",
+          "parametros": [
+            { "nome": "tipo_evento", "opcoes": [
+              { "label": "1 — LDW (saída de faixa)", "valor": "1" },
+              { "label": "2 — FCW (colisão frontal)", "valor": "2" },
+              { "label": "3 — HMW (veículo próximo)", "valor": "3" }
+            ], "padrao": "1" },
+            { "nome": "valor_b", "tipo": "numero", "min": -0.3, "max": 10, "step": 0.1 },
+            { "nome": "nivel_c", "opcoes": [
+              { "label": "0 — Baixo", "valor": "0" },
+              { "label": "1 — Médio", "valor": "1" },
+              { "label": "2 — Alto", "valor": "2" }
+            ], "obrigatorio": false }
+          ]
+        },
+        {
+          "nome": "ADAS,CENTERPOINT",
+          "descricao": "Replica a linha do horizonte de outro equipamento já calibrado (ex.: 320,271).",
+          "parametros": [
+            { "nome": "x", "tipo": "numero", "min": 0, "max": 10000, "placeholder": "ex.: 320" },
+            { "nome": "y", "tipo": "numero", "min": 0, "max": 10000, "placeholder": "ex.: 271" }
+          ]
+        },
+        { "nome": "REBOOT", "descricao": "Reinício simples.", "parametros": [] },
+        { "nome": "RESTORE", "descricao": "Restaura padrão de fábrica. ATENÇÃO: apaga todas as configurações.", "parametros": [] }
       ]
     }
   ]
