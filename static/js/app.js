@@ -112,6 +112,8 @@ document.addEventListener("alpine:init", () => {
     theme: saved.theme ?? "system",
     historico: saved.historico ?? [],
     favoritos: saved.favoritos ?? [],
+    writeconfigStatus: "",
+    gruposFechados: {},
 
     init() {
       this._applyTheme();
@@ -162,6 +164,67 @@ document.addEventListener("alpine:init", () => {
     removerFavorito(id) {
       this.favoritos = this.favoritos.filter(f => f.id !== id);
       saveStore(this);
+    },
+
+    agruparPorEquipamento(itens) {
+      const grupos = [];
+      const indice = {};
+
+      for (const item of itens || []) {
+        const id = item.equipamentoId || item.equipamentoNome || "sem-modelo";
+        if (!indice[id]) {
+          indice[id] = {
+            id,
+            nome: item.equipamentoNome || "Modelo nao informado",
+            itens: [],
+          };
+          grupos.push(indice[id]);
+        }
+        indice[id].itens.push(item);
+      }
+
+      return grupos;
+    },
+
+    grupoAberto(tipo, id) {
+      return !this.gruposFechados[`${tipo}:${id}`];
+    },
+
+    alternarGrupo(tipo, id) {
+      const chave = `${tipo}:${id}`;
+      this.gruposFechados = { ...this.gruposFechados, [chave]: !this.gruposFechados[chave] };
+    },
+
+    async exportarWriteconfig(origem, itens = null, modelo = "") {
+      itens = itens || (origem === "favoritos" ? this.favoritos : this.historico);
+      if (!itens.length) return;
+
+      try {
+        const response = await fetch(`/writeconfig/${origem}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ itens }),
+        });
+        if (!response.ok) throw new Error("Falha ao exportar");
+
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "writeconfig.txt";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+
+        this.writeconfigStatus = modelo
+          ? `Download do writeconfig.txt iniciado para ${modelo}`
+          : "Download do writeconfig.txt iniciado";
+      } catch {
+        this.writeconfigStatus = "Nao foi possivel gerar o writeconfig.txt";
+      }
+
+      setTimeout(() => { this.writeconfigStatus = ""; }, 4000);
     },
 
     tempoRelativo(ms) { return tempoRelativo(ms); },
