@@ -153,6 +153,128 @@
         { "nome": "Software (ResearchDownload)", "url": "https://newtectelemetria-my.sharepoint.com/:f:/g/personal/administracao_akrozgroup_com_br/IgB11ZCjFEtjR6TA498OqvtTAV0DSRRetUu6vE-G7SEl9Jk?e=3zu4S2" }
       ],
       "imagens": []
+    },
+    {
+      "id": "jc182",
+      "equipamento": "JC182",
+      "descricao": "Procedimentos de atualização da JC182: módulo de vídeo (cartão SD) e módulo de comunicação 4G (cabo + ResearchDownload).",
+      "categoria": "Câmera Veicular",
+      "procedimentos": [
+        {
+          "id": "modulo-video",
+          "titulo": "Módulo de vídeo (cartão SD)",
+          "descricao": "Atualização do módulo de vídeo da JC182 via cartão SD.",
+          "passos": [
+            { "descricao": "Baixar o arquivo de firmware da JC182 (arquivo .bin) e copiar para a raiz do cartão SD, sem colocar em pastas." },
+            { "descricao": "Desligar o equipamento, conectar positivo e negativo, mantendo a ACC desligada até que todos os LEDs estejam apagados." },
+            { "descricao": "Inserir o cartão de memória com o firmware no slot da JC182." },
+            { "descricao": "Ligar a ignição (ACC ON) mantendo o dispositivo alimentado; os LEDs indicam que a atualização está em andamento." },
+            { "descricao": "Aguardar a câmera detectar o firmware e concluir a atualização automaticamente, sem cortar a alimentação." },
+            { "descricao": "Após cerca de 1 minuto, verificar que o equipamento voltou ao funcionamento normal e confirmar a versão com o comando VERSION#." }
+          ]
+        },
+        {
+          "id": "modulo-comunicacao",
+          "titulo": "Módulo de comunicação 4G (ResearchDownload)",
+          "descricao": "Atualização do módulo de comunicação (4G) da JC182 via cabo e ferramenta ResearchDownload.",
+          "passos": [
+            { "descricao": "No Windows, habilitar o modo sem assinatura de driver: Configurações > Atualização e Segurança > Recuperação > Inicialização avançada > Reiniciar agora; depois Solução de problemas > Opções avançadas > Configurações de inicialização > Reiniciar e selecionar F7 para desabilitar imposição de assinatura de driver." },
+            { "descricao": "Instalar o driver e a ferramenta: na pasta de instalação, abrir Win10 ou Win7/8, escolher 32 ou 64 bits, executar o instalador de driver e depois ResearchDownload.exe." },
+            { "descricao": "Na ferramenta ResearchDownload, clicar no ícone de firmware e selecionar o arquivo .pac correspondente ao modem da JC182, aguardando o carregamento completo." },
+            { "descricao": "Clicar no ícone de configuração, ajustar a baudrate para 115200, marcar FMT_FSSYS e a opção para selecionar todos os arquivos, e confirmar em OK." },
+            { "descricao": "Clicar em Start na ResearchDownload para deixar a ferramenta aguardando o dispositivo." },
+            { "descricao": "Desligar a fonte de alimentação da JC182, manter o botão U-Boot pressionado e conectar o cabo de dados Type-C entre o dispositivo e o computador." },
+            { "descricao": "Aguardar a ferramenta reconhecer o dispositivo e iniciar a atualização; soltar o botão U-Boot somente após o início da barra de progresso." },
+            { "descricao": "Aguardar até a mensagem de sucesso (Passed) na ResearchDownload, o que leva cerca de 1 minuto." },
+            { "descricao": "Clicar em Stop na ferramenta, desconectar o cabo USB, religar a alimentação normal da JC182 e validar a versão de firmware com o comando VERSION#." }
+          ]
+        }
+      ],
+      "downloads": [],
+      "imagens": []
+    },
+    {
+      "id": "jc371",
+      "equipamento": "JC371",
+      "descricao": "Procedimentos de atualização da JC371: firmware via cartão SD (update_SE) e atualização completa via PhoenixSuit (U-Boot).",
+      "categoria": "Dashcam",
+      "procedimentos": [
+        {
+          "id": "firmware-sdcard",
+          "titulo": "Cartão SD (update_SE)",
+          "descricao": "Atualização de firmware da JC371 via cartão SD inserido no slot TF.",
+          "passos": [
+            { "descricao": "Ligar o dispositivo JC371 normalmente, garantindo alimentação estável (positivo, negativo e ACC)." },
+            { "descricao": "Baixar o arquivo de atualização da JC371 (normalmente nomeado update_SE ou similar), mantendo o nome exato conforme instruído." },
+            { "descricao": "Copiar o arquivo de atualização para a pasta raiz de um cartão SD, sem criar subpastas." },
+            { "descricao": "Inserir o cartão SD no slot TF da JC371." },
+            { "descricao": "Aguardar o equipamento detectar o arquivo e emitir indicação de início de atualização (LED ou voz), sem desligar o dispositivo durante o processo." },
+            { "descricao": "Esperar a conclusão da atualização (aproximadamente 3 a 5 minutos) e o reinício automático do dispositivo." },
+            { "descricao": "Após o reboot, validar a versão de firmware com o comando VERSION# ou via aplicativo WiFiKit." }
+          ]
+        },
+        {
+          "id": "firmware-phoenixsuit",
+          "titulo": "PhoenixSuit (U-Boot)",
+          "descricao": "Atualização completa da JC371 via PhoenixSuit e modo U-Boot.",
+          "passos": [
+            { "descricao": "No Windows, acessar Configurações > Atualização e Segurança > Recuperação > Inicialização avançada e clicar em Reiniciar agora." },
+            { "descricao": "Na tela de recuperação, navegar em Solução de problemas > Opções avançadas > Configurações de inicialização, clicar em Reiniciar e, ao reiniciar, pressionar F7 para desativar a imposição de assinatura de driver." },
+            { "descricao": "Baixar e instalar o pacote de atualização da JC371, incluindo os drivers USB e a ferramenta PhoenixSuit." },
+            { "descricao": "Abrir o PhoenixSuit, acessar o módulo de firmware, clicar em Image e selecionar o arquivo .img correspondente à JC371." },
+            { "descricao": "Clicar em Upgrade no PhoenixSuit e confirmar os pop-ups de aviso." },
+            { "descricao": "Garantir que o dispositivo esteja completamente desligado da alimentação externa (sem positivo, negativo ou ACC)." },
+            { "descricao": "Pressionar e manter pressionado o ponto de U-Boot da JC371 e conectar o cabo USB entre o PC e o dispositivo." },
+            { "descricao": "Confirmar os avisos (Yes) exibidos pelo PhoenixSuit e soltar o U-Boot após a ferramenta reconhecer o dispositivo e iniciar a barra de progresso." },
+            { "descricao": "Aguardar a conclusão da atualização (cerca de 1 a 2 minutos) até o PhoenixSuit exibir a mensagem de sucesso." },
+            { "descricao": "Desconectar o cabo USB, religar a JC371 na alimentação normal e validar a versão de firmware com o comando VERSION#." }
+          ]
+        }
+      ],
+      "downloads": [],
+      "imagens": []
+    },
+    {
+      "id": "jc400",
+      "equipamento": "JC400",
+      "descricao": "Procedimentos de atualização da JC400 (JC261 / JC400AD): firmware via PhoenixSuit (U-Boot) e componentes Android (Vysor). Mesma plataforma da JC400AD.",
+      "categoria": "Dashcam",
+      "procedimentos": [
+        {
+          "id": "firmware-phoenixsuit",
+          "titulo": "PhoenixSuit (U-Boot)",
+          "descricao": "Atualização de firmware da JC400 via PhoenixSuit e modo U-Boot.",
+          "passos": [
+            { "descricao": "No Windows, acessar Configurações > Atualização e Segurança > Recuperação > Inicialização avançada e clicar em Reiniciar agora." },
+            { "descricao": "Na tela de recuperação, navegar em Solução de problemas > Opções avançadas > Configurações de inicialização, clicar em Reiniciar e, ao reiniciar, pressionar F7 para desativar a imposição de assinatura de driver." },
+            { "descricao": "Baixar e instalar o pacote de atualização específico da JC400 (JC261), incluindo drivers e a ferramenta PhoenixSuit." },
+            { "descricao": "Abrir o PhoenixSuit, ir em Firmware, clicar em Image e selecionar o arquivo .img correspondente à JC400 (JC261)." },
+            { "descricao": "Clicar em Upgrade no PhoenixSuit e confirmar os pop-ups de aviso." },
+            { "descricao": "Garantir que o dispositivo esteja completamente desligado da alimentação externa (sem positivo, negativo ou ACC)." },
+            { "descricao": "Pressionar e manter pressionado o ponto de U-Boot do JC400 e conectar o cabo USB entre o PC e o dispositivo." },
+            { "descricao": "Confirmar os avisos (Yes) exibidos pelo PhoenixSuit e soltar o U-Boot após a ferramenta reconhecer o dispositivo e iniciar a barra de progresso." },
+            { "descricao": "Aguardar a conclusão da atualização (cerca de 1 minuto) até o PhoenixSuit exibir a mensagem de sucesso." },
+            { "descricao": "Desconectar o cabo USB, religar o JC400 na alimentação normal e validar a versão de firmware pela interface Android ou com o comando VERSION#." }
+          ]
+        },
+        {
+          "id": "android-componentes",
+          "titulo": "Componentes Android (Vysor)",
+          "descricao": "Atualização de aplicativos/componentes Android no JC400 via Vysor.",
+          "passos": [
+            { "descricao": "Preparar o pacote de atualização (APK ou ferramenta de update) conforme documentação da JC400 (JC261)." },
+            { "descricao": "No computador, abrir o Vysor." },
+            { "descricao": "Ligar o JC400 com alimentação completa (positivo, negativo e ACC)." },
+            { "descricao": "Conectar o cabo USB entre o PC e o JC400, aguardando o dispositivo aparecer no Vysor." },
+            { "descricao": "No Android exibido pelo Vysor, abrir o aplicativo de atualização ou gerenciador de arquivos indicado pelo fabricante." },
+            { "descricao": "Selecionar a opção de atualização local e apontar para o arquivo de atualização no armazenamento interno ou cartão SD." },
+            { "descricao": "Confirmar o início da atualização e aguardar a conclusão conforme a barra de progresso exibida." },
+            { "descricao": "Se solicitado, permitir o reinício do dispositivo e validar o funcionamento dos aplicativos após o boot." }
+          ]
+        }
+      ],
+      "downloads": [],
+      "imagens": []
     }
   ]
 }
