@@ -238,6 +238,19 @@ document.addEventListener("alpine:init", () => {
 
 // ── Componente: página de equipamento + construtor integrado ──────────────────
 
+const GRUPO_CORES = {
+  "Consultas":            { text: "text-sky-500",     bg: "bg-sky-500/10",     dot: "bg-sky-500" },
+  "Configuração Inicial": { text: "text-amber-500",   bg: "bg-amber-500/10",   dot: "bg-amber-500" },
+  "Sistema":              { text: "text-violet-500",  bg: "bg-violet-500/10",  dot: "bg-violet-500" },
+  "Rede e WiFi":          { text: "text-emerald-500", bg: "bg-emerald-500/10", dot: "bg-emerald-500" },
+  "Rastreamento":         { text: "text-cyan-500",    bg: "bg-cyan-500/10",    dot: "bg-cyan-500" },
+  "Vídeo":                { text: "text-rose-500",    bg: "bg-rose-500/10",    dot: "bg-rose-500" },
+  "Controle":             { text: "text-red-400",     bg: "bg-red-400/10",     dot: "bg-red-400" },
+  "Eventos":              { text: "text-orange-500",  bg: "bg-orange-500/10",  dot: "bg-orange-500" },
+  "IA / ADAS / DMS":      { text: "text-indigo-500",  bg: "bg-indigo-500/10",  dot: "bg-indigo-500" },
+  "Diagnóstico":          { text: "text-slate-400",   bg: "bg-slate-400/10",   dot: "bg-slate-400" },
+};
+
 function equipmentPage(equipamento) {
   return {
     equipamento,
@@ -266,8 +279,19 @@ function equipmentPage(equipamento) {
       const q = normalize(this.busca);
       if (!q) return this.equipamento.comandos;
       return this.equipamento.comandos.filter(c =>
-        [c.nome, c.descricao].filter(Boolean).some(v => normalize(String(v)).includes(q))
+        [c.nome, c.descricao, c.grupo].filter(Boolean).some(v => normalize(String(v)).includes(q))
       );
+    },
+
+    get comandosAgrupados() {
+      const ORDEM = ["Consultas","Configuração Inicial","Sistema","Rede e WiFi","Rastreamento","Vídeo","Controle","Eventos","IA / ADAS / DMS","Diagnóstico","Outros"];
+      const mapa = {};
+      for (const c of this.comandosFiltrados) {
+        const g = c.grupo || "Outros";
+        if (!mapa[g]) mapa[g] = [];
+        mapa[g].push(c);
+      }
+      return ORDEM.filter(g => mapa[g]).map(g => ({ grupo: g, comandos: mapa[g] }));
     },
 
     get comandoAtivo() {
@@ -285,6 +309,14 @@ function equipmentPage(equipamento) {
 
     get builderFavorito() {
       return Alpine.store("app").isFavorito(this.builderResultado.texto);
+    },
+
+    get favoritosDoEquipamento() {
+      return Alpine.store("app").favoritos.filter(f => f.equipamentoId === this.equipamento.id);
+    },
+
+    async copiarFavorito(texto) {
+      try { await navigator.clipboard.writeText(texto); } catch {}
     },
 
     get builderVisiveis() {
@@ -329,6 +361,10 @@ function equipmentPage(equipamento) {
     },
 
     selecionar(nome) { this.selecionadoNome = nome; },
+
+    grupoCorText(grupo) { return (GRUPO_CORES[grupo] || {}).text || "text-muted-foreground"; },
+    grupoCorBg(grupo)   { return (GRUPO_CORES[grupo] || {}).bg   || "bg-accent/40"; },
+    grupoCorDot(grupo)  { return (GRUPO_CORES[grupo] || {}).dot  || "bg-muted-foreground"; },
   };
 }
 

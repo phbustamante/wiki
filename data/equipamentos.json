@@ -25,7 +25,8 @@
               "tipo": "texto",
               "obrigatorio": false
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "ASETAPN",
@@ -39,7 +40,8 @@
               ],
               "padrao": "ON"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "SERVER",
@@ -69,7 +71,8 @@
               "tipo": "texto",
               "placeholder": "ex.: 21100"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "URLTYPE",
@@ -89,7 +92,8 @@
               ],
               "padrao": "1"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "WIFIAP",
@@ -103,7 +107,8 @@
               ],
               "padrao": "OFF"
             }
-          ]
+          ],
+          "grupo": "Rede e WiFi"
         },
         {
           "nome": "SSID",
@@ -129,7 +134,8 @@
               "maxLength": 10,
               "placeholder": "8 a 10 caracteres"
             }
-          ]
+          ],
+          "grupo": "Rede e WiFi"
         },
         {
           "nome": "TIMER",
@@ -143,7 +149,8 @@
               "padrao": "10",
               "unidade": "s"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "ANGLEREP",
@@ -173,7 +180,8 @@
               "padrao": "3",
               "unidade": "s"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "ACCREP",
@@ -187,7 +195,8 @@
               ],
               "padrao": "ON"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "SF",
@@ -209,17 +218,20 @@
               "padrao": "100",
               "unidade": "m"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "RESET",
           "descricao": "Reinicia o equipamento. Sem parâmetros.",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Controle"
         },
         {
           "nome": "FACTORY",
           "descricao": "Restaura de fábrica e apaga as configurações embarcadas. Sem parâmetros.",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Controle"
         },
         {
           "nome": "VIDEO,PARAM,1",
@@ -251,7 +263,8 @@
               "padrao": "4",
               "unidade": "Mbps"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "VOLUME",
@@ -279,7 +292,8 @@
               ],
               "padrao": "2"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "GMT",
@@ -317,7 +331,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "ASETGMT",
@@ -331,7 +346,8 @@
               ],
               "padrao": "ON"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "RELAY",
@@ -351,12 +367,14 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Controle"
         },
         {
           "nome": "CAMERA,TF,FORMAT",
           "descricao": "Formata o cartão de memória. Sem parâmetros.",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Controle"
         },
         {
           "nome": "SENDS",
@@ -370,7 +388,8 @@
               "padrao": "0",
               "unidade": "min"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "GPSDUP",
@@ -384,7 +403,8 @@
               ],
               "padrao": "ON"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "RECORDVSW",
@@ -418,7 +438,8 @@
               ],
               "padrao": "1"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "RECORDSW",
@@ -452,7 +473,8 @@
               ],
               "padrao": "1"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "MILEAGE",
@@ -474,7 +496,8 @@
               "placeholder": "ex.: 150000",
               "unidade": "m"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "SPEED",
@@ -514,7 +537,8 @@
               "padrao": "20",
               "unidade": "s"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "SENALM",
@@ -550,7 +574,8 @@
               "padrao": "15",
               "unidade": "min"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "COLLIDE",
@@ -604,7 +629,8 @@
               "padrao": "5",
               "unidade": "km/h"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "SPEEDCHECK",
@@ -652,7 +678,8 @@
               "padrao": "50",
               "unidade": "km/h"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "SWERVE",
@@ -700,7 +727,8 @@
               "padrao": "3",
               "unidade": "s"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "FATIGUE",
@@ -730,7 +758,8 @@
               "padrao": "30",
               "unidade": "min"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "PICTIMER",
@@ -774,7 +803,8 @@
               ],
               "padrao": "OFF"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "EXBATALM",
@@ -831,7 +861,8 @@
               "padrao": "300",
               "unidade": "s"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "POWERALM",
@@ -883,7 +914,8 @@
               "padrao": "0",
               "unidade": "s"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "PWRLIMIT",
@@ -903,7 +935,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "SHUTDOWNTIME",
@@ -917,7 +950,8 @@
               "padrao": "120",
               "unidade": "s"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         }
       ]
     },
@@ -1047,7 +1081,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "SERVER",
@@ -1064,7 +1099,8 @@
               "tipo": "texto",
               "placeholder": "ex.: 5023"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "URLTYPE",
@@ -1078,7 +1114,8 @@
               ],
               "padrao": "HTTPS"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "DMSVSP",
@@ -1091,7 +1128,8 @@
               "max": 120,
               "unidade": "km/h"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "WAKEMODE",
@@ -1114,7 +1152,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "APN",
@@ -1206,7 +1245,8 @@
               "valor": "",
               "nome": "_11"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "WIFIAPT",
@@ -1231,7 +1271,8 @@
               ],
               "padrao": "30"
             }
-          ]
+          ],
+          "grupo": "Rede e WiFi"
         },
         {
           "nome": "WIFIAP",
@@ -1257,7 +1298,8 @@
               "obrigatorio": false,
               "placeholder": "padrão: 8 últimos dígitos do IMEI"
             }
-          ]
+          ],
+          "grupo": "Rede e WiFi"
         },
         {
           "nome": "SSID",
@@ -1281,7 +1323,8 @@
               "tipo": "texto",
               "placeholder": "senha da rede"
             }
-          ]
+          ],
+          "grupo": "Rede e WiFi"
         },
         {
           "nome": "LOCATEREP",
@@ -1295,7 +1338,8 @@
               "padrao": "10",
               "unidade": "s"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "ANGLEREP",
@@ -1309,7 +1353,8 @@
               "padrao": "30",
               "unidade": "°"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "SF",
@@ -1339,17 +1384,20 @@
               "padrao": "5",
               "unidade": "km/h"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "REBOOT",
           "descricao": "Reinicia o equipamento. Sem parâmetros.",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Controle"
         },
         {
           "nome": "RESTORE",
           "descricao": "Restaura de fábrica e apaga todas as configurações. Sem parâmetros.",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Controle"
         },
         {
           "nome": "SHUTDOWNTIME",
@@ -1363,7 +1411,8 @@
               "padrao": "120",
               "unidade": "s"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "VIDEORSL",
@@ -1408,7 +1457,8 @@
               ],
               "padrao": "2048"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "PICQ",
@@ -1421,7 +1471,8 @@
               "max": 100,
               "padrao": "60"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "CAR",
@@ -1445,7 +1496,8 @@
               "maxLength": 15,
               "obrigatorio": false
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "RATATION",
@@ -1491,7 +1543,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "VOLUME",
@@ -1519,7 +1572,8 @@
               ],
               "padrao": "3"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "VOICESW",
@@ -1547,7 +1601,8 @@
               ],
               "padrao": "2"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "LED",
@@ -1560,7 +1615,8 @@
                 "OFF"
               ]
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "TIMESYNC",
@@ -1574,7 +1630,8 @@
               ],
               "padrao": "gps"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "TIMEZONE",
@@ -1590,7 +1647,8 @@
               ],
               "padrao": "-03:00"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "RECORDVSW",
@@ -1621,7 +1679,8 @@
               ],
               "padrao": "1"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "RECORDSW",
@@ -1652,7 +1711,8 @@
               ],
               "padrao": "1"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "RELAY",
@@ -1672,7 +1732,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Controle"
         },
         {
           "nome": "FORMAT",
@@ -1686,7 +1747,8 @@
               ],
               "padrao": "1"
             }
-          ]
+          ],
+          "grupo": "Controle"
         },
         {
           "nome": "AUDIOURL",
@@ -1697,7 +1759,8 @@
               "tipo": "texto",
               "placeholder": "https://.../voz.zip"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "PASSWORD",
@@ -1715,7 +1778,8 @@
               "maxLength": 6,
               "placeholder": "6 dígitos"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "PIPPARM",
@@ -1734,7 +1798,8 @@
               "tipo": "texto",
               "placeholder": "ex.: 1+2"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "ENCODEPRM",
@@ -1775,7 +1840,8 @@
               "step": 256,
               "padrao": "2048"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "MILEAGE",
@@ -1788,7 +1854,8 @@
               "placeholder": "ex.: 150000",
               "unidade": "m"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "DMSPI",
@@ -1843,7 +1910,8 @@
               "padrao": "60",
               "unidade": "s"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "SPEED",
@@ -1857,7 +1925,8 @@
               "padrao": "255",
               "unidade": "km/h"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "SHAKETHD",
@@ -1870,7 +1939,8 @@
               "max": 70,
               "padrao": "30"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "CRASHALM",
@@ -1898,7 +1968,8 @@
               ],
               "padrao": "2"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "RAPIDACC",
@@ -1926,7 +1997,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "RAPIDDEC",
@@ -1954,7 +2026,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "RAPIDTURN",
@@ -1982,7 +2055,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "TFMODE",
@@ -2006,7 +2080,8 @@
               ],
               "padrao": "3"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "INPUTFUN",
@@ -2051,7 +2126,8 @@
               ],
               "padrao": "1"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "UPLOAD",
@@ -2062,7 +2138,8 @@
               "tipo": "texto",
               "placeholder": "https://..."
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "PICTIMER",
@@ -2105,7 +2182,8 @@
               ],
               "padrao": "OFF"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "ALARMFLT",
@@ -2133,7 +2211,8 @@
               "padrao": "10",
               "unidade": "s"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "DMSSP",
@@ -2161,7 +2240,8 @@
               "padrao": "57",
               "unidade": "km/h"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "DMSVI",
@@ -2216,7 +2296,8 @@
               "padrao": "60",
               "unidade": "s"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "DMSSEN",
@@ -2259,7 +2340,8 @@
               "obrigatorio": false,
               "placeholder": "4º (se houver)"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "ADAS,CALIBRATION",
@@ -2300,7 +2382,8 @@
               "max": 100000,
               "unidade": "mm"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "ADASSEN",
@@ -2331,7 +2414,8 @@
               ],
               "obrigatorio": false
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "SNAPNUM",
@@ -2357,7 +2441,8 @@
               "tipo": "texto",
               "placeholder": "ex.: 1 ou 1-2-3"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "DMSSEP",
@@ -2392,7 +2477,8 @@
               ],
               "padrao": "1"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "ADAS,CENTERPOINT",
@@ -2412,7 +2498,8 @@
               "max": 10000,
               "placeholder": "ex.: 271"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "HTTPMP3",
@@ -2423,7 +2510,8 @@
               "tipo": "texto",
               "placeholder": "http://servidor.com/aviso.mp3"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         }
       ]
     },
@@ -2451,7 +2539,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "APN",
@@ -2543,7 +2632,8 @@
               "valor": "",
               "nome": "_11"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "DMSSW",
@@ -2559,7 +2649,8 @@
               ],
               "padrao": "3"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "VOICESW",
@@ -2607,7 +2698,8 @@
               ],
               "padrao": "100"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "AUDIOURL",
@@ -2618,7 +2710,8 @@
               "tipo": "texto",
               "placeholder": "http://.../voz.zip"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "DMS_VIRTUAL_SPEED",
@@ -2631,7 +2724,8 @@
               "max": 120,
               "unidade": "km/h"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "SERVER",
@@ -2661,7 +2755,8 @@
               "tipo": "texto",
               "placeholder": "ex.: 21100"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "UPLOAD",
@@ -2672,7 +2767,8 @@
               "tipo": "texto",
               "placeholder": "http://host:porta/upload"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "RSERVICE",
@@ -2683,7 +2779,8 @@
               "tipo": "texto",
               "placeholder": "host:porta/live"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "WIFIAP",
@@ -2697,7 +2794,8 @@
               ],
               "padrao": "OFF"
             }
-          ]
+          ],
+          "grupo": "Rede e WiFi"
         },
         {
           "nome": "SSID",
@@ -2735,7 +2833,8 @@
               "tipo": "texto",
               "placeholder": "senha da rede"
             }
-          ]
+          ],
+          "grupo": "Rede e WiFi"
         },
         {
           "nome": "TIMER",
@@ -2757,7 +2856,8 @@
               "padrao": "10",
               "unidade": "s"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "TIMER1",
@@ -2779,7 +2879,8 @@
               "padrao": "120",
               "unidade": "s"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "ANGLEREP",
@@ -2801,7 +2902,8 @@
               "padrao": "5",
               "unidade": "°"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "ACCREP",
@@ -2855,17 +2957,20 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "REBOOT",
           "descricao": "Reinicia o equipamento. Sem parâmetros.",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Controle"
         },
         {
           "nome": "RESTORE",
           "descricao": "Restaura de fábrica e apaga configurações. Sem parâmetros.",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Controle"
         },
         {
           "nome": "ADASVSP",
@@ -2878,7 +2983,8 @@
               "max": 120,
               "unidade": "km/h"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "SHUTDOWNTIME",
@@ -2892,7 +2998,8 @@
               "padrao": "300",
               "unidade": "s"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "RATATION",
@@ -2922,7 +3029,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "VIDEORESOLUTION_SUB",
@@ -2946,7 +3054,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "CAMERA",
@@ -2976,7 +3085,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "CAR",
@@ -3000,7 +3110,8 @@
               "maxLength": 15,
               "obrigatorio": false
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "VOLUME",
@@ -3028,7 +3139,8 @@
               ],
               "padrao": "2"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "LED",
@@ -3042,7 +3154,8 @@
               ],
               "padrao": "ON"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "TIMESYNC",
@@ -3056,7 +3169,8 @@
               ],
               "padrao": "gps"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "TIMEZONE",
@@ -3072,7 +3186,8 @@
               ],
               "padrao": "-03:00"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "RECORDAUDIO",
@@ -3092,7 +3207,8 @@
               ],
               "padrao": "1"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "RECORDAUDIO_SUB",
@@ -3112,7 +3228,8 @@
               ],
               "padrao": "1"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "RECORDSW",
@@ -3146,7 +3263,8 @@
               ],
               "padrao": "1"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "RELAY",
@@ -3166,7 +3284,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Controle"
         },
         {
           "nome": "EXDEVICESW",
@@ -3190,7 +3309,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "MILEAGE",
@@ -3212,7 +3332,8 @@
               "padrao": "0",
               "unidade": "m"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "FILTER",
@@ -3240,7 +3361,8 @@
               "padrao": "5",
               "unidade": "min"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "HTTPUPLOADLIMIT",
@@ -3261,7 +3383,8 @@
               "padrao": "3",
               "unidade": "min"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "UPLOADSW",
@@ -3319,7 +3442,8 @@
               ],
               "padrao": "ON"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "SPEED",
@@ -3363,7 +3487,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "FATIGUE",
@@ -3393,7 +3518,8 @@
               "padrao": "5",
               "unidade": "min"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "SOSALM",
@@ -3429,7 +3555,8 @@
               ],
               "padrao": "2"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "SOS",
@@ -3466,7 +3593,8 @@
               "obrigatorio": false,
               "placeholder": "telefone 3"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "CALL",
@@ -3481,7 +3609,8 @@
               ],
               "padrao": "3"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "SENALM",
@@ -3513,7 +3642,8 @@
               ],
               "padrao": "2"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "SHOCK",
@@ -3526,7 +3656,8 @@
               "max": 255,
               "padrao": "20"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "SHAKEDELAY",
@@ -3540,7 +3671,8 @@
               "padrao": "30",
               "unidade": "s"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "CRASHALM",
@@ -3572,7 +3704,8 @@
               ],
               "padrao": "2"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "COLLIDE",
@@ -3641,7 +3774,8 @@
               "max": 300,
               "padrao": "90"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "SENSOR",
@@ -3654,7 +3788,8 @@
               "max": 255,
               "padrao": "150"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "RAPIDACC",
@@ -3682,7 +3817,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "RAPIDDEC",
@@ -3710,7 +3846,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "RAPIDTURN",
@@ -3738,7 +3875,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "EXBATALM",
@@ -3780,7 +3918,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "NOSDCARDALM",
@@ -3816,7 +3955,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "SDABNORMAL",
@@ -3830,7 +3970,8 @@
               ],
               "padrao": "ON"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "DMS_SWITCH",
@@ -3875,7 +4016,8 @@
               ],
               "padrao": "15"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "DMS_VOICE_CUSTOM",
@@ -3948,7 +4090,8 @@
               ],
               "padrao": "180"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "DMS_ALERT_CUSTOM",
@@ -4020,7 +4163,8 @@
               ],
               "padrao": "120"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "DMS_CONTINUITY",
@@ -4074,7 +4218,8 @@
               "padrao": "10",
               "unidade": "s"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "DMS_LOSTFACE_LIMIT",
@@ -4087,7 +4232,8 @@
               "max": 1024,
               "padrao": "5"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "DMS_CALIB_ABNORMAL",
@@ -4128,7 +4274,8 @@
               ],
               "padrao": "1"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "DMS_SECOND_EVENT",
@@ -4162,7 +4309,8 @@
               "padrao": "3",
               "unidade": "s"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "ADAS,CALMODE",
@@ -4182,7 +4330,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "ADAS,CALIBRATION",
@@ -4223,7 +4372,8 @@
               "max": 100000,
               "unidade": "mm"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "ADASSEN",
@@ -4272,7 +4422,8 @@
               ],
               "obrigatorio": false
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "ADASSEP",
@@ -4310,7 +4461,8 @@
               ],
               "padrao": "1"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "ADASSW",
@@ -4330,7 +4482,8 @@
               ],
               "padrao": "1"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "ADASPI",
@@ -4362,7 +4515,8 @@
               "padrao": "60",
               "unidade": "s"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         }
       ]
     },
@@ -4375,27 +4529,32 @@
         {
           "nome": "STATUS",
           "descricao": "Status geral do dispositivo (rede, GPS, ACC, SD, etc.).",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Consultas"
         },
         {
           "nome": "STATUSVIDEO",
           "descricao": "Status atual do módulo de câmera.",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Consultas"
         },
         {
           "nome": "VERSION",
           "descricao": "Versões de firmware dos módulos de vídeo e comunicação.",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Consultas"
         },
         {
           "nome": "CHECK",
           "descricao": "Informações completas (IMEI, servidor, APN, IP, etc.).",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Consultas"
         },
         {
           "nome": "CHECKVIDEO",
           "descricao": "Configurações atuais de câmera (servidor, porta).",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Consultas"
         },
         {
           "nome": "APN",
@@ -4406,7 +4565,8 @@
               "tipo": "texto",
               "placeholder": "endereço do APN"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "ASETAPN",
@@ -4420,7 +4580,8 @@
               ],
               "padrao": "ON"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "SERVER",
@@ -4436,7 +4597,8 @@
               "tipo": "texto",
               "placeholder": "ex.: 21100"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "URLTYPE",
@@ -4450,7 +4612,8 @@
               ],
               "padrao": "HTTPS"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "VIDEOTIMEZONE",
@@ -4494,7 +4657,8 @@
               "obrigatorio": false,
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "SF",
@@ -4516,7 +4680,8 @@
               "padrao": "100",
               "unidade": "m"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "TIMER",
@@ -4530,7 +4695,8 @@
               "padrao": "60",
               "unidade": "s"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "BCD",
@@ -4550,12 +4716,14 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "SNAP",
           "descricao": "Captura foto instantânea da câmera e envia para a plataforma.",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Vídeo"
         },
         {
           "nome": "TLR",
@@ -4585,7 +4753,8 @@
               "padrao": "120",
               "placeholder": "sem decimal: 12V=120"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "RECORDSW,1",
@@ -4599,7 +4768,8 @@
               ],
               "padrao": "ON"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "RECORDAUDIO,1",
@@ -4613,7 +4783,8 @@
               ],
               "padrao": "ON"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "LIGHT",
@@ -4649,7 +4820,8 @@
               ],
               "padrao": "OFF"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "MILE",
@@ -4669,17 +4841,20 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "FORMAT,1",
           "descricao": "Formata o cartão microSD. Não desligue o dispositivo durante o processo (~1 min).",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Controle"
         },
         {
           "nome": "CAMERA,TF",
           "descricao": "Exibe informações do cartão microSD (espaço total e livre).",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Controle"
         },
         {
           "nome": "ANGLEREP",
@@ -4693,7 +4868,8 @@
               "padrao": "30",
               "unidade": "°"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "EVENTSET,AOSD",
@@ -4713,7 +4889,8 @@
               "padrao": "0",
               "unidade": "s"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "EVENTSET,AVD",
@@ -4772,7 +4949,8 @@
               "padrao": "30",
               "unidade": "s"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "EVENTSET,AEPLV",
@@ -4802,7 +4980,8 @@
               "padrao": "10",
               "unidade": "s"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "EVENTSET,ACD",
@@ -4814,7 +4993,8 @@
               "padrao": "80",
               "placeholder": "OFF ou 0–255"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "ACC",
@@ -4843,7 +5023,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "ACCV",
@@ -4881,7 +5062,8 @@
               "padrao": "180",
               "unidade": "s"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "WIFIAP",
@@ -4895,7 +5077,8 @@
               ],
               "padrao": "ON"
             }
-          ]
+          ],
+          "grupo": "Rede e WiFi"
         },
         {
           "nome": "WIFIAPT",
@@ -4935,7 +5118,8 @@
               ],
               "padrao": "30"
             }
-          ]
+          ],
+          "grupo": "Rede e WiFi"
         },
         {
           "nome": "SSID",
@@ -4969,7 +5153,8 @@
               "tipo": "texto",
               "placeholder": "senha da rede"
             }
-          ]
+          ],
+          "grupo": "Rede e WiFi"
         },
         {
           "nome": "VIDEOUPLOAD",
@@ -5025,7 +5210,8 @@
               ],
               "padrao": "2"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "VOLUME",
@@ -5053,27 +5239,32 @@
               ],
               "padrao": "3"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "REBOOT",
           "descricao": "Reinício simples (soft reboot).",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Controle"
         },
         {
           "nome": "RESTART",
           "descricao": "Reinício do sistema (reinicia serviços internos).",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Controle"
         },
         {
           "nome": "RESET",
           "descricao": "Reset do dispositivo.",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Controle"
         },
         {
           "nome": "RESTORE",
           "descricao": "Restaura padrão de fábrica. ATENÇÃO: apaga todas as configurações.",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Controle"
         }
       ]
     },
@@ -5110,7 +5301,8 @@
               "descricao": "Tipo de protocolo (opcional): IP / IPv6 / IPv4v6",
               "obrigatorio": false
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "SERVER",
@@ -5138,7 +5330,8 @@
               "descricao": "Porta do servidor secundário (opcional)",
               "obrigatorio": false
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "URLTYPE",
@@ -5160,7 +5353,8 @@
               ],
               "padrao": "2"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "RATATION",
@@ -5233,7 +5427,8 @@
               ],
               "padrao": "720"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "VOICESW",
@@ -5319,7 +5514,8 @@
               ],
               "padrao": "2"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "DMSVSP",
@@ -5330,37 +5526,44 @@
               "tipo": "numero",
               "descricao": "Velocidade virtual em km/h (0-120)"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "STATUSVIDEO",
           "descricao": "Consulta status do módulo de vídeo: rede 4G, GPS, ACC, voltagem, gravação, câmeras, SD, EMMC",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Consultas"
         },
         {
           "nome": "STATUS",
           "descricao": "Consulta informações detalhadas: tensão, vídeo, handshake, ACC, defesa, SIM, GPS, rede, IP",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Consultas"
         },
         {
           "nome": "CHECK",
           "descricao": "Consulta versões dos módulos, IMEI, ICCID, IMSI, servidor, BCD, APN, entradas/saídas e configurações",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Consultas"
         },
         {
           "nome": "CHECKVIDEO",
           "descricao": "Verifica servidor, BCD, configurações DMS/ADAS e parâmetros de câmera",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Consultas"
         },
         {
           "nome": "VERSION",
           "descricao": "Verifica versões do módulo de vídeo, gerenciamento de energia e módulo 4G",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Consultas"
         },
         {
           "nome": "PARAM",
           "descricao": "Verifica IMEI e fuso horário configurado",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Consultas"
         },
         {
           "nome": "TIMESYNC",
@@ -5386,7 +5589,8 @@
               ],
               "padrao": "ALL"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "VIDEOTIMEZONE",
@@ -5444,7 +5648,8 @@
               "padrao": "0",
               "obrigatorio": false
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "LED",
@@ -5466,7 +5671,8 @@
               ],
               "padrao": "ON"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "DISK",
@@ -5488,7 +5694,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "KEYFUN",
@@ -5547,7 +5754,8 @@
               ],
               "padrao": "3"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "VOLUME",
@@ -5577,7 +5785,8 @@
               ],
               "padrao": "2"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "TFMODE",
@@ -5599,7 +5808,8 @@
               ],
               "padrao": "1"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "PWDSW",
@@ -5621,7 +5831,8 @@
               ],
               "padrao": "OFF"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "PASSWORD",
@@ -5638,7 +5849,8 @@
               "tipo": "texto",
               "descricao": "Nova senha"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "AUDIOURL",
@@ -5649,7 +5861,8 @@
               "tipo": "texto",
               "descricao": "URL do arquivo zip de voz (http://...)"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "UPFILESIZE",
@@ -5661,7 +5874,8 @@
               "descricao": "Tamanho máximo em MB (1-1024)",
               "padrao": "200"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "ASETAPN",
@@ -5683,7 +5897,8 @@
               ],
               "padrao": "ON"
             }
-          ]
+          ],
+          "grupo": "Rede e WiFi"
         },
         {
           "nome": "WIFIAP",
@@ -5717,7 +5932,8 @@
               "descricao": "Senha do hotspot (padrão: 8 últimos dígitos do IMEI)",
               "obrigatorio": false
             }
-          ]
+          ],
+          "grupo": "Rede e WiFi"
         },
         {
           "nome": "WIFIAPT",
@@ -5729,7 +5945,8 @@
               "descricao": "Tempo ativo (-1, 0, ou 1-1440 min)",
               "padrao": "-1"
             }
-          ]
+          ],
+          "grupo": "Rede e WiFi"
         },
         {
           "nome": "SSID",
@@ -5767,7 +5984,8 @@
               "descricao": "Senha da rede",
               "obrigatorio": false
             }
-          ]
+          ],
+          "grupo": "Rede e WiFi"
         },
         {
           "nome": "HDS",
@@ -5789,7 +6007,8 @@
               ],
               "padrao": "ON"
             }
-          ]
+          ],
+          "grupo": "Rede e WiFi"
         },
         {
           "nome": "BCD",
@@ -5819,7 +6038,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "LOG,ALL",
@@ -5831,7 +6051,8 @@
               "descricao": "URL do servidor alvo (opcional, vazio = padrão Jimi IoT)",
               "obrigatorio": false
             }
-          ]
+          ],
+          "grupo": "Diagnóstico"
         },
         {
           "nome": "ACC",
@@ -5877,7 +6098,8 @@
               ],
               "obrigatorio": false
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "ACCV",
@@ -5907,7 +6129,8 @@
               "descricao": "Tempo de detecção ACC OFF em segundos (1-300)",
               "padrao": "180"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "SENSORSET",
@@ -5937,7 +6160,8 @@
               "descricao": "Intervalo entre detecções em segundos (1-3)",
               "padrao": "1"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "SHUTDOWNTIME",
@@ -5949,7 +6173,8 @@
               "descricao": "Tempo de atraso em segundos (10-64800)",
               "padrao": "10"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "TIMER",
@@ -5961,7 +6186,8 @@
               "descricao": "Intervalo em segundos (5-60)",
               "padrao": "10"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "ANGLEREP",
@@ -5973,7 +6199,8 @@
               "descricao": "Ângulo limite em graus (10-180)",
               "padrao": "30"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "MILEAGE",
@@ -5985,7 +6212,8 @@
               "descricao": "Quilometragem inicial em km (0-1000000)",
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "VIDEORSL",
@@ -6062,7 +6290,8 @@
               ],
               "padrao": "2"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "VIDEORSL_SUB",
@@ -6131,7 +6360,8 @@
               ],
               "padrao": "1"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "RECORDSW",
@@ -6172,7 +6402,8 @@
               ],
               "padrao": "ON"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "RECORDSW_SUB",
@@ -6213,7 +6444,8 @@
               ],
               "padrao": "ON"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "RECORDAUDIO",
@@ -6254,7 +6486,8 @@
               ],
               "padrao": "ON"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "RECORDAUDIO_SUB",
@@ -6295,7 +6528,8 @@
               ],
               "padrao": "ON"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "MILE",
@@ -6317,7 +6551,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "UPLOAD",
@@ -6328,7 +6563,8 @@
               "tipo": "texto",
               "descricao": "URL do servidor (endereço completo)"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "PICTIMER",
@@ -6396,7 +6632,8 @@
               ],
               "padrao": "OFF"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "VIDEOPARAM",
@@ -6446,7 +6683,8 @@
               ],
               "padrao": "15"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "PICRATE",
@@ -6477,7 +6715,8 @@
               "descricao": "Qualidade em % (1-100)",
               "padrao": "50"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "PICTURE",
@@ -6508,12 +6747,14 @@
               "descricao": "ID opcional (alfanumérico, até 32 caracteres)",
               "obrigatorio": false
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "REBOOT",
           "descricao": "Reinicia o dispositivo (também aceita RESTART# ou RESET#)",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Controle"
         },
         {
           "nome": "FORMAT",
@@ -6534,12 +6775,14 @@
                 }
               ]
             }
-          ]
+          ],
+          "grupo": "Controle"
         },
         {
           "nome": "RESTORE",
           "descricao": "Restaura todas as configurações de fábrica. Apaga todos os dados do usuário.",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Controle"
         },
         {
           "nome": "UPDATE",
@@ -6550,7 +6793,8 @@
               "tipo": "texto",
               "descricao": "URL do pacote de firmware (endereço HTTP)"
             }
-          ]
+          ],
+          "grupo": "Controle"
         },
         {
           "nome": "EVENTALERT,ASOS",
@@ -6573,7 +6817,8 @@
               "descricao": "Intervalo de voz em segundos (0=sem voz, 1=imediato, 2-64800)",
               "padrao": "1"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "EVENTSET,AOSD",
@@ -6591,7 +6836,8 @@
               "descricao": "Duração acima do limite em segundos (5-600)",
               "padrao": "5"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "EVENTALERT,AOSD",
@@ -6614,7 +6860,8 @@
               "descricao": "Intervalo de voz em segundos (0=sem voz, 1=imediato, 2-64800)",
               "padrao": "30"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "EVENTSET,AODD",
@@ -6632,7 +6879,8 @@
               "descricao": "Tempo de descanso para limpar evento em minutos (0-64800)",
               "padrao": "10"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "EVENTALERT,AODD",
@@ -6655,7 +6903,8 @@
               "descricao": "Intervalo de voz em segundos",
               "padrao": "600"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "EVENTSET,AVD",
@@ -6685,7 +6934,8 @@
               "descricao": "Filtro de alarme em segundos (10-60)",
               "padrao": "30"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "EVENTALERT,AVD",
@@ -6707,7 +6957,8 @@
               "tipo": "fixo",
               "valor": "OFF"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "EVENTSET,AEPLV",
@@ -6731,7 +6982,8 @@
               "descricao": "Tempo de detecção em segundos (1-300)",
               "padrao": "10"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "EVENTALERT,AEPLV",
@@ -6753,7 +7005,8 @@
               "tipo": "fixo",
               "valor": "OFF"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "EVENTSET,AHADU",
@@ -6765,7 +7018,8 @@
               "descricao": "Limite de aceleração em m/s² (1.0-5.0)",
               "padrao": "3.5"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "EVENTALERT,AHADU",
@@ -6788,7 +7042,8 @@
               "descricao": "Intervalo de voz (OFF ou 1-64800 s)",
               "padrao": "OFF"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "EVENTSET,AHBDU",
@@ -6800,7 +7055,8 @@
               "descricao": "Limite de desaceleração em m/s² (-6.0 a -1.0)",
               "padrao": "-4.5"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "EVENTALERT,AHBDU",
@@ -6823,7 +7079,8 @@
               "descricao": "Intervalo de voz (OFF ou 1-64800 s)",
               "padrao": "OFF"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "EVENTSET,AHTDU",
@@ -6841,7 +7098,8 @@
               "descricao": "Ângulo de mudança de direção em graus (30-80)",
               "padrao": "45"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "EVENTALERT,AHTDU",
@@ -6864,7 +7122,8 @@
               "descricao": "Intervalo de voz (OFF ou 1-64800 s)",
               "padrao": "OFF"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "EVENTSET,ACDU",
@@ -6882,7 +7141,8 @@
               "descricao": "Ângulo de inclinação do veículo em graus (15-50)",
               "padrao": "20"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "EVENTALERT,ACDU",
@@ -6905,7 +7165,8 @@
               "descricao": "Intervalo de voz (OFF ou 1-64800 s)",
               "padrao": "OFF"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "DMSSW",
@@ -6945,7 +7206,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "DMSSP",
@@ -7080,7 +7342,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTSET,FACE",
@@ -7125,7 +7388,8 @@
               "descricao": "Nome do rosto (obrigatório em SHOT/DEL, até 24 chars)",
               "obrigatorio": false
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "ADAS,CALIBRATION",
@@ -7167,7 +7431,8 @@
               ],
               "padrao": "A"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTSET,ALDW",
@@ -7179,7 +7444,8 @@
               "descricao": "Distância do cruzamento em cm (OFF ou 10-100)",
               "padrao": "OFF"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTALERT,ALDW",
@@ -7202,7 +7468,8 @@
               "descricao": "Intervalo de voz em segundos",
               "padrao": "5"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTSET,AHMW",
@@ -7214,7 +7481,8 @@
               "descricao": "Tempo de risco em ms (OFF ou 500-1000)",
               "padrao": "1200"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTALERT,AHMW",
@@ -7237,7 +7505,8 @@
               "descricao": "Intervalo de voz em segundos",
               "padrao": "5"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTSET,AFCW",
@@ -7249,7 +7518,8 @@
               "descricao": "Tempo de risco em ms (OFF ou 500-1000)",
               "padrao": "2500"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTALERT,AFCW",
@@ -7272,7 +7542,8 @@
               "descricao": "Intervalo de voz em segundos",
               "padrao": "5"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTSET,APCW",
@@ -7284,7 +7555,8 @@
               "descricao": "Tempo de risco em ms (OFF ou 500-1000)",
               "padrao": "5000"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTALERT,APCW",
@@ -7307,7 +7579,8 @@
               "descricao": "Intervalo de voz em segundos",
               "padrao": "10"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTSET,AFVS",
@@ -7347,7 +7620,8 @@
               "descricao": "Tempo parado antes de armar o sistema em segundos (10-300)",
               "padrao": "60"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTALERT,AFVS",
@@ -7369,7 +7643,8 @@
               "descricao": "Intervalo de voz em segundos (0=sem voz, 1-64800)",
               "padrao": "5"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTSET,ADCA",
@@ -7381,7 +7656,8 @@
               "descricao": "Tempo limite para calibração em segundos (OFF ou 1-64800)",
               "padrao": "60"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTALERT,ADCA",
@@ -7404,7 +7680,8 @@
               "descricao": "Intervalo de voz em segundos (0=sem voz, 1-64800)",
               "padrao": "1"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTSET,ACEA",
@@ -7440,7 +7717,8 @@
               "descricao": "Duração mínima de olhos fechados em segundos (1-255)",
               "padrao": "2"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTALERT,ACEA",
@@ -7463,7 +7741,8 @@
               "descricao": "Intervalo de voz em segundos",
               "padrao": "5"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTALERT,ASCE",
@@ -7486,7 +7765,8 @@
               "descricao": "Intervalo de voz em segundos (0=sem voz, 1-64800)",
               "padrao": "5"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTSET,ADDW",
@@ -7522,7 +7802,8 @@
               "descricao": "Duração mínima do bocejo em segundos (1-255)",
               "padrao": "2"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTALERT,ADDW",
@@ -7545,7 +7826,8 @@
               "descricao": "Intervalo de voz em segundos",
               "padrao": "5"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTSET,ADW",
@@ -7581,7 +7863,8 @@
               "descricao": "Duração mínima de distração em segundos (1-255)",
               "padrao": "3"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTALERT,ADW",
@@ -7604,7 +7887,8 @@
               "descricao": "Intervalo de voz em segundos",
               "padrao": "5"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTSET,ASW",
@@ -7640,7 +7924,8 @@
               "descricao": "Duração mínima de detecção em segundos (1-255)",
               "padrao": "5"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTALERT,ASW",
@@ -7663,7 +7948,8 @@
               "descricao": "Intervalo de voz em segundos",
               "padrao": "5"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTSET,ACPW",
@@ -7699,7 +7985,8 @@
               "descricao": "Duração mínima de uso em segundos (1-255)",
               "padrao": "5"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTALERT,ACPW",
@@ -7722,7 +8009,8 @@
               "descricao": "Intervalo de voz em segundos",
               "padrao": "60"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTSET,AMS",
@@ -7758,7 +8046,8 @@
               "descricao": "Duração mínima de obstrução em segundos (1-255)",
               "padrao": "60"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTALERT,AMS",
@@ -7781,7 +8070,8 @@
               "descricao": "Intervalo de voz em segundos",
               "padrao": "14400"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTSET,ASS",
@@ -7817,7 +8107,8 @@
               "descricao": "Duração mínima em segundos (1-255)",
               "padrao": "60"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTALERT,ASS",
@@ -7840,7 +8131,8 @@
               "descricao": "Intervalo de voz (OFF ou 1-64800 s)",
               "padrao": "OFF"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTSET,ADA",
@@ -7876,7 +8168,8 @@
               "descricao": "Duração mínima da ação em segundos (1-255)",
               "padrao": "5"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTALERT,ADA",
@@ -7899,7 +8192,8 @@
               "descricao": "Intervalo de voz (OFF ou 1-64800 s)",
               "padrao": "OFF"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTSET,ANDD",
@@ -7935,7 +8229,8 @@
               "descricao": "Duração mínima sem rosto em segundos (1-3600)",
               "padrao": "60"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTALERT,ANDD",
@@ -7958,7 +8253,8 @@
               "descricao": "Intervalo de voz (OFF ou 1-64800 s)",
               "padrao": "OFF"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTSET,AFIF",
@@ -7982,7 +8278,8 @@
               "descricao": "Intervalo entre tentativas (0=só ao ligar, 1-255 s)",
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTALERT,AFIS",
@@ -8005,7 +8302,8 @@
               "descricao": "Intervalo de voz em segundos",
               "padrao": "60"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTALERT,AFIF",
@@ -8028,7 +8326,8 @@
               "descricao": "Intervalo de voz em segundos",
               "padrao": "60"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTSET,AWSB",
@@ -8064,7 +8363,8 @@
               "descricao": "Tempo mínimo usando cinto em segundos (1-255)",
               "padrao": "1"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTALERT,AWSB",
@@ -8087,7 +8387,8 @@
               "descricao": "Intervalo de voz (OFF ou 1-64800 s)",
               "padrao": "OFF"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTSET,ANWSB",
@@ -8123,7 +8424,8 @@
               "descricao": "Tempo mínimo sem cinto em segundos (1-255)",
               "padrao": "60"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "EVENTALERT,ANWSB",
@@ -8146,7 +8448,8 @@
               "descricao": "Intervalo de voz em segundos",
               "padrao": "600"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "RELAY",
@@ -8168,7 +8471,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Controle"
         },
         {
           "nome": "UARTCONFIG",
@@ -8231,7 +8535,8 @@
               ],
               "padrao": "OFF"
             }
-          ]
+          ],
+          "grupo": "Diagnóstico"
         },
         {
           "nome": "UARTDL",
@@ -8252,7 +8557,8 @@
               "tipo": "texto",
               "descricao": "Dados a enviar ao periférico (ex: UART_ALLDATA,0)"
             }
-          ]
+          ],
+          "grupo": "Diagnóstico"
         }
       ]
     },
@@ -8265,22 +8571,26 @@
         {
           "nome": "STATUS",
           "descricao": "Status geral do dispositivo.",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Consultas"
         },
         {
           "nome": "VERSION",
           "descricao": "Versão de firmware.",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Consultas"
         },
         {
           "nome": "PARAM",
           "descricao": "IMEI e fuso horário configurado.",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Consultas"
         },
         {
           "nome": "COREKITSW,0",
           "descricao": "Desativa o protocolo proprietário TrackSolid. ENVIE ESTE COMANDO ANTES DE QUALQUER OUTRA CONFIGURAÇÃO ao usar plataformas não-TrackSolid.",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Sistema"
         },
         {
           "nome": "APN",
@@ -8303,7 +8613,8 @@
               "obrigatorio": false,
               "placeholder": "senha (opcional)"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "DMSSW",
@@ -8323,7 +8634,8 @@
               ],
               "padrao": "3"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "SERVER",
@@ -8353,7 +8665,8 @@
               "tipo": "texto",
               "placeholder": "ex.: 21100"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "WIFIAP",
@@ -8367,7 +8680,8 @@
               ],
               "padrao": "ON"
             }
-          ]
+          ],
+          "grupo": "Rede e WiFi"
         },
         {
           "nome": "SSID",
@@ -8392,7 +8706,8 @@
               "tipo": "texto",
               "placeholder": "senha da rede"
             }
-          ]
+          ],
+          "grupo": "Rede e WiFi"
         },
         {
           "nome": "UPLOAD",
@@ -8403,7 +8718,8 @@
               "tipo": "texto",
               "placeholder": "http://servidor.com/upload"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "TIMER",
@@ -8422,7 +8738,8 @@
               "padrao": "30",
               "unidade": "s"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "TIMER1",
@@ -8441,7 +8758,8 @@
               "padrao": "600",
               "unidade": "s"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "ANGLEREP",
@@ -8463,7 +8781,8 @@
               "padrao": "5",
               "unidade": "°"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "SHUTDOWNTIME",
@@ -8477,7 +8796,8 @@
               "padrao": "0",
               "unidade": "s"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "MILEAGE",
@@ -8491,7 +8811,8 @@
               "padrao": "0",
               "unidade": "km"
             }
-          ]
+          ],
+          "grupo": "Rastreamento"
         },
         {
           "nome": "RATATION",
@@ -8521,7 +8842,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "CAMERA",
@@ -8563,7 +8885,8 @@
               ],
               "padrao": "1"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "CAR",
@@ -8589,7 +8912,8 @@
               "obrigatorio": false,
               "placeholder": "ex.: JOAO"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "VOICESW",
@@ -8617,7 +8941,8 @@
               ],
               "padrao": "100"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "AUDIOURL",
@@ -8628,7 +8953,8 @@
               "tipo": "texto",
               "placeholder": "http://servidor.com/audio_pt.zip"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "LED",
@@ -8642,7 +8968,8 @@
               ],
               "padrao": "ON"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "TIMESYNC",
@@ -8666,7 +8993,8 @@
               ],
               "padrao": "ALL"
             }
-          ]
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "VOLUME",
@@ -8694,7 +9022,8 @@
               ],
               "padrao": "2"
             }
-          ]
+          ],
+          "grupo": "Sistema"
         },
         {
           "nome": "RECORDAUDIO",
@@ -8722,7 +9051,8 @@
               ],
               "padrao": "ON"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "RECORDSW",
@@ -8750,7 +9080,8 @@
               ],
               "padrao": "ON"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "SENALM",
@@ -8782,7 +9113,8 @@
               ],
               "padrao": "2"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "SHOCK",
@@ -8795,7 +9127,8 @@
               "max": 255,
               "padrao": "20"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "SHAKEDELAY",
@@ -8809,7 +9142,8 @@
               "padrao": "60",
               "unidade": "s"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "CRASHALM",
@@ -8841,7 +9175,8 @@
               ],
               "padrao": "2"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "SENSOR",
@@ -8854,7 +9189,8 @@
               "max": 255,
               "padrao": "150"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "SPEED",
@@ -8898,7 +9234,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "RAPIDACC",
@@ -8926,7 +9263,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "RAPIDDEC",
@@ -8954,7 +9292,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "RAPIDTURN",
@@ -8982,7 +9321,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "FATIGUE",
@@ -9012,7 +9352,8 @@
               "padrao": "5",
               "unidade": "min"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "SOSALM",
@@ -9048,7 +9389,8 @@
               ],
               "padrao": "2"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "SOS",
@@ -9085,7 +9427,8 @@
               "obrigatorio": false,
               "placeholder": "número 3 (opcional)"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "EXBATALM",
@@ -9127,7 +9470,8 @@
               ],
               "padrao": "0"
             }
-          ]
+          ],
+          "grupo": "Eventos"
         },
         {
           "nome": "ADASVSP",
@@ -9141,7 +9485,8 @@
               "padrao": "0",
               "unidade": "km/h"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "SNAPNUM",
@@ -9194,7 +9539,8 @@
               "tipo": "texto",
               "placeholder": "ex.: 1-2 para câmeras 1 e 2"
             }
-          ]
+          ],
+          "grupo": "Vídeo"
         },
         {
           "nome": "DMSSEP",
@@ -9256,7 +9602,8 @@
               ],
               "padrao": "1"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "DMSSP",
@@ -9284,7 +9631,8 @@
               "padrao": "28",
               "unidade": "km/h"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "DMSPI",
@@ -9340,7 +9688,8 @@
               "padrao": "60",
               "unidade": "s"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "ADAS,CALIBRATION",
@@ -9381,7 +9730,8 @@
               "max": 100000,
               "unidade": "mm"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "ADASSEN",
@@ -9430,7 +9780,8 @@
               ],
               "obrigatorio": false
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "ADAS,CENTERPOINT",
@@ -9450,17 +9801,20 @@
               "max": 10000,
               "placeholder": "ex.: 271"
             }
-          ]
+          ],
+          "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "REBOOT",
           "descricao": "Reinício simples.",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Controle"
         },
         {
           "nome": "RESTORE",
           "descricao": "Restaura padrão de fábrica. ATENÇÃO: apaga todas as configurações.",
-          "parametros": []
+          "parametros": [],
+          "grupo": "Controle"
         }
       ]
     }

@@ -2,9 +2,9 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "Flask Wiki",
+      "name": "Django Wiki",
       "runtimeExecutable": ".venv/bin/python",
-      "runtimeArgs": ["app.py"],
+      "runtimeArgs": ["manage.py", "runserver", "5001"],
       "port": 5001,
       "autoPort": false
     }
