@@ -165,7 +165,7 @@
 
                   <!-- Rótulo do parâmetro -->
                   <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
-                    <span class="text-sm font-semibold" x-text="p.nome"></span>
+                    <span class="text-sm font-semibold" x-text="p.nome.replace(/_/g, ' ')"></span>
                     <span x-show="builderIsObrigatorio(p)"
                           class="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-bold text-primary">
                       obrigatório
