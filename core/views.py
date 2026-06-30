@@ -10,6 +10,7 @@ from django.views.decorators.http import require_POST
 from lib.writeconfig import gerar_conteudo_writeconfig
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
+LINHAS = {"jc", "vl"}
 
 
 def _load(filename):
@@ -17,30 +18,47 @@ def _load(filename):
         return json.load(f)
 
 
-def get_equipamentos():
-    return _load("equipamentos.json")["equipamentos"]
+def get_equipamentos(linha=None):
+    eqs = _load("equipamentos.json")["equipamentos"]
+    if linha:
+        eqs = [e for e in eqs if e.get("linha") == linha]
+    return eqs
 
 
-def get_atualizacoes():
-    return _load("atualizacoes.json")["atualizacoes"]
+def get_atualizacoes(linha=None):
+    ats = _load("atualizacoes.json")["atualizacoes"]
+    if linha:
+        ats = [a for a in ats if a.get("linha") == linha]
+    return ats
 
 
-def home(request):
+def landing(request):
+    return render(request, "landing.html")
+
+
+def home(request, linha):
+    if linha not in LINHAS:
+        raise Http404
     return render(request, "home.html", {
-        "equipamentos": get_equipamentos(),
-        "atualizacoes": get_atualizacoes(),
+        "equipamentos": get_equipamentos(linha),
+        "atualizacoes": get_atualizacoes(linha),
+        "linha": linha,
     })
 
 
-def equipment(request, slug):
-    eq = next((e for e in get_equipamentos() if e["id"] == slug), None)
+def equipment(request, linha, slug):
+    if linha not in LINHAS:
+        raise Http404
+    eq = next((e for e in get_equipamentos(linha) if e["id"] == slug), None)
     if not eq:
         raise Http404
     return render(request, "equipment.html", {"equipamento": eq})
 
 
-def update(request, slug):
-    at = next((a for a in get_atualizacoes() if a["id"] == slug), None)
+def update(request, linha, slug):
+    if linha not in LINHAS:
+        raise Http404
+    at = next((a for a in get_atualizacoes(linha) if a["id"] == slug), None)
     if not at:
         raise Http404
     return render(request, "update.html", {"atualizacao": at})

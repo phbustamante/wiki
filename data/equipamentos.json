@@ -953,7 +953,8 @@
           ],
           "grupo": "Rastreamento"
         }
-      ]
+      ],
+      "linha": "jc"
     },
     {
       "id": "jc450",
@@ -2513,7 +2514,8 @@
           ],
           "grupo": "Vídeo"
         }
-      ]
+      ],
+      "linha": "jc"
     },
     {
       "id": "jc400ad",
@@ -4518,7 +4520,8 @@
           ],
           "grupo": "IA / ADAS / DMS"
         }
-      ]
+      ],
+      "linha": "jc"
     },
     {
       "id": "jc182",
@@ -5266,7 +5269,8 @@
           "parametros": [],
           "grupo": "Controle"
         }
-      ]
+      ],
+      "linha": "jc"
     },
     {
       "id": "jc371",
@@ -8560,7 +8564,8 @@
           ],
           "grupo": "Diagnóstico"
         }
-      ]
+      ],
+      "linha": "jc"
     },
     {
       "id": "jc400",
@@ -9816,7 +9821,56 @@
           "parametros": [],
           "grupo": "Controle"
         }
-      ]
+      ],
+      "linha": "jc"
+    },
+    {
+      "id": "vl110",
+      "equipamento": "VL110",
+      "descricao": "Rastreador veicular linha VL — comandos em cadastro.",
+      "categoria": "Rastreador",
+      "linha": "vl",
+      "comandos": []
+    },
+    {
+      "id": "ll303",
+      "equipamento": "LL303",
+      "descricao": "Rastreador veicular linha VL — comandos em cadastro.",
+      "categoria": "Rastreador",
+      "linha": "vl",
+      "comandos": []
+    },
+    {
+      "id": "vl01",
+      "equipamento": "VL01",
+      "descricao": "Rastreador veicular linha VL — comandos em cadastro.",
+      "categoria": "Rastreador",
+      "linha": "vl",
+      "comandos": []
+    },
+    {
+      "id": "vl02",
+      "equipamento": "VL02",
+      "descricao": "Rastreador veicular linha VL — comandos em cadastro.",
+      "categoria": "Rastreador",
+      "linha": "vl",
+      "comandos": []
+    },
+    {
+      "id": "vl03",
+      "equipamento": "VL03",
+      "descricao": "Rastreador veicular linha VL — comandos em cadastro.",
+      "categoria": "Rastreador",
+      "linha": "vl",
+      "comandos": []
+    },
+    {
+      "id": "wetrack2",
+      "equipamento": "WeTrack2",
+      "descricao": "Rastreador veicular linha VL — comandos em cadastro.",
+      "categoria": "Rastreador",
+      "linha": "vl",
+      "comandos": []
     }
   ]
 }

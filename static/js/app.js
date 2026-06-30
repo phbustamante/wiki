@@ -142,8 +142,10 @@ document.addEventListener("alpine:init", () => {
       saveStore(this);
     },
 
-    limparHistorico() {
-      this.historico = [];
+    limparHistorico(linha) {
+      this.historico = linha
+        ? this.historico.filter(h => (h.linha || "jc") !== linha)
+        : [];
       saveStore(this);
     },
 
@@ -176,6 +178,7 @@ document.addEventListener("alpine:init", () => {
           indice[id] = {
             id,
             nome: item.equipamentoNome || "Modelo nao informado",
+            linha: item.linha || "jc",
             itens: [],
           };
           grupos.push(indice[id]);
@@ -345,6 +348,7 @@ function equipmentPage(equipamento) {
           equipamentoNome: this.equipamento.equipamento,
           comandoNome: this.comandoAtivo.nome,
           resultado: this.builderResultado.texto,
+          linha: this.equipamento.linha,
         });
         this.builderCopiado = true;
         setTimeout(() => { this.builderCopiado = false; }, 2000);
@@ -357,6 +361,7 @@ function equipmentPage(equipamento) {
         equipamentoNome: this.equipamento.equipamento,
         comandoNome: this.comandoAtivo.nome,
         resultado: this.builderResultado.texto,
+        linha: this.equipamento.linha,
       });
     },
 
@@ -370,11 +375,12 @@ function equipmentPage(equipamento) {
 
 // ── Componente: página inicial (busca) ────────────────────────────────────────
 
-function homePage(equipamentos, atualizacoes) {
+function homePage(equipamentos, atualizacoes, linha) {
   return {
     busca: "",
     equipamentos,
     atualizacoes,
+    linha: linha || "jc",
 
     get filtrados() {
       const q = normalize(this.busca);

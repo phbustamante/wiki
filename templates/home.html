@@ -15,14 +15,25 @@
 <script id="atualizacoes-data" type="application/json">{{ atualizacoes | tojson }}</script>
 <div x-data="homePage(
        JSON.parse(document.getElementById('equipamentos-data').textContent),
-       JSON.parse(document.getElementById('atualizacoes-data').textContent)
+       JSON.parse(document.getElementById('atualizacoes-data').textContent),
+       '{{ linha }}'
      )"
      class="grid gap-8 lg:grid-cols-[1fr_320px] lg:items-start">
 
   <div>
     <!-- Cabeçalho da seção -->
     <div class="mb-7">
-      <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">Central de Automação JIMI</h1>
+      <a href="/"
+         class="mb-3 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground">
+        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+        Trocar linha
+      </a>
+      <div class="flex flex-wrap items-center gap-3">
+        <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">Central de Automação JIMI</h1>
+        <span class="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary">
+          Linha {{ linha }}
+        </span>
+      </div>
       <p class="mt-2 max-w-prose text-muted-foreground">
         Gerencie comandos, atualizações e processos operacionais dos equipamentos JIMI com mais rapidez e controle.
       </p>
@@ -56,7 +67,7 @@
       <!-- Grid de equipamentos -->
       <div x-show="filtrados.length > 0" class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
         <template x-for="e in filtrados" :key="e.id">
-          <a :href="`/equipamento/${e.id}`"
+          <a :href="`/${linha}/equipamento/${e.id}`"
              class="group block focus-visible:outline-none"
              :aria-label="`Abrir ${e.equipamento}`">
             <div class="h-full rounded-2xl border border-border bg-card p-5 shadow-soft transition-all duration-300 group-hover:-translate-y-0.5 group-hover:shadow-soft-lg group-focus-visible:ring-2 group-focus-visible:ring-ring">
@@ -110,7 +121,7 @@
       <!-- Grid de atualizações -->
       <div x-show="atualizacoesFiltradas.length > 0" class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
         <template x-for="a in atualizacoesFiltradas" :key="a.id">
-          <a :href="`/atualizacao/${a.id}`"
+          <a :href="`/${linha}/atualizacao/${a.id}`"
              class="group block focus-visible:outline-none"
              :aria-label="`Atualizar ${a.equipamento}`">
             <div class="h-full rounded-2xl border border-border bg-card p-5 shadow-soft transition-all duration-300 group-hover:-translate-y-0.5 group-hover:shadow-soft-lg group-focus-visible:ring-2 group-focus-visible:ring-ring">
@@ -140,7 +151,11 @@
   </div>
 
   <!-- ── Sidebar: Favoritos + Histórico ── -->
-  <aside class="space-y-4 lg:sticky lg:top-32" x-data>
+  <aside class="space-y-4 lg:sticky lg:top-32"
+         x-data="{
+           get favoritosLinha() { return $store.app.favoritos.filter(f => (f.linha || 'jc') === linha); },
+           get historicoLinha() { return $store.app.historico.filter(h => (h.linha || 'jc') === linha); },
+         }">
 
     <!-- Favoritos -->
     <div class="rounded-2xl border border-border bg-card p-4 shadow-soft">
@@ -150,12 +165,12 @@
           <h2 class="text-sm font-semibold">Favoritos</h2>
         </div>
       </header>
-      <p x-show="$store.app.favoritos.length === 0"
+      <p x-show="favoritosLinha.length === 0"
          class="px-2.5 py-6 text-center text-sm text-muted-foreground">
         Salve comandos frequentes com a estrela.
       </p>
-      <div x-show="$store.app.favoritos.length > 0" class="space-y-2">
-        <template x-for="grupo in $store.app.agruparPorEquipamento($store.app.favoritos)" :key="grupo.id">
+      <div x-show="favoritosLinha.length > 0" class="space-y-2">
+        <template x-for="grupo in $store.app.agruparPorEquipamento(favoritosLinha)" :key="grupo.id">
           <div class="rounded-xl border border-border/70">
             <div class="flex items-center gap-1 px-2 py-2">
               <button @click="$store.app.alternarGrupo('favoritos', grupo.id)"
@@ -165,7 +180,7 @@
                      class="h-3.5 w-3.5 transition-transform" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
               </button>
               <div class="min-w-0 flex-1">
-                <a :href="`/equipamento/${grupo.id}`"
+                <a :href="`/${grupo.linha || 'jc'}/equipamento/${grupo.id}`"
                    class="block truncate text-sm font-semibold hover:underline" x-text="grupo.nome"></a>
                 <span class="text-xs text-muted-foreground" x-text="`${grupo.itens.length} comando${grupo.itens.length === 1 ? '' : 's'}`"></span>
               </div>
@@ -210,20 +225,20 @@
           <h2 class="text-sm font-semibold">Historico recente</h2>
         </div>
         <div class="flex items-center gap-1">
-          <button x-show="$store.app.historico.length > 0"
-                  @click="$store.app.limparHistorico()"
+          <button x-show="historicoLinha.length > 0"
+                  @click="$store.app.limparHistorico(linha)"
                   class="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground">
             <svg class="h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
             Limpar
           </button>
         </div>
       </header>
-      <p x-show="$store.app.historico.length === 0"
+      <p x-show="historicoLinha.length === 0"
          class="px-2.5 py-6 text-center text-sm text-muted-foreground">
         Os comandos que voce copiar aparecem aqui.
       </p>
-      <div x-show="$store.app.historico.length > 0" class="space-y-2">
-        <template x-for="grupo in $store.app.agruparPorEquipamento($store.app.historico)" :key="grupo.id">
+      <div x-show="historicoLinha.length > 0" class="space-y-2">
+        <template x-for="grupo in $store.app.agruparPorEquipamento(historicoLinha)" :key="grupo.id">
           <div class="rounded-xl border border-border/70">
             <div class="flex items-center gap-1 px-2 py-2">
               <button @click="$store.app.alternarGrupo('historico', grupo.id)"
@@ -233,7 +248,7 @@
                      class="h-3.5 w-3.5 transition-transform" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
               </button>
               <div class="min-w-0 flex-1">
-                <a :href="`/equipamento/${grupo.id}`"
+                <a :href="`/${grupo.linha || 'jc'}/equipamento/${grupo.id}`"
                    class="block truncate text-sm font-semibold hover:underline" x-text="grupo.nome"></a>
                 <span class="text-xs text-muted-foreground" x-text="`${grupo.itens.length} comando${grupo.itens.length === 1 ? '' : 's'}`"></span>
               </div>
