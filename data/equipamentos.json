@@ -90,7 +90,7 @@
                   "valor": "2"
                 }
               ],
-              "padrao": "1"
+              "padrao": "2"
             }
           ],
           "grupo": "Configuração Inicial"
@@ -120,7 +120,7 @@
                 "ON",
                 "OFF"
               ],
-              "padrao": "ON"
+              "padrao": "OFF"
             },
             {
               "nome": "nome_wifi",
@@ -311,14 +311,14 @@
                   "valor": "W"
                 }
               ],
-              "padrao": "E"
+              "padrao": "W"
             },
             {
               "nome": "hora",
               "tipo": "numero",
               "min": 0,
               "max": 12,
-              "padrao": "8",
+              "padrao": "3",
               "unidade": "h"
             },
             {
@@ -494,7 +494,8 @@
               "min": 0,
               "max": 1000000000,
               "placeholder": "ex.: 150000",
-              "unidade": "m"
+              "unidade": "m",
+              "padrao": "0"
             }
           ],
           "grupo": "Rastreamento"
@@ -977,7 +978,7 @@
               "padrao": "ADD"
             },
             {
-              "nome": "alias",
+              "nome": "nome",
               "tipo": "texto",
               "placeholder": "sem espaços"
             },
@@ -987,31 +988,29 @@
               "placeholder": "ex.: virtueyes.com.br"
             },
             {
-              "nome": "mcc",
-              "tipo": "texto",
-              "placeholder": "3 dígitos (ex.: 724)",
-              "maxLength": 3
+              "tipo": "fixo",
+              "valor": "",
+              "nome": "_1"
             },
             {
-              "nome": "mnc",
-              "tipo": "texto",
-              "placeholder": "2 ou 3 dígitos",
-              "maxLength": 3
+              "tipo": "fixo",
+              "valor": "",
+              "nome": "_2"
             },
             {
-              "nome": "type",
-              "tipo": "texto",
-              "obrigatorio": false
+              "tipo": "fixo",
+              "valor": "",
+              "nome": "_3"
             },
             {
-              "nome": "proxy",
-              "tipo": "texto",
-              "obrigatorio": false
+              "tipo": "fixo",
+              "valor": "",
+              "nome": "_4"
             },
             {
-              "nome": "port",
-              "tipo": "texto",
-              "obrigatorio": false
+              "tipo": "fixo",
+              "valor": "",
+              "nome": "_5"
             },
             {
               "nome": "user",
@@ -1019,9 +1018,9 @@
               "obrigatorio": false
             },
             {
-              "nome": "server",
-              "tipo": "texto",
-              "obrigatorio": false
+              "tipo": "fixo",
+              "valor": "",
+              "nome": "_6"
             },
             {
               "nome": "password",
@@ -1029,24 +1028,24 @@
               "obrigatorio": false
             },
             {
-              "nome": "mmsc",
-              "tipo": "texto",
-              "obrigatorio": false
+              "tipo": "fixo",
+              "valor": "",
+              "nome": "_7"
             },
             {
-              "nome": "mms_proxy",
-              "tipo": "texto",
-              "obrigatorio": false
+              "tipo": "fixo",
+              "valor": "",
+              "nome": "_8"
             },
             {
-              "nome": "mms_port",
-              "tipo": "texto",
-              "obrigatorio": false
+              "tipo": "fixo",
+              "valor": "",
+              "nome": "_9"
             },
             {
-              "nome": "numeric",
-              "tipo": "texto",
-              "obrigatorio": false
+              "tipo": "fixo",
+              "valor": "",
+              "nome": "_10"
             },
             {
               "nome": "protocol",
@@ -1127,7 +1126,8 @@
               "tipo": "numero",
               "min": 10,
               "max": 120,
-              "unidade": "km/h"
+              "unidade": "km/h",
+              "padrao": "0"
             }
           ],
           "grupo": "IA / ADAS / DMS"
@@ -1151,7 +1151,8 @@
                   "label": "103 — Deep sleep (só plataforma)",
                   "valor": "103"
                 }
-              ]
+              ],
+            "padrao": "103"
             }
           ],
           "grupo": "Rastreamento"
@@ -1312,16 +1313,18 @@
                 "ON",
                 "OFF"
               ],
-              "padrao": "ON"
+              "padrao": "OFF"
             },
             {
               "nome": "nome_wifi",
               "tipo": "texto",
+              "obrigatorio": false,
               "placeholder": "nome da rede"
             },
             {
               "nome": "senha_wifi",
               "tipo": "texto",
+              "obrigatorio": false,
               "placeholder": "senha da rede"
             }
           ],
@@ -1614,7 +1617,8 @@
               "opcoes": [
                 "ON",
                 "OFF"
-              ]
+              ],
+            "padrao": "ON"
             }
           ],
           "grupo": "Sistema"
@@ -1792,12 +1796,14 @@
                 "ON",
                 "OFF"
               ],
-              "padrao": "ON"
+              "padrao": "OFF"
             },
             {
               "nome": "combinacao_cameras",
               "tipo": "texto",
+              "obrigatorio": false,
               "placeholder": "ex.: 1+2"
+              
             }
           ],
           "grupo": "Vídeo"
@@ -1853,7 +1859,8 @@
               "tipo": "numero",
               "min": 0,
               "placeholder": "ex.: 150000",
-              "unidade": "m"
+              "unidade": "m",
+              "padrao" : "0"
             }
           ],
           "grupo": "Rastreamento"
@@ -2542,7 +2549,7 @@
               "padrao": "0"
             }
           ],
-          "grupo": "Sistema"
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "APN",
@@ -2710,6 +2717,7 @@
             {
               "nome": "url_zip_direta",
               "tipo": "texto",
+              "padrao": "http://163.176.131.46/firmware/Audios/PadraoJM.zip",
               "placeholder": "http://.../voz.zip"
             }
           ],
@@ -2770,7 +2778,7 @@
               "placeholder": "http://host:porta/upload"
             }
           ],
-          "grupo": "Vídeo"
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "RSERVICE",
@@ -2823,7 +2831,7 @@
                   "valor": "3"
                 }
               ],
-              "padrao": "1"
+              "padrao": "0"
             },
             {
               "nome": "nome_wifi",
@@ -5144,17 +5152,22 @@
                   "valor": "RM"
                 }
               ],
-              "padrao": "ON"
+              "padrao": "OFF"
             },
             {
               "nome": "nome_wifi",
               "tipo": "texto",
-              "placeholder": "nome da rede"
+              "obrigatório": false,
+              "placeholder": "nome da rede",
+              "padrao": "nome_rede"
+              
             },
             {
               "nome": "senha_wifi",
               "tipo": "texto",
-              "placeholder": "senha da rede"
+              "obrigatório": false,
+              "placeholder": "senha da rede",
+              "padrao": "senha_rede"
             }
           ],
           "grupo": "Rede e WiFi"
@@ -8674,6 +8687,18 @@
           "grupo": "Configuração Inicial"
         },
         {
+         "nome": "RSERVICE",
+          "descricao": "Servidor de streaming do equipamento.",
+          "parametros": [
+            {
+              "nome": "url_streaming",
+              "tipo": "texto",
+              "placeholder": "host:porta/live"
+            }
+          ],
+          "grupo": "Configuração Inicial"
+        },
+        {
           "nome": "WIFIAP",
           "descricao": "Ativa/desativa o hotspot Wi-Fi do dispositivo.",
           "parametros": [
@@ -8699,16 +8724,18 @@
                 "OFF",
                 "RM"
               ],
-              "padrao": "ON"
+              "padrao": "OFF"
             },
             {
               "nome": "nome_wifi",
               "tipo": "texto",
+              "obrigatorio": false,
               "placeholder": "nome da rede"
             },
             {
               "nome": "senha_wifi",
               "tipo": "texto",
+              "obrigatorio": false,
               "placeholder": "senha da rede"
             }
           ],
@@ -8724,7 +8751,7 @@
               "placeholder": "http://servidor.com/upload"
             }
           ],
-          "grupo": "Vídeo"
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "TIMER",
@@ -8944,7 +8971,7 @@
                   "valor": "100"
                 }
               ],
-              "padrao": "100"
+              "padrao": "6"
             }
           ],
           "grupo": "Sistema"

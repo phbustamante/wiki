@@ -50,6 +50,51 @@
       </div>
     </div>
 
+  <!-- Templates de Configuração -->
+ {% if templates_equipamentos %}
+<section class="mb-12">
+  <h2 class="mb-1 text-2xl font-bold tracking-tight sm:text-3xl">Templates de Configuração</h2>
+  <p class="mb-5 max-w-prose text-muted-foreground">
+    Modelos prontos: escolha o equipamento, preencha os dados e gere o arquivo de configuração.
+  </p>
+  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+    {% for grupo in templates_equipamentos %}
+      <a href="{{ url(
+    'templates_do_equipamento',
+    kwargs={
+        'linha': linha,
+        'equipamento_id': grupo.equipamento.id
+    }
+) }}"
+         class="group block focus-visible:outline-none">
+        <div class="h-full rounded-2xl border border-border bg-card p-5 shadow-soft transition-all duration-300 group-hover:-translate-y-0.5 group-hover:shadow-soft-lg group-focus-visible:ring-2 group-focus-visible:ring-ring">
+          <div class="flex items-start justify-between">
+            <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+              <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <svg class="h-5 w-5 text-muted-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:text-foreground" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+          <div class="mt-4">
+            <h3 class="text-lg font-semibold tracking-tight">{{ grupo.equipamento.equipamento }}</h3>
+            <p class="mt-1 line-clamp-2 text-sm text-muted-foreground">{{ grupo.equipamento.descricao }}</p>
+          </div>
+          <div class="mt-4 flex items-center gap-2">
+            <span class="inline-flex items-center rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-foreground">
+             {{ grupo.quantidade_templates }} template{{ '' if grupo.quantidade_templates == 1 else 's' }}
+            </span>
+            {% if grupo.equipamento.categoria %}
+              <span class="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
+                {{ grupo.equipamento.categoria }}
+              </span>
+            {% endif %}
+          </div>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
     <!-- Automação de Comandos -->
     <section>
       <h2 class="mb-5 text-2xl font-bold tracking-tight sm:text-3xl">Automação de Comandos</h2>
