@@ -105,7 +105,7 @@
         <svg class="h-10 w-10 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14"/><path d="m7.5 4.27 9 5.15"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" x2="12" y1="22" y2="12"/><circle cx="18.5" cy="15.5" r="2.5"/><path d="M20.27 17.27 22 19"/></svg>
         <p class="text-sm text-muted-foreground">
           Nenhum equipamento encontrado para
-          <span x-text="`"${busca}"`" class="font-medium text-foreground"></span>.
+          <span x-text='`"${busca}"`' class="font-medium text-foreground"></span>.
         </p>
       </div>
 
@@ -158,7 +158,7 @@
         <p class="text-sm text-muted-foreground">
           Nenhuma atualização encontrada
           <template x-if="busca">
-            <span> para <span x-text="`"${busca}"`" class="font-medium text-foreground"></span></span>
+            <span> para <span x-text='`"${busca}"`' class="font-medium text-foreground"></span></span>
           </template>.
         </p>
       </div>
@@ -195,12 +195,280 @@
     </section>
   </div>
 
-  <!-- ── Sidebar: Favoritos + Histórico ── -->
+  <!-- ── Sidebar: Ferramentas (VL) + Favoritos + Histórico ── -->
   <aside class="space-y-4 lg:sticky lg:top-32"
          x-data="{
            get favoritosLinha() { return $store.app.favoritos.filter(f => (f.linha || 'jc') === linha); },
            get historicoLinha() { return $store.app.historico.filter(h => (h.linha || 'jc') === linha); },
          }">
+
+    <!-- Ferramentas -->
+    <div x-data="{
+      aberto: false,
+      ferramenta: null,
+      ferramentas: [
+        {
+          id: 'wifikit',
+          nome: 'WifiKit',
+          descricao: 'Utilitário para configuração de rede WiFi nos rastreadores da linha VL via USB.',
+          como_baixar: 'Baixe o instalador oficial do WifiKit no link abaixo e execute como administrador.',
+          downloads: [
+            { nome: 'WifiKit para Android', url: 'https://play.google.com/store/apps/details?id=com.gpstrack.wifikit&hl=pt_BR&pli=1', versao: '', tamanho: '' },
+            { nome: 'WifiKit para iOS', url: 'https://apps.apple.com/br/app/wifikit/id6471400094', versao: '', tamanho: '' }
+          ],
+          como_utilizar: 'Siga os passos abaixo para configurar a rede WiFi no rastreador.',
+          passos: [
+            { titulo: 'Passo a Passo', descricao: 'inserir ainda....' },
+            { titulo: 'Passo a Passo', descricao: 'inserir ainda....' },
+            { titulo: 'Passo a Passo', descricao: 'inserir ainda....' },
+            { titulo: 'Passo a Passo', descricao: 'inserir ainda....' },
+            { titulo: 'Passo a Passo', descricao: 'inserir ainda....' }
+          ],
+          imagens: []
+        },
+        {
+          id: 'vysor',
+          nome: 'Vysor',
+          descricao: 'Espelhamento e controle remoto de dispositivos Android via cabo USB.',
+          como_baixar: 'Instale o Vysor pelo site oficial ou adicione a extensão ao Google Chrome.',
+          downloads: [
+            { nome: 'Vysor (site oficial)', url: 'https://www.vysor.io/', versao: '', tamanho: '' }
+          ],
+          como_utilizar: 'Siga as etapas abaixo para espelhar e controlar o dispositivo.',
+          passos: [
+            { titulo: 'Instalar o Vysor', descricao: 'Baixe e instale o aplicativo desktop ou adicione a extensão ao Chrome a partir dos links acima.' },
+            { titulo: 'Ativar depuração USB', descricao: 'No dispositivo Android: Configurações → Sobre o dispositivo → toque 7× em Número da versão. Em seguida, Opções do desenvolvedor → Depuração USB: ativado.' },
+            { titulo: 'Conectar o dispositivo', descricao: 'Conecte o dispositivo ao computador via USB. Quando solicitado no dispositivo, toque em Permitir depuração USB.' },
+            { titulo: 'Abrir o Vysor', descricao: 'Execute o Vysor. O dispositivo aparecerá na lista. Clique em View para iniciar o espelhamento.' },
+            { titulo: 'Controlar remotamente', descricao: 'Use o mouse e teclado do computador para interagir com o dispositivo diretamente na janela do Vysor.' }
+          ],
+          imagens: []
+        }
+      ]
+    }">
+
+      <!-- Card Ferramentas -->
+      <div class="rounded-2xl border border-border bg-card shadow-soft">
+        <button @click="aberto = !aberto"
+                class="flex w-full items-center justify-between px-4 py-3 text-left transition-colors hover:bg-accent/40 rounded-2xl">
+          <div class="flex items-center gap-2">
+            <svg class="h-4 w-4 text-violet-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            <h2 class="text-sm font-semibold">Ferramentas</h2>
+            <span class="flex h-4 w-4 items-center justify-center rounded-full bg-violet-500/15 text-[9px] font-bold text-violet-600 dark:text-violet-400">2</span>
+          </div>
+          <svg :class="aberto ? 'rotate-180' : ''"
+               class="h-4 w-4 text-muted-foreground transition-transform duration-200"
+               xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m6 9 6 6 6-6"/>
+          </svg>
+        </button>
+
+        <!-- Lista -->
+        <div x-show="aberto"
+             x-transition:enter="transition ease-out duration-150"
+             x-transition:enter-start="opacity-0 -translate-y-1"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             class="border-t border-border px-3 pb-3 pt-2 space-y-1">
+          <template x-for="f in ferramentas" :key="f.id">
+            <button @click="ferramenta = f"
+                    class="group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-colors hover:bg-accent">
+              <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-violet-500/10">
+                <svg class="h-4 w-4 text-violet-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="10" x="2" y="3" rx="2"/><path d="M10 17v4m4-4v4M2 13h20"/></svg>
+              </div>
+              <div class="min-w-0 flex-1">
+                <p class="text-sm font-semibold" x-text="f.nome"></p>
+                <p class="truncate text-xs text-muted-foreground" x-text="f.descricao"></p>
+              </div>
+              <svg class="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5"
+                   xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m9 18 6-6-6-6"/>
+              </svg>
+            </button>
+          </template>
+        </div>
+      </div>
+
+      <!-- ── Modal: detalhe da ferramenta ──
+           x-teleport move o modal para <body> evitando que o transform
+           do animate-fade-in no <main> crie um containing block para fixed -->
+      <template x-teleport="body">
+      <div x-show="ferramenta"
+           x-transition:enter="transition ease-out duration-200"
+           x-transition:enter-start="opacity-0 translate-y-2"
+           x-transition:enter-end="opacity-100 translate-y-0"
+           x-transition:leave="transition ease-in duration-150"
+           x-transition:leave-start="opacity-100 translate-y-0"
+           x-transition:leave-end="opacity-0 translate-y-2"
+           class="fixed inset-0 z-[100] overflow-y-auto scroll-thin bg-background">
+
+        <div class="mx-auto max-w-4xl px-4 py-8 sm:px-6">
+
+          <!-- Voltar -->
+          <button @click="ferramenta = null"
+                  class="mb-6 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground">
+            <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+            Voltar para Ferramentas
+          </button>
+
+          <!-- Cabeçalho -->
+          <div class="mb-8">
+            <span class="text-xs font-medium uppercase tracking-wider text-violet-500">Linha VL — Ferramentas</span>
+            <h1 class="mt-1 text-3xl font-bold tracking-tight sm:text-4xl" x-text="ferramenta && ferramenta.nome"></h1>
+            <p class="mt-2 max-w-prose text-muted-foreground" x-text="ferramenta && ferramenta.descricao"></p>
+          </div>
+
+          <div class="grid gap-6 lg:grid-cols-2 lg:items-start">
+
+            <!-- Como utilizar (passo a passo) — largura total -->
+            <div class="rounded-2xl border border-border bg-card p-5 shadow-soft sm:p-6 lg:col-span-2">
+              <div class="mb-4 flex items-center gap-2.5">
+                <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-500/10 text-violet-500">
+                  <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/><path d="M13 6h8"/><path d="M13 12h8"/><path d="M13 18h8"/></svg>
+                </span>
+                <h2 class="text-base font-semibold tracking-tight">Como utilizar</h2>
+              </div>
+              <p x-show="ferramenta && ferramenta.como_utilizar"
+                 x-text="ferramenta && ferramenta.como_utilizar"
+                 class="mb-5 text-sm text-muted-foreground"></p>
+              <ol class="space-y-4">
+                <template x-for="(passo, i) in (ferramenta && ferramenta.passos) || []" :key="i">
+                  <li class="flex gap-3.5">
+                    <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground"
+                          x-text="i + 1"></span>
+                    <div class="pt-0.5">
+                      <p class="font-medium" x-text="passo.titulo"></p>
+                      <p class="mt-0.5 text-sm leading-relaxed text-muted-foreground" x-text="passo.descricao"></p>
+                    </div>
+                  </li>
+                </template>
+              </ol>
+            </div>
+
+            <!-- Como baixar (downloads) -->
+            <div class="rounded-2xl border border-border bg-card p-5 shadow-soft sm:p-6">
+              <div class="mb-4 flex items-center gap-2.5">
+                <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-accent text-foreground">
+                  <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                </span>
+                <h2 class="text-base font-semibold tracking-tight">Como baixar</h2>
+              </div>
+              <p x-show="ferramenta && ferramenta.como_baixar"
+                 x-text="ferramenta && ferramenta.como_baixar"
+                 class="mb-4 text-sm text-muted-foreground"></p>
+              <ul class="space-y-2">
+                <template x-for="(d, i) in (ferramenta && ferramenta.downloads) || []" :key="i">
+                  <li>
+                    <template x-if="d.url && d.url !== '#'">
+                      <a :href="d.url" target="_blank" rel="noopener noreferrer"
+                         class="group flex items-center gap-3 rounded-xl border border-border bg-card px-3.5 py-3 transition-colors hover:bg-accent">
+                        <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-violet-500/10 text-violet-500">
+                          <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                        </span>
+                        <div class="min-w-0 flex-1">
+                          <p class="truncate text-sm font-medium" x-text="d.nome"></p>
+                          <p class="text-xs text-muted-foreground"
+                             x-text="[d.versao ? 'v' + d.versao : '', d.tamanho].filter(Boolean).join(' · ')"></p>
+                        </div>
+                        <svg class="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                      </a>
+                    </template>
+                    <template x-if="!d.url || d.url === '#'">
+                      <div class="flex cursor-not-allowed items-center gap-3 rounded-xl border border-dashed border-border px-3.5 py-3 opacity-60">
+                        <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
+                          <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                        </span>
+                        <div class="min-w-0 flex-1">
+                          <p class="truncate text-sm font-medium" x-text="d.nome"></p>
+                          <p class="text-xs text-muted-foreground">link em breve</p>
+                        </div>
+                      </div>
+                    </template>
+                  </li>
+                </template>
+              </ul>
+            </div>
+
+            <!-- Imagens -->
+            <div class="rounded-2xl border border-border bg-card p-5 shadow-soft sm:p-6">
+              <div class="mb-4 flex items-center gap-2.5">
+                <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-accent text-foreground">
+                  <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 22H4a2 2 0 0 1-2-2V6"/><path d="m22 13-1.296-1.296a2.41 2.41 0 0 0-3.408 0L11 18"/><circle cx="12" cy="8" r="2"/><rect width="16" height="16" x="6" y="2" rx="2"/></svg>
+                </span>
+                <h2 class="text-base font-semibold tracking-tight">Imagens</h2>
+              </div>
+              <template x-if="ferramenta && ferramenta.imagens && ferramenta.imagens.length > 0">
+                <div class="grid grid-cols-2 gap-3">
+                  <template x-for="(img, i) in ferramenta.imagens" :key="i">
+                    <figure class="overflow-hidden rounded-xl border border-border">
+                      <img :src="img.url" :alt="img.legenda || 'Imagem ' + (i + 1)"
+                           loading="lazy" class="aspect-video w-full object-cover" />
+                      <figcaption x-show="img.legenda" x-text="img.legenda"
+                                  class="px-3 py-2 text-xs text-muted-foreground"></figcaption>
+                    </figure>
+                  </template>
+                </div>
+              </template>
+              <template x-if="!(ferramenta && ferramenta.imagens && ferramenta.imagens.length > 0)">
+                <p class="rounded-xl border border-dashed border-border px-4 py-6 text-center text-sm text-muted-foreground">
+                  Nenhuma imagem cadastrada ainda.
+                </p>
+              </template>
+            </div>
+
+            <!-- Vídeo — largura total -->
+            <div class="rounded-2xl border border-border bg-card p-5 shadow-soft sm:p-6 lg:col-span-2"
+                 x-data="videoUpload()">
+              <div class="mb-4 flex items-center gap-2.5">
+                <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-accent text-foreground">
+                  <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m10 11 5 3-5 3v-6Z"/></svg>
+                </span>
+                <h2 class="text-base font-semibold tracking-tight">Vídeo do processo</h2>
+              </div>
+
+              <!-- Vídeo carregado -->
+              <div x-show="video" class="space-y-3">
+                <video :src="video && video.url" controls
+                       class="w-full rounded-xl border border-border bg-black"></video>
+                <div class="flex items-center gap-3 rounded-xl border border-border bg-card px-3.5 py-2.5">
+                  <svg class="h-4 w-4 shrink-0 text-emerald-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m10 11 5 3-5 3v-6Z"/></svg>
+                  <div class="min-w-0 flex-1">
+                    <p class="truncate text-sm font-medium" x-text="video && video.nome"></p>
+                    <p class="text-xs text-muted-foreground" x-text="video && video.tamanho"></p>
+                  </div>
+                  <button @click="remover()"
+                          class="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground">
+                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                    Remover
+                  </button>
+                </div>
+              </div>
+
+              <!-- Área de upload -->
+              <div x-show="!video">
+                <button type="button"
+                        @click="$refs.fileInputFerramenta.click()"
+                        @dragover.prevent="arrastando = true"
+                        @dragleave="arrastando = false"
+                        @drop="onDrop($event)"
+                        :class="arrastando ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/40 hover:bg-accent/40'"
+                        class="flex w-full flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed px-6 py-10 text-center transition-colors duration-200">
+                  <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent text-foreground">
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 16 12 12 8 16"/><line x1="12" x2="12" y1="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
+                  </span>
+                  <span class="text-sm font-medium">Arraste um vídeo ou clique para selecionar</span>
+                  <span class="text-xs text-muted-foreground">MP4, MOV ou WebM</span>
+                </button>
+                <input x-ref="fileInputFerramenta" type="file" accept="video/*" class="hidden"
+                       @change="selecionar($event.target.files[0])" />
+              </div>
+            </div>
+
+          </div><!-- /grid modal -->
+        </div><!-- /max-w -->
+      </div><!-- /modal overlay -->
+      </template><!-- /x-teleport -->
+
+    </div><!-- /x-data ferramentas -->
 
     <!-- Favoritos -->
     <div class="rounded-2xl border border-border bg-card p-4 shadow-soft">

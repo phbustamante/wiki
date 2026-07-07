@@ -1152,7 +1152,7 @@
                   "valor": "103"
                 }
               ],
-            "padrao": "103"
+              "padrao": "103"
             }
           ],
           "grupo": "Rastreamento"
@@ -1618,7 +1618,7 @@
                 "ON",
                 "OFF"
               ],
-            "padrao": "ON"
+              "padrao": "ON"
             }
           ],
           "grupo": "Sistema"
@@ -1803,7 +1803,6 @@
               "tipo": "texto",
               "obrigatorio": false,
               "placeholder": "ex.: 1+2"
-              
             }
           ],
           "grupo": "Vídeo"
@@ -1860,7 +1859,7 @@
               "min": 0,
               "placeholder": "ex.: 150000",
               "unidade": "m",
-              "padrao" : "0"
+              "padrao": "0"
             }
           ],
           "grupo": "Rastreamento"
@@ -5160,7 +5159,6 @@
               "obrigatório": false,
               "placeholder": "nome da rede",
               "padrao": "nome_rede"
-              
             },
             {
               "nome": "senha_wifi",
@@ -8687,7 +8685,7 @@
           "grupo": "Configuração Inicial"
         },
         {
-         "nome": "RSERVICE",
+          "nome": "RSERVICE",
           "descricao": "Servidor de streaming do equipamento.",
           "parametros": [
             {
@@ -10910,7 +10908,8 @@
       "comandos": [
         {
           "nome": "APN",
-          "descricao": "Configura o APN da operadora. Usuário e senha opcionais para APNs privados.",
+          "descricao": "Configura o APN da operadora.",
+          "grupo": "Configuração Inicial",
           "parametros": [
             {
               "nome": "apn",
@@ -10927,12 +10926,12 @@
               "tipo": "texto",
               "obrigatorio": false
             }
-          ],
-          "grupo": "Rede"
+          ]
         },
         {
           "nome": "SERVER",
-          "descricao": "Define o servidor de destino. Modo 0 = IP direto, 1 = domínio DNS.",
+          "descricao": "Define o servidor de destino (modo 0 = IP, 1 = domínio DNS).",
+          "grupo": "Configuração Inicial",
           "parametros": [
             {
               "nome": "modo",
@@ -10942,7 +10941,7 @@
                   "valor": "0"
                 },
                 {
-                  "label": "1 — Domínio",
+                  "label": "1 — Domínio (DNS)",
                   "valor": "1"
                 }
               ],
@@ -10958,12 +10957,12 @@
               "tipo": "texto",
               "placeholder": "ex.: 21100"
             }
-          ],
-          "grupo": "Rede"
+          ]
         },
         {
           "nome": "GPRS",
           "descricao": "Ativa ou desativa a conexão de dados GPRS/4G.",
+          "grupo": "Rede e WiFi",
           "parametros": [
             {
               "nome": "status",
@@ -10973,12 +10972,12 @@
               ],
               "padrao": "ON"
             }
-          ],
-          "grupo": "Rede"
+          ]
         },
         {
-          "nome": "GPSDUP",
-          "descricao": "Upload de dados GPS. Recomendado OFF para economizar energia (somente modo 1 é válido).",
+          "nome": "GPRSALM",
+          "descricao": "Alerta via SMS quando o servidor não responde (GPRS bloqueado).",
+          "grupo": "Rede e WiFi",
           "parametros": [
             {
               "nome": "status",
@@ -10986,31 +10985,82 @@
                 "ON",
                 "OFF"
               ],
-              "padrao": "OFF"
+              "padrao": "ON"
             }
-          ],
-          "grupo": "Rede"
+          ]
+        },
+        {
+          "nome": "GMT",
+          "descricao": "Configura o fuso horário.",
+          "grupo": "Rede e WiFi",
+          "parametros": [
+            {
+              "nome": "direcao",
+              "opcoes": [
+                {
+                  "label": "E — Leste (Oriental)",
+                  "valor": "E"
+                },
+                {
+                  "label": "W — Oeste (Ocidental)",
+                  "valor": "W"
+                }
+              ],
+              "padrao": "E"
+            },
+            {
+              "nome": "horas",
+              "tipo": "numero",
+              "descricao": "Fuso horário (0-12)",
+              "min": 0,
+              "max": 12,
+              "padrao": 8
+            },
+            {
+              "nome": "minutos",
+              "opcoes": [
+                {
+                  "label": "0",
+                  "valor": "0"
+                },
+                {
+                  "label": "15",
+                  "valor": "15"
+                },
+                {
+                  "label": "30",
+                  "valor": "30"
+                },
+                {
+                  "label": "45",
+                  "valor": "45"
+                }
+              ],
+              "padrao": "0"
+            }
+          ]
         },
         {
           "nome": "MODE",
-          "descricao": "Modo 1 (periódico): envia localização em intervalo fixo. T = 0 desativa ou 10–86400s. GPS/Wi-Fi/LBS ligados por padrão; BLE desligado.",
+          "descricao": "Modo 1 — Posicionamento temporizado. Define intervalo fixo de localização.",
+          "grupo": "Rastreamento",
           "parametros": [
             {
-              "nome": "modo",
+              "nome": "N",
               "tipo": "fixo",
               "valor": "1"
             },
             {
-              "nome": "intervalo",
+              "nome": "T",
               "tipo": "numero",
+              "descricao": "Intervalo de localização (0=desativar, 10-86400)",
               "min": 0,
               "max": 86400,
-              "padrao": "60",
-              "unidade": "s",
-              "placeholder": "0 ou 10–86400"
+              "unidade": "s"
             },
             {
-              "nome": "gps",
+              "nome": "A",
+              "descricao": "GPS",
               "opcoes": [
                 {
                   "label": "1 — GPS ON",
@@ -11024,21 +11074,23 @@
               "padrao": "1"
             },
             {
-              "nome": "wifi",
+              "nome": "B",
+              "descricao": "WiFi",
               "opcoes": [
                 {
-                  "label": "1 — Wi-Fi ON",
+                  "label": "1 — WiFi ON",
                   "valor": "1"
                 },
                 {
-                  "label": "0 — Wi-Fi OFF",
+                  "label": "0 — WiFi OFF",
                   "valor": "0"
                 }
               ],
               "padrao": "1"
             },
             {
-              "nome": "lbs",
+              "nome": "C",
+              "descricao": "LBS",
               "opcoes": [
                 {
                   "label": "1 — LBS ON",
@@ -11052,7 +11104,8 @@
               "padrao": "1"
             },
             {
-              "nome": "ble",
+              "nome": "D",
+              "descricao": "BLE",
               "opcoes": [
                 {
                   "label": "0 — BLE OFF",
@@ -11065,56 +11118,65 @@
               ],
               "padrao": "0"
             }
-          ],
-          "grupo": "Modo de Trabalho"
+          ]
         },
         {
           "nome": "MODE",
-          "descricao": "Modo 2 (smart): T1 = intervalo em movimento (10–86400s), T2 = intervalo parado (0 = sem upload, ou 180–86400s). GPRS pode ser desligado quando inativo.",
+          "descricao": "Modo 2 — Posicionamento inteligente. Intervalos diferentes em movimento e parado.",
+          "grupo": "Rastreamento",
           "parametros": [
             {
-              "nome": "modo",
+              "nome": "N",
               "tipo": "fixo",
               "valor": "2"
             },
             {
-              "nome": "intervalo_movel",
+              "nome": "T1",
               "tipo": "numero",
+              "descricao": "Intervalo em movimento (10-86400)",
               "min": 10,
               "max": 86400,
-              "padrao": "20",
-              "unidade": "s"
+              "unidade": "s",
+              "padrao": 20
             },
             {
-              "nome": "intervalo_parado",
+              "nome": "T2",
               "tipo": "numero",
+              "descricao": "Intervalo parado (0=sem upload, 180-86400)",
               "min": 0,
               "max": 86400,
-              "padrao": "0",
               "unidade": "s",
-              "placeholder": "0 ou 180–86400"
+              "padrao": 0
             },
             {
-              "nome": "gps",
-              "tipo": "fixo",
-              "valor": "1"
-            },
-            {
-              "nome": "wifi",
+              "nome": "A",
+              "descricao": "GPS (fixo em 1)",
               "opcoes": [
                 {
-                  "label": "1 — Wi-Fi ON",
+                  "label": "1 — GPS ON",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "1"
+            },
+            {
+              "nome": "B",
+              "descricao": "WiFi",
+              "opcoes": [
+                {
+                  "label": "1 — WiFi ON",
                   "valor": "1"
                 },
                 {
-                  "label": "0 — Wi-Fi OFF",
+                  "label": "0 — WiFi OFF",
                   "valor": "0"
                 }
               ],
               "padrao": "1"
             },
             {
-              "nome": "lbs",
+              "nome": "C",
+              "descricao": "LBS",
               "opcoes": [
                 {
                   "label": "1 — LBS ON",
@@ -11128,7 +11190,8 @@
               "padrao": "1"
             },
             {
-              "nome": "ble",
+              "nome": "D",
+              "descricao": "BLE",
               "opcoes": [
                 {
                   "label": "0 — BLE OFF",
@@ -11142,46 +11205,49 @@
               "padrao": "0"
             },
             {
-              "nome": "gprs_inativo",
+              "nome": "E",
+              "descricao": "GPRS",
               "opcoes": [
                 {
-                  "label": "1 — GPRS sempre ligado",
+                  "label": "1 — Sempre ON",
                   "valor": "1"
                 },
                 {
-                  "label": "0 — GPRS desliga quando parado",
+                  "label": "0 — OFF quando inativo",
                   "valor": "0"
                 }
               ],
               "padrao": "1"
             }
-          ],
-          "grupo": "Modo de Trabalho"
+          ]
         },
         {
           "nome": "MODE",
-          "descricao": "Modo 3 (economia de bateria): acorda no horário T1 e envia localização com intervalo T2 (minutos).",
+          "descricao": "Modo 3 — Economia de bateria. GPS ativa em horários programados.",
+          "grupo": "Rastreamento",
           "parametros": [
             {
-              "nome": "modo",
+              "nome": "N",
               "tipo": "fixo",
               "valor": "3"
             },
             {
-              "nome": "hora_inicio",
+              "nome": "T1",
               "tipo": "texto",
-              "placeholder": "HH:MM"
+              "descricao": "Hora de início (HH:MM)",
+              "placeholder": "ex.: 08:00"
             },
             {
-              "nome": "intervalo",
+              "nome": "T2",
               "tipo": "numero",
+              "descricao": "Intervalo (5-43200)",
               "min": 5,
               "max": 43200,
-              "padrao": "1440",
               "unidade": "min"
             },
             {
-              "nome": "gps",
+              "nome": "A",
+              "descricao": "GPS",
               "opcoes": [
                 {
                   "label": "1 — GPS ON",
@@ -11195,21 +11261,23 @@
               "padrao": "1"
             },
             {
-              "nome": "wifi",
+              "nome": "B",
+              "descricao": "WiFi",
               "opcoes": [
                 {
-                  "label": "1 — Wi-Fi ON",
+                  "label": "1 — WiFi ON",
                   "valor": "1"
                 },
                 {
-                  "label": "0 — Wi-Fi OFF",
+                  "label": "0 — WiFi OFF",
                   "valor": "0"
                 }
               ],
               "padrao": "1"
             },
             {
-              "nome": "lbs",
+              "nome": "C",
+              "descricao": "LBS",
               "opcoes": [
                 {
                   "label": "1 — LBS ON",
@@ -11223,7 +11291,8 @@
               "padrao": "1"
             },
             {
-              "nome": "ble",
+              "nome": "D",
+              "descricao": "BLE",
               "opcoes": [
                 {
                   "label": "0 — BLE OFF",
@@ -11236,12 +11305,93 @@
               ],
               "padrao": "0"
             }
-          ],
-          "grupo": "Modo de Trabalho"
+          ]
+        },
+        {
+          "nome": "GPSDUP",
+          "descricao": "Carrega posição GPS mesmo sem fix ou em repouso.",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            }
+          ]
+        },
+        {
+          "nome": "SCS",
+          "descricao": "Envio periódico de status ao servidor.",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "intervalo",
+              "tipo": "numero",
+              "descricao": "Intervalo (1-3600)",
+              "min": 1,
+              "max": 3600,
+              "unidade": "s",
+              "padrao": 5
+            }
+          ]
+        },
+        {
+          "nome": "AUTOSLEEP",
+          "descricao": "Gerencia transição automática de modo de consumo por nível de bateria.",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "B",
+              "tipo": "numero",
+              "descricao": "% bateria para alto→baixo consumo (10-90)",
+              "min": 10,
+              "max": 90,
+              "unidade": "%",
+              "padrao": 20
+            },
+            {
+              "nome": "C",
+              "tipo": "numero",
+              "descricao": "% bateria para baixo→alto consumo (20-100)",
+              "min": 20,
+              "max": 100,
+              "unidade": "%",
+              "padrao": 30
+            },
+            {
+              "nome": "D",
+              "tipo": "numero",
+              "descricao": "Intervalo no modo 3 (5-43200)",
+              "min": 5,
+              "max": 43200,
+              "unidade": "min",
+              "padrao": 1440
+            }
+          ]
         },
         {
           "nome": "SENALM",
-          "descricao": "Alarme de vibração: A = ON/OFF, M = 0 (só GPRS) ou 1 (SMS+GPRS).",
+          "descricao": "Alarme de vibração.",
+          "grupo": "Eventos",
           "parametros": [
             {
               "nome": "status",
@@ -11255,7 +11405,7 @@
               "nome": "modo",
               "opcoes": [
                 {
-                  "label": "0 — Só GPRS",
+                  "label": "0 — Somente GPRS",
                   "valor": "0"
                 },
                 {
@@ -11265,41 +11415,26 @@
               ],
               "padrao": "1"
             }
-          ],
-          "grupo": "Alertas"
+          ]
         },
         {
           "nome": "LEVEL",
-          "descricao": "Sensibilidade do sensor de vibração. 1 = mais sensível, 5 = menos sensível. Padrão: 3.",
+          "descricao": "Sensibilidade do sensor de vibração (1 = mais sensível).",
+          "grupo": "Eventos",
           "parametros": [
             {
               "nome": "nivel",
               "tipo": "numero",
               "min": 1,
               "max": 5,
-              "padrao": "3"
+              "padrao": 3
             }
-          ],
-          "grupo": "Alertas"
-        },
-        {
-          "nome": "GPRSALM",
-          "descricao": "Envia SMS quando o servidor não responde (bloqueio GPRS).",
-          "parametros": [
-            {
-              "nome": "status",
-              "opcoes": [
-                "ON",
-                "OFF"
-              ],
-              "padrao": "OFF"
-            }
-          ],
-          "grupo": "Alertas"
+          ]
         },
         {
           "nome": "REMALM",
-          "descricao": "Alarme de remoção/violação: A = ON/OFF, M = 0 (só GPRS) ou 1 (SMS+GPRS).",
+          "descricao": "Alarme anti-remoção da tampa.",
+          "grupo": "Eventos",
           "parametros": [
             {
               "nome": "status",
@@ -11313,7 +11448,7 @@
               "nome": "modo",
               "opcoes": [
                 {
-                  "label": "0 — Só GPRS",
+                  "label": "0 — Somente GPRS",
                   "valor": "0"
                 },
                 {
@@ -11323,18 +11458,12 @@
               ],
               "padrao": "0"
             }
-          ],
-          "grupo": "Alertas"
-        },
-        {
-          "nome": "CANCEL",
-          "descricao": "Cancela o modo de rastreamento ativado após alarme de violação.",
-          "parametros": [],
-          "grupo": "Alertas"
+          ]
         },
         {
           "nome": "SPEAK",
-          "descricao": "Controla o buzzer no alarme de remoção. T = duração do som (1–300s). Padrão: ON, 60s.",
+          "descricao": "Configura o buzzer sonoro no alarme de remoção.",
+          "grupo": "Eventos",
           "parametros": [
             {
               "nome": "status",
@@ -11347,17 +11476,24 @@
             {
               "nome": "duracao",
               "tipo": "numero",
+              "descricao": "Duração do som (1-300)",
               "min": 1,
               "max": 300,
-              "padrao": "60",
-              "unidade": "s"
+              "unidade": "s",
+              "padrao": 60
             }
-          ],
-          "grupo": "Buzzer"
+          ]
         },
         {
-          "nome": "AUTOSLEEP",
-          "descricao": "Sleep automático por nível de bateria: B = % para entrar no sleep (10–90), C = % para sair (20–100), D = intervalo no modo 3 (min).",
+          "nome": "CANCEL",
+          "descricao": "Cancela o modo de rastreamento de alarme e restaura o modo normal.",
+          "grupo": "Controle",
+          "parametros": []
+        },
+        {
+          "nome": "RFID",
+          "descricao": "Habilita ou desabilita o leitor RFID.",
+          "grupo": "Outros",
           "parametros": [
             {
               "nome": "status",
@@ -11366,60 +11502,13 @@
                 "OFF"
               ],
               "padrao": "OFF"
-            },
-            {
-              "nome": "bat_sleep",
-              "tipo": "numero",
-              "min": 10,
-              "max": 90,
-              "padrao": "20",
-              "unidade": "%"
-            },
-            {
-              "nome": "bat_wake",
-              "tipo": "numero",
-              "min": 20,
-              "max": 100,
-              "padrao": "30",
-              "unidade": "%"
-            },
-            {
-              "nome": "intervalo_modo3",
-              "tipo": "numero",
-              "min": 5,
-              "max": 43200,
-              "padrao": "1440",
-              "unidade": "min"
             }
-          ],
-          "grupo": "Energia"
-        },
-        {
-          "nome": "SCS",
-          "descricao": "Envia status periódico ao servidor: A = ON/OFF, B = intervalo (1–3600s).",
-          "parametros": [
-            {
-              "nome": "status",
-              "opcoes": [
-                "ON",
-                "OFF"
-              ],
-              "padrao": "OFF"
-            },
-            {
-              "nome": "intervalo",
-              "tipo": "numero",
-              "min": 1,
-              "max": 3600,
-              "padrao": "5",
-              "unidade": "s"
-            }
-          ],
-          "grupo": "Status"
+          ]
         },
         {
           "nome": "BTMAC",
-          "descricao": "Gerencia sensores BLE por MAC address. Use ADD para adicionar (até 10) ou DELALL para remover todos.",
+          "descricao": "Gerencia sensores Bluetooth por endereço MAC (até 10 sensores).",
+          "grupo": "Outros",
           "parametros": [
             {
               "nome": "acao",
@@ -11436,28 +11525,78 @@
               "padrao": "ADD"
             },
             {
-              "nome": "macs",
+              "nome": "MAC 1",
               "tipo": "texto",
-              "placeholder": "MAC0,MAC1,... (até 10)",
+              "descricao": "Endereço MAC do 1º sensor BT",
+              "obrigatorio": false
+            },
+            {
+              "nome": "MAC 2",
+              "tipo": "texto",
+              "descricao": "Endereço MAC do 2º sensor BT",
+              "obrigatorio": false
+            },
+            {
+              "nome": "MAC 3",
+              "tipo": "texto",
+              "descricao": "Endereço MAC do 3º sensor BT",
               "obrigatorio": false
             }
-          ],
-          "grupo": "Bluetooth"
+          ]
         },
         {
-          "nome": "RFID",
-          "descricao": "Ativa ou desativa o leitor RFID.",
-          "parametros": [
-            {
-              "nome": "status",
-              "opcoes": [
-                "ON",
-                "OFF"
-              ],
-              "padrao": "ON"
-            }
-          ],
-          "grupo": "RFID"
+          "nome": "BMT",
+          "descricao": "Consulta método de carregamento, tensão, temperatura e corrente da bateria.",
+          "grupo": "Consultas",
+          "parametros": []
+        },
+        {
+          "nome": "CHECK",
+          "descricao": "Exibe status de trabalho e principais parâmetros do dispositivo.",
+          "grupo": "Consultas",
+          "parametros": []
+        },
+        {
+          "nome": "VERSION",
+          "descricao": "Consulta a versão do firmware.",
+          "grupo": "Consultas",
+          "parametros": []
+        },
+        {
+          "nome": "GPRSSET",
+          "descricao": "Consulta as configurações de servidor e APN.",
+          "grupo": "Consultas",
+          "parametros": []
+        },
+        {
+          "nome": "STATUS",
+          "descricao": "Solicita o status geral do equipamento.",
+          "grupo": "Consultas",
+          "parametros": []
+        },
+        {
+          "nome": "WHERE",
+          "descricao": "Retorna link com as coordenadas GPS atuais.",
+          "grupo": "Consultas",
+          "parametros": []
+        },
+        {
+          "nome": "POSITION",
+          "descricao": "Retorna a posição GPS (somente via SMS).",
+          "grupo": "Consultas",
+          "parametros": []
+        },
+        {
+          "nome": "RESET",
+          "descricao": "Reinicia o equipamento em 20 segundos.",
+          "grupo": "Sistema",
+          "parametros": []
+        },
+        {
+          "nome": "FACTORY",
+          "descricao": "Restaura configurações de fábrica (exceto servidor e APN).",
+          "grupo": "Sistema",
+          "parametros": []
         }
       ]
     },
@@ -11467,7 +11606,1177 @@
       "descricao": "Rastreador veicular linha VL — comandos em cadastro.",
       "categoria": "Rastreador",
       "linha": "vl",
-      "comandos": []
+      "comandos": [
+        {
+          "nome": "APN",
+          "descricao": "Configura o APN da operadora.",
+          "grupo": "Configuração Inicial",
+          "parametros": [
+            {
+              "nome": "apn",
+              "tipo": "texto",
+              "placeholder": "ex.: claro.com.br"
+            },
+            {
+              "nome": "usuario",
+              "tipo": "texto",
+              "obrigatorio": false
+            },
+            {
+              "nome": "senha",
+              "tipo": "texto",
+              "obrigatorio": false
+            }
+          ]
+        },
+        {
+          "nome": "ASETAPN",
+          "descricao": "Configuração automática de APN. Desativar ao usar APN privada.",
+          "grupo": "Configuração Inicial",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            }
+          ]
+        },
+        {
+          "nome": "SERVER",
+          "descricao": "Define o servidor de destino (modo 0 = IP, 1 = domínio).",
+          "grupo": "Configuração Inicial",
+          "parametros": [
+            {
+              "nome": "modo",
+              "opcoes": [
+                {
+                  "label": "0 — IP",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — Domínio (DNS)",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "1"
+            },
+            {
+              "nome": "servidor",
+              "tipo": "texto",
+              "placeholder": "host ou IP"
+            },
+            {
+              "nome": "porta",
+              "tipo": "texto",
+              "placeholder": "ex.: 21100"
+            },
+            {
+              "nome": "protocolo",
+              "opcoes": [
+                {
+                  "label": "0 — TCP",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — UDP",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            }
+          ]
+        },
+        {
+          "nome": "GMT",
+          "descricao": "Configura o fuso horário.",
+          "grupo": "Rede e WiFi",
+          "parametros": [
+            {
+              "nome": "direcao",
+              "opcoes": [
+                {
+                  "label": "E — Leste (Oriental)",
+                  "valor": "E"
+                },
+                {
+                  "label": "W — Oeste (Ocidental)",
+                  "valor": "W"
+                }
+              ],
+              "padrao": "E"
+            },
+            {
+              "nome": "horas",
+              "tipo": "numero",
+              "descricao": "Fuso (0-12)",
+              "min": 0,
+              "max": 12,
+              "padrao": 8
+            },
+            {
+              "nome": "minutos",
+              "opcoes": [
+                {
+                  "label": "0",
+                  "valor": "0"
+                },
+                {
+                  "label": "15",
+                  "valor": "15"
+                },
+                {
+                  "label": "30",
+                  "valor": "30"
+                },
+                {
+                  "label": "45",
+                  "valor": "45"
+                }
+              ],
+              "padrao": "0"
+            }
+          ]
+        },
+        {
+          "nome": "ASETGMT",
+          "descricao": "Configuração automática de fuso horário.",
+          "grupo": "Rede e WiFi",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            }
+          ]
+        },
+        {
+          "nome": "GPRSON",
+          "descricao": "Habilita ou desabilita a rede GPRS.",
+          "grupo": "Rede e WiFi",
+          "parametros": [
+            {
+              "nome": "X",
+              "opcoes": [
+                {
+                  "label": "1 — Habilitar GPRS",
+                  "valor": "1"
+                },
+                {
+                  "label": "0 — Desabilitar GPRS",
+                  "valor": "0"
+                }
+              ],
+              "padrao": "1"
+            }
+          ]
+        },
+        {
+          "nome": "GPRSALM",
+          "descricao": "Alerta quando a rede GPRS é bloqueada.",
+          "grupo": "Rede e WiFi",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            }
+          ]
+        },
+        {
+          "nome": "HOTSPOT",
+          "descricao": "Configura o hotspot WiFi do equipamento.",
+          "grupo": "Rede e WiFi",
+          "parametros": [
+            {
+              "nome": "S",
+              "descricao": "Modo do hotspot",
+              "opcoes": [
+                {
+                  "label": "0 — Desligado",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — Ligar hotspot",
+                  "valor": "1"
+                },
+                {
+                  "label": "2 — Sempre ligado",
+                  "valor": "2"
+                }
+              ],
+              "padrao": "0"
+            },
+            {
+              "nome": "nome",
+              "tipo": "texto",
+              "descricao": "Nome da rede WiFi",
+              "obrigatorio": false
+            },
+            {
+              "nome": "senha",
+              "tipo": "texto",
+              "descricao": "Senha WiFi (padrão: 11111111)",
+              "obrigatorio": false
+            }
+          ]
+        },
+        {
+          "nome": "TIMER",
+          "descricao": "Intervalo de envio de posição por tempo (ignição ligada/desligada).",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "T1",
+              "tipo": "numero",
+              "descricao": "Intervalo com ignição ON (0 ou 5-18000)",
+              "min": 0,
+              "max": 18000,
+              "unidade": "s",
+              "padrao": 20
+            },
+            {
+              "nome": "T2",
+              "tipo": "numero",
+              "descricao": "Intervalo com ignição OFF (0 ou 5-18000)",
+              "min": 0,
+              "max": 18000,
+              "unidade": "s",
+              "padrao": 60
+            }
+          ]
+        },
+        {
+          "nome": "DISTANCE",
+          "descricao": "Envio de posição por distância percorrida. Anula o envio por tempo.",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "D",
+              "tipo": "numero",
+              "descricao": "Distância (0=desativar, 50-10000)",
+              "min": 0,
+              "max": 10000,
+              "unidade": "m",
+              "padrao": 0
+            }
+          ]
+        },
+        {
+          "nome": "GPSDUP",
+          "descricao": "Upload de dados GPS mesmo sem posicionamento válido.",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            }
+          ]
+        },
+        {
+          "nome": "LBSON",
+          "descricao": "Upload de localização via LBS (torre celular).",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "T1",
+              "tipo": "numero",
+              "descricao": "Intervalo de upload LBS (10-3600)",
+              "min": 10,
+              "max": 3600,
+              "unidade": "s",
+              "padrao": 60
+            },
+            {
+              "nome": "T2",
+              "tipo": "numero",
+              "descricao": "Tempo limite sem GPS para iniciar LBS (10-3600)",
+              "min": 10,
+              "max": 3600,
+              "unidade": "s",
+              "padrao": 60
+            }
+          ]
+        },
+        {
+          "nome": "SF",
+          "descricao": "Efeito estrela — filtra posições duplicadas quando parado.",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            }
+          ]
+        },
+        {
+          "nome": "MILEAGE",
+          "descricao": "Odômetro — ativa contagem de quilometragem.",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "inicial",
+              "tipo": "numero",
+              "descricao": "Valor inicial do odômetro (0-999999)",
+              "min": 0,
+              "max": 999999,
+              "unidade": "km",
+              "padrao": 0
+            }
+          ]
+        },
+        {
+          "nome": "ADT",
+          "descricao": "Upload da tensão da bateria externa.",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "T1",
+              "tipo": "numero",
+              "descricao": "Intervalo com ignição ON (0-3600, 0=sem upload)",
+              "min": 0,
+              "max": 3600,
+              "unidade": "s",
+              "padrao": 60
+            },
+            {
+              "nome": "T2",
+              "tipo": "numero",
+              "descricao": "Intervalo com ignição OFF (0-3600, 0=sem upload)",
+              "min": 0,
+              "max": 3600,
+              "unidade": "s",
+              "padrao": 60
+            }
+          ]
+        },
+        {
+          "nome": "DEFENSE",
+          "descricao": "Delay para armar a cerca eletrônica após ignição desligar.",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "delay",
+              "tipo": "numero",
+              "descricao": "Delay para armar (1-60)",
+              "min": 1,
+              "max": 60,
+              "unidade": "min",
+              "padrao": 10
+            }
+          ]
+        },
+        {
+          "nome": "SENDS",
+          "descricao": "Tempo sem vibração para desligar o GPS.",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "tempo",
+              "tipo": "numero",
+              "descricao": "Tempo de detecção de vibração (0-300)",
+              "min": 0,
+              "max": 300,
+              "unidade": "min",
+              "padrao": 5
+            }
+          ]
+        },
+        {
+          "nome": "ANGLEREP",
+          "descricao": "Gera evento ao detectar variação de ângulo do veículo.",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            },
+            {
+              "nome": "angulo",
+              "tipo": "numero",
+              "descricao": "Limiar de ângulo (5-180)",
+              "min": 5,
+              "max": 180,
+              "unidade": "°",
+              "padrao": 180
+            },
+            {
+              "nome": "tempo",
+              "tipo": "numero",
+              "descricao": "Tempo de detecção (2-5)",
+              "min": 2,
+              "max": 5,
+              "unidade": "s",
+              "padrao": 5
+            }
+          ]
+        },
+        {
+          "nome": "ACCREP",
+          "descricao": "Relatório automático de mudança de status da ignição (ACC).",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            }
+          ]
+        },
+        {
+          "nome": "RELAY",
+          "descricao": "Controla a saída de relé para bloqueio do veículo.",
+          "grupo": "Controle",
+          "parametros": [
+            {
+              "nome": "C",
+              "opcoes": [
+                {
+                  "label": "0 — Reconectar combustível/energia",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — Cortar combustível/energia",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            }
+          ]
+        },
+        {
+          "nome": "FENCE",
+          "descricao": "Cerca eletrônica circular.",
+          "grupo": "Controle",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            },
+            {
+              "nome": "tipo",
+              "tipo": "fixo",
+              "valor": "0"
+            },
+            {
+              "nome": "latitude",
+              "tipo": "texto",
+              "placeholder": "ex.: -23.525339"
+            },
+            {
+              "nome": "longitude",
+              "tipo": "texto",
+              "placeholder": "ex.: -46.679023"
+            },
+            {
+              "nome": "raio",
+              "tipo": "numero",
+              "descricao": "Raio (1-9999 metros)",
+              "min": 1,
+              "max": 9999,
+              "unidade": "m"
+            },
+            {
+              "nome": "direcao",
+              "opcoes": [
+                {
+                  "label": "IN — Ao entrar",
+                  "valor": "IN"
+                },
+                {
+                  "label": "OUT — Ao sair",
+                  "valor": "OUT"
+                }
+              ],
+              "obrigatorio": false
+            },
+            {
+              "nome": "modo",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — GPRS + SMS",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            }
+          ]
+        },
+        {
+          "nome": "FENCE Retangular",
+          "descricao": "Cerca eletrônica retangular.",
+          "grupo": "Controle",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            },
+            {
+              "nome": "tipo",
+              "tipo": "fixo",
+              "valor": "1"
+            },
+            {
+              "nome": "lat 1",
+              "tipo": "texto",
+              "placeholder": "Latitude ponto 1"
+            },
+            {
+              "nome": "lon 1",
+              "tipo": "texto",
+              "placeholder": "Longitude ponto 1"
+            },
+            {
+              "nome": "lat 2",
+              "tipo": "texto",
+              "placeholder": "Latitude ponto 2"
+            },
+            {
+              "nome": "lon 2",
+              "tipo": "texto",
+              "placeholder": "Longitude ponto 2"
+            },
+            {
+              "nome": "direcao",
+              "opcoes": [
+                {
+                  "label": "IN — Ao entrar",
+                  "valor": "IN"
+                },
+                {
+                  "label": "OUT — Ao sair",
+                  "valor": "OUT"
+                }
+              ],
+              "obrigatorio": false
+            },
+            {
+              "nome": "modo",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — GPRS + SMS",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            }
+          ]
+        },
+        {
+          "nome": "SOS",
+          "descricao": "Adiciona ou remove números de emergência SOS.",
+          "grupo": "Controle",
+          "parametros": [
+            {
+              "nome": "acao",
+              "opcoes": [
+                {
+                  "label": "A — Adicionar",
+                  "valor": "A"
+                },
+                {
+                  "label": "D — Deletar",
+                  "valor": "D"
+                }
+              ],
+              "padrao": "A"
+            },
+            {
+              "nome": "telefone 1",
+              "tipo": "texto",
+              "placeholder": "ex.: 5511999990000"
+            },
+            {
+              "nome": "telefone 2",
+              "tipo": "texto",
+              "obrigatorio": false
+            },
+            {
+              "nome": "telefone 3",
+              "tipo": "texto",
+              "obrigatorio": false
+            }
+          ]
+        },
+        {
+          "nome": "CENTER",
+          "descricao": "Adiciona ou remove o número central para recebimento de alarmes.",
+          "grupo": "Controle",
+          "parametros": [
+            {
+              "nome": "acao",
+              "opcoes": [
+                {
+                  "label": "A — Adicionar",
+                  "valor": "A"
+                },
+                {
+                  "label": "D — Deletar",
+                  "valor": "D"
+                }
+              ],
+              "padrao": "A"
+            },
+            {
+              "nome": "telefone",
+              "tipo": "texto",
+              "placeholder": "ex.: 5511999990000",
+              "obrigatorio": false
+            }
+          ]
+        },
+        {
+          "nome": "SENALM",
+          "descricao": "Alarme de vibração.",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "descricao": "Forma de alarme",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                },
+                {
+                  "label": "2 — GPRS + SMS + Chamada",
+                  "valor": "2"
+                },
+                {
+                  "label": "3 — GPRS + Chamada",
+                  "valor": "3"
+                }
+              ],
+              "padrao": "0"
+            }
+          ]
+        },
+        {
+          "nome": "BATALM",
+          "descricao": "Alarme de bateria interna baixa.",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "descricao": "Forma de alarme",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "1"
+            }
+          ]
+        },
+        {
+          "nome": "SOSALM",
+          "descricao": "Configuração do alarme de pânico (botão SOS).",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "descricao": "Forma de alarme",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                },
+                {
+                  "label": "2 — GPRS + SMS + Chamada",
+                  "valor": "2"
+                },
+                {
+                  "label": "3 — GPRS + Chamada",
+                  "valor": "3"
+                }
+              ],
+              "padrao": "2"
+            }
+          ]
+        },
+        {
+          "nome": "MOVING",
+          "descricao": "Alarme de movimento inesperado do veículo.",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "raio",
+              "tipo": "numero",
+              "descricao": "Raio de movimentação (100-1000)",
+              "min": 100,
+              "max": 1000,
+              "unidade": "m",
+              "padrao": 300
+            },
+            {
+              "nome": "modo",
+              "descricao": "Forma de alarme",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                },
+                {
+                  "label": "2 — GPRS + SMS + Chamada",
+                  "valor": "2"
+                },
+                {
+                  "label": "3 — GPRS + Chamada",
+                  "valor": "3"
+                }
+              ],
+              "padrao": "1"
+            }
+          ]
+        },
+        {
+          "nome": "SPEED",
+          "descricao": "Alarme de excesso de velocidade.",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "tempo",
+              "tipo": "numero",
+              "descricao": "Tempo de detecção (5-600)",
+              "min": 5,
+              "max": 600,
+              "unidade": "s",
+              "padrao": 20
+            },
+            {
+              "nome": "limite",
+              "tipo": "numero",
+              "descricao": "Limite de velocidade (1-255)",
+              "min": 1,
+              "max": 255,
+              "unidade": "km/h",
+              "padrao": 100
+            },
+            {
+              "nome": "modo",
+              "descricao": "Forma de alarme",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                },
+                {
+                  "label": "2 — GPRS + SMS + Chamada",
+                  "valor": "2"
+                },
+                {
+                  "label": "3 — GPRS + Chamada",
+                  "valor": "3"
+                }
+              ],
+              "padrao": "1"
+            }
+          ]
+        },
+        {
+          "nome": "LEVEL",
+          "descricao": "Sensibilidade do sensor de vibração (1 = mais sensível).",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "nivel",
+              "tipo": "numero",
+              "min": 1,
+              "max": 5,
+              "padrao": 2
+            }
+          ]
+        },
+        {
+          "nome": "POWERALM",
+          "descricao": "Alarme de corte de energia externa.",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "descricao": "Forma de alarme",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                },
+                {
+                  "label": "2 — GPRS + SMS + Chamada",
+                  "valor": "2"
+                }
+              ],
+              "padrao": "2"
+            },
+            {
+              "nome": "T1",
+              "tipo": "numero",
+              "descricao": "Tempo de detecção do corte (0-60)",
+              "min": 0,
+              "max": 60,
+              "unidade": "s",
+              "padrao": 5
+            },
+            {
+              "nome": "T2",
+              "tipo": "numero",
+              "descricao": "Tempo mínimo de carregamento (0-3600)",
+              "min": 0,
+              "max": 3600,
+              "unidade": "s",
+              "padrao": 300
+            }
+          ]
+        },
+        {
+          "nome": "ACCALM",
+          "descricao": "Alerta de mudança de status da ignição ACC.",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            },
+            {
+              "nome": "modo",
+              "descricao": "Forma de alarme",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            },
+            {
+              "nome": "debounce",
+              "tipo": "numero",
+              "descricao": "Tempo de debounce (5-60)",
+              "min": 5,
+              "max": 60,
+              "unidade": "s",
+              "padrao": 10
+            },
+            {
+              "nome": "gatilho",
+              "descricao": "Quando notificar",
+              "opcoes": [
+                {
+                  "label": "0 — Qualquer mudança",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — Somente ao desligar ACC",
+                  "valor": "1"
+                },
+                {
+                  "label": "2 — Somente ao ligar ACC",
+                  "valor": "2"
+                }
+              ],
+              "padrao": "0"
+            }
+          ]
+        },
+        {
+          "nome": "FATIGUE",
+          "descricao": "Alarme de fadiga (tempo contínuo de condução).",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "T1",
+              "tipo": "numero",
+              "descricao": "Limite de condução (1-1440)",
+              "min": 1,
+              "max": 1440,
+              "unidade": "min",
+              "padrao": 240
+            },
+            {
+              "nome": "T2",
+              "tipo": "numero",
+              "descricao": "Atraso do alarme (1-60)",
+              "min": 1,
+              "max": 60,
+              "unidade": "min",
+              "padrao": 20
+            },
+            {
+              "nome": "T3",
+              "tipo": "numero",
+              "descricao": "Tempo de descanso (0=imediato, outros em min)",
+              "min": 0,
+              "max": 1440,
+              "unidade": "min",
+              "padrao": 30
+            },
+            {
+              "nome": "modo",
+              "descricao": "Forma de alarme",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            }
+          ]
+        },
+        {
+          "nome": "TURN",
+          "descricao": "Alerta de curva brusca.",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "aceleracao",
+              "tipo": "numero",
+              "descricao": "Aceleração (20-60 × 0,1 m/s²)",
+              "min": 20,
+              "max": 60,
+              "padrao": 40
+            },
+            {
+              "nome": "angulo",
+              "tipo": "numero",
+              "descricao": "Ângulo de curva (30-80)",
+              "min": 30,
+              "max": 80,
+              "unidade": "°",
+              "padrao": 40
+            },
+            {
+              "nome": "modo",
+              "descricao": "Forma de alarme",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            }
+          ]
+        },
+        {
+          "nome": "VERSION",
+          "descricao": "Consulta a versão do firmware.",
+          "grupo": "Consultas",
+          "parametros": []
+        },
+        {
+          "nome": "STATUS",
+          "descricao": "Solicita o status geral do equipamento.",
+          "grupo": "Consultas",
+          "parametros": []
+        },
+        {
+          "nome": "GPRSSET",
+          "descricao": "Consulta as configurações de servidor e APN.",
+          "grupo": "Consultas",
+          "parametros": []
+        },
+        {
+          "nome": "WHERE",
+          "descricao": "Retorna link com as coordenadas GPS atuais.",
+          "grupo": "Consultas",
+          "parametros": []
+        },
+        {
+          "nome": "URL",
+          "descricao": "Retorna a URL com a posição GPS atual.",
+          "grupo": "Consultas",
+          "parametros": []
+        },
+        {
+          "nome": "RESET",
+          "descricao": "Reinicia o equipamento.",
+          "grupo": "Sistema",
+          "parametros": []
+        },
+        {
+          "nome": "LED",
+          "descricao": "Controla o modo de suspensão dos LEDs.",
+          "grupo": "Sistema",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "vl02",
@@ -11475,7 +12784,1210 @@
       "descricao": "Rastreador veicular linha VL — comandos em cadastro.",
       "categoria": "Rastreador",
       "linha": "vl",
-      "comandos": []
+      "comandos": [
+        {
+          "nome": "APN",
+          "descricao": "Configura o APN da operadora.",
+          "grupo": "Configuração Inicial",
+          "parametros": [
+            {
+              "nome": "apn",
+              "tipo": "texto",
+              "placeholder": "ex.: claro.com.br"
+            },
+            {
+              "nome": "usuario",
+              "tipo": "texto",
+              "obrigatorio": false
+            },
+            {
+              "nome": "senha",
+              "tipo": "texto",
+              "obrigatorio": false
+            }
+          ]
+        },
+        {
+          "nome": "ASETAPN",
+          "descricao": "Configuração automática de APN. Desativar ao usar APN privada.",
+          "grupo": "Configuração Inicial",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            }
+          ]
+        },
+        {
+          "nome": "SERVER",
+          "descricao": "Define o servidor de destino (modo 0 = IP, 1 = domínio).",
+          "grupo": "Configuração Inicial",
+          "parametros": [
+            {
+              "nome": "modo",
+              "opcoes": [
+                {
+                  "label": "0 — IP",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — Domínio (DNS)",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "1"
+            },
+            {
+              "nome": "servidor",
+              "tipo": "texto",
+              "placeholder": "host ou IP"
+            },
+            {
+              "nome": "porta",
+              "tipo": "texto",
+              "placeholder": "ex.: 21100"
+            },
+            {
+              "nome": "protocolo",
+              "opcoes": [
+                {
+                  "label": "0 — TCP",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — UDP",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            }
+          ]
+        },
+        {
+          "nome": "GMT",
+          "descricao": "Configura o fuso horário.",
+          "grupo": "Rede e WiFi",
+          "parametros": [
+            {
+              "nome": "direcao",
+              "opcoes": [
+                {
+                  "label": "E — Leste (Oriental)",
+                  "valor": "E"
+                },
+                {
+                  "label": "W — Oeste (Ocidental)",
+                  "valor": "W"
+                }
+              ],
+              "padrao": "E"
+            },
+            {
+              "nome": "horas",
+              "tipo": "numero",
+              "descricao": "Fuso (0-12)",
+              "min": 0,
+              "max": 12,
+              "padrao": 8
+            },
+            {
+              "nome": "minutos",
+              "opcoes": [
+                {
+                  "label": "0",
+                  "valor": "0"
+                },
+                {
+                  "label": "15",
+                  "valor": "15"
+                },
+                {
+                  "label": "30",
+                  "valor": "30"
+                },
+                {
+                  "label": "45",
+                  "valor": "45"
+                }
+              ],
+              "padrao": "0"
+            }
+          ]
+        },
+        {
+          "nome": "ASETGMT",
+          "descricao": "Configuração automática de fuso horário.",
+          "grupo": "Rede e WiFi",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            }
+          ]
+        },
+        {
+          "nome": "GPRSON",
+          "descricao": "Habilita ou desabilita a rede GPRS.",
+          "grupo": "Rede e WiFi",
+          "parametros": [
+            {
+              "nome": "X",
+              "opcoes": [
+                {
+                  "label": "1 — Habilitar GPRS",
+                  "valor": "1"
+                },
+                {
+                  "label": "0 — Desabilitar GPRS",
+                  "valor": "0"
+                }
+              ],
+              "padrao": "1"
+            }
+          ]
+        },
+        {
+          "nome": "GPRSALM",
+          "descricao": "Alerta quando a rede GPRS é bloqueada.",
+          "grupo": "Rede e WiFi",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            }
+          ]
+        },
+        {
+          "nome": "TIMER",
+          "descricao": "Intervalo de envio de posição por tempo (ignição ligada/desligada).",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "T1",
+              "tipo": "numero",
+              "descricao": "Intervalo com ignição ON (0 ou 5-18000)",
+              "min": 0,
+              "max": 18000,
+              "unidade": "s",
+              "padrao": 20
+            },
+            {
+              "nome": "T2",
+              "tipo": "numero",
+              "descricao": "Intervalo com ignição OFF (0 ou 5-18000)",
+              "min": 0,
+              "max": 18000,
+              "unidade": "s",
+              "padrao": 60
+            }
+          ]
+        },
+        {
+          "nome": "DISTANCE",
+          "descricao": "Envio de posição por distância percorrida. Anula o envio por tempo.",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "D",
+              "tipo": "numero",
+              "descricao": "Distância (0=desativar, 50-10000)",
+              "min": 0,
+              "max": 10000,
+              "unidade": "m",
+              "padrao": 0
+            }
+          ]
+        },
+        {
+          "nome": "GPSDUP",
+          "descricao": "Upload de dados GPS mesmo sem posicionamento válido.",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            }
+          ]
+        },
+        {
+          "nome": "LBSON",
+          "descricao": "Upload de localização via LBS (torre celular).",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "T1",
+              "tipo": "numero",
+              "descricao": "Intervalo de upload LBS (10-3600)",
+              "min": 10,
+              "max": 3600,
+              "unidade": "s",
+              "padrao": 60
+            },
+            {
+              "nome": "T2",
+              "tipo": "numero",
+              "descricao": "Tempo limite sem GPS para iniciar LBS (10-3600)",
+              "min": 10,
+              "max": 3600,
+              "unidade": "s",
+              "padrao": 60
+            }
+          ]
+        },
+        {
+          "nome": "SF",
+          "descricao": "Efeito estrela — filtra posições duplicadas quando parado.",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            }
+          ]
+        },
+        {
+          "nome": "MILEAGE",
+          "descricao": "Odômetro — ativa contagem de quilometragem.",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "inicial",
+              "tipo": "numero",
+              "descricao": "Valor inicial do odômetro (0-999999)",
+              "min": 0,
+              "max": 999999,
+              "unidade": "km",
+              "padrao": 0
+            }
+          ]
+        },
+        {
+          "nome": "ADT",
+          "descricao": "Upload periódico da tensão da bateria externa.",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "intervalo",
+              "tipo": "numero",
+              "descricao": "Intervalo de upload (5-3600)",
+              "min": 5,
+              "max": 3600,
+              "unidade": "s",
+              "padrao": 600
+            }
+          ]
+        },
+        {
+          "nome": "DEFENSE",
+          "descricao": "Delay para armar a cerca eletrônica após ignição desligar.",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "delay",
+              "tipo": "numero",
+              "descricao": "Delay para armar (1-60)",
+              "min": 1,
+              "max": 60,
+              "unidade": "min",
+              "padrao": 10
+            }
+          ]
+        },
+        {
+          "nome": "SENSOR",
+          "descricao": "Configura o sensor de vibração (tempo de detecção e intervalo de alerta).",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "deteccao",
+              "tipo": "numero",
+              "descricao": "Tempo de detecção (10-300)",
+              "min": 10,
+              "max": 300,
+              "unidade": "s",
+              "padrao": 30
+            },
+            {
+              "nome": "delay_alerta",
+              "tipo": "numero",
+              "descricao": "Atraso antes do alerta (10-300)",
+              "min": 10,
+              "max": 300,
+              "unidade": "s",
+              "padrao": 30
+            },
+            {
+              "nome": "intervalo",
+              "tipo": "numero",
+              "descricao": "Intervalo entre alertas (1-3000)",
+              "min": 1,
+              "max": 3000,
+              "unidade": "min",
+              "padrao": 1
+            }
+          ]
+        },
+        {
+          "nome": "SENDS",
+          "descricao": "Tempo sem vibração para desligar o GPS.",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "tempo",
+              "tipo": "numero",
+              "descricao": "Tempo de detecção (0-300)",
+              "min": 0,
+              "max": 300,
+              "unidade": "min",
+              "padrao": 5
+            }
+          ]
+        },
+        {
+          "nome": "RELAY",
+          "descricao": "Controla a saída de relé para bloqueio do veículo.",
+          "grupo": "Controle",
+          "parametros": [
+            {
+              "nome": "C",
+              "opcoes": [
+                {
+                  "label": "0 — Reconectar combustível/energia",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — Cortar combustível/energia",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            }
+          ]
+        },
+        {
+          "nome": "OUT2",
+          "descricao": "Controla a segunda saída (alternativa ao relé).",
+          "grupo": "Controle",
+          "parametros": [
+            {
+              "nome": "C",
+              "opcoes": [
+                {
+                  "label": "0 — Restaurar relé",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — Desligar relé",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            }
+          ]
+        },
+        {
+          "nome": "FENCE",
+          "descricao": "Cerca eletrônica circular.",
+          "grupo": "Controle",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            },
+            {
+              "nome": "tipo",
+              "tipo": "fixo",
+              "valor": "0"
+            },
+            {
+              "nome": "latitude",
+              "tipo": "texto",
+              "placeholder": "ex.: -23.525339"
+            },
+            {
+              "nome": "longitude",
+              "tipo": "texto",
+              "placeholder": "ex.: -46.679023"
+            },
+            {
+              "nome": "raio",
+              "tipo": "numero",
+              "descricao": "Raio (1-9999 metros)",
+              "min": 1,
+              "max": 9999,
+              "unidade": "m"
+            },
+            {
+              "nome": "direcao",
+              "opcoes": [
+                {
+                  "label": "IN — Ao entrar",
+                  "valor": "IN"
+                },
+                {
+                  "label": "OUT — Ao sair",
+                  "valor": "OUT"
+                }
+              ],
+              "obrigatorio": false
+            },
+            {
+              "nome": "modo",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — GPRS + SMS",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            }
+          ]
+        },
+        {
+          "nome": "FENCE Retangular",
+          "descricao": "Cerca eletrônica retangular.",
+          "grupo": "Controle",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            },
+            {
+              "nome": "tipo",
+              "tipo": "fixo",
+              "valor": "1"
+            },
+            {
+              "nome": "lat 1",
+              "tipo": "texto",
+              "placeholder": "Latitude ponto 1"
+            },
+            {
+              "nome": "lon 1",
+              "tipo": "texto",
+              "placeholder": "Longitude ponto 1"
+            },
+            {
+              "nome": "lat 2",
+              "tipo": "texto",
+              "placeholder": "Latitude ponto 2"
+            },
+            {
+              "nome": "lon 2",
+              "tipo": "texto",
+              "placeholder": "Longitude ponto 2"
+            },
+            {
+              "nome": "direcao",
+              "opcoes": [
+                {
+                  "label": "IN — Ao entrar",
+                  "valor": "IN"
+                },
+                {
+                  "label": "OUT — Ao sair",
+                  "valor": "OUT"
+                }
+              ],
+              "obrigatorio": false
+            },
+            {
+              "nome": "modo",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — GPRS + SMS",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            }
+          ]
+        },
+        {
+          "nome": "SOS",
+          "descricao": "Adiciona ou remove números de emergência SOS.",
+          "grupo": "Controle",
+          "parametros": [
+            {
+              "nome": "acao",
+              "opcoes": [
+                {
+                  "label": "A — Adicionar",
+                  "valor": "A"
+                },
+                {
+                  "label": "D — Deletar",
+                  "valor": "D"
+                }
+              ],
+              "padrao": "A"
+            },
+            {
+              "nome": "telefone 1",
+              "tipo": "texto",
+              "placeholder": "ex.: 5511999990000"
+            },
+            {
+              "nome": "telefone 2",
+              "tipo": "texto",
+              "obrigatorio": false
+            },
+            {
+              "nome": "telefone 3",
+              "tipo": "texto",
+              "obrigatorio": false
+            }
+          ]
+        },
+        {
+          "nome": "CENTER",
+          "descricao": "Adiciona ou remove o número central para recebimento de alarmes.",
+          "grupo": "Controle",
+          "parametros": [
+            {
+              "nome": "acao",
+              "opcoes": [
+                {
+                  "label": "A — Adicionar",
+                  "valor": "A"
+                },
+                {
+                  "label": "D — Deletar",
+                  "valor": "D"
+                }
+              ],
+              "padrao": "A"
+            },
+            {
+              "nome": "telefone",
+              "tipo": "texto",
+              "placeholder": "ex.: 5511999990000",
+              "obrigatorio": false
+            }
+          ]
+        },
+        {
+          "nome": "SENALM",
+          "descricao": "Alarme de vibração.",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "descricao": "Forma de alarme",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                },
+                {
+                  "label": "2 — GPRS + SMS + Chamada",
+                  "valor": "2"
+                },
+                {
+                  "label": "3 — GPRS + Chamada",
+                  "valor": "3"
+                }
+              ],
+              "padrao": "0"
+            }
+          ]
+        },
+        {
+          "nome": "BATALM",
+          "descricao": "Alarme de bateria interna baixa.",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "descricao": "Forma de alarme",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "1"
+            }
+          ]
+        },
+        {
+          "nome": "SOSALM",
+          "descricao": "Alarme de pânico (botão SOS).",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "descricao": "Forma de alarme",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                },
+                {
+                  "label": "2 — GPRS + SMS + Chamada",
+                  "valor": "2"
+                },
+                {
+                  "label": "3 — GPRS + Chamada",
+                  "valor": "3"
+                }
+              ],
+              "padrao": "2"
+            },
+            {
+              "nome": "atraso",
+              "tipo": "numero",
+              "descricao": "Atraso do disparador (100-10000)",
+              "min": 100,
+              "max": 10000,
+              "unidade": "ms",
+              "padrao": 3000
+            }
+          ]
+        },
+        {
+          "nome": "MOVING",
+          "descricao": "Alarme de movimento inesperado do veículo.",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "raio",
+              "tipo": "numero",
+              "descricao": "Raio de movimentação (100-1000)",
+              "min": 100,
+              "max": 1000,
+              "unidade": "m",
+              "padrao": 300
+            },
+            {
+              "nome": "modo",
+              "descricao": "Forma de alarme",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                },
+                {
+                  "label": "2 — GPRS + SMS + Chamada",
+                  "valor": "2"
+                },
+                {
+                  "label": "3 — GPRS + Chamada",
+                  "valor": "3"
+                }
+              ],
+              "padrao": "1"
+            }
+          ]
+        },
+        {
+          "nome": "SPEED",
+          "descricao": "Alarme de excesso de velocidade.",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "tempo",
+              "tipo": "numero",
+              "descricao": "Tempo de detecção (5-600)",
+              "min": 5,
+              "max": 600,
+              "unidade": "s",
+              "padrao": 20
+            },
+            {
+              "nome": "limite",
+              "tipo": "numero",
+              "descricao": "Limite de velocidade (1-255)",
+              "min": 1,
+              "max": 255,
+              "unidade": "km/h",
+              "padrao": 100
+            },
+            {
+              "nome": "modo",
+              "descricao": "Forma de alarme",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                },
+                {
+                  "label": "2 — GPRS + SMS + Chamada",
+                  "valor": "2"
+                },
+                {
+                  "label": "3 — GPRS + Chamada",
+                  "valor": "3"
+                }
+              ],
+              "padrao": "1"
+            },
+            {
+              "nome": "buzzer",
+              "descricao": "Ativar buzzer ao exceder velocidade",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            }
+          ]
+        },
+        {
+          "nome": "DOOR",
+          "descricao": "Define o tipo de trigger do sensor de porta.",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "X",
+              "opcoes": [
+                {
+                  "label": "0 — Trigger negativo",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — Trigger positivo",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "1"
+            }
+          ]
+        },
+        {
+          "nome": "DOORALM",
+          "descricao": "Alarme de abertura de porta.",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "descricao": "Forma de alarme",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                },
+                {
+                  "label": "2 — GPRS + SMS + Chamada",
+                  "valor": "2"
+                }
+              ],
+              "padrao": "1"
+            }
+          ]
+        },
+        {
+          "nome": "LEVEL",
+          "descricao": "Sensibilidade do sensor de vibração (1 = mais sensível).",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "nivel",
+              "tipo": "numero",
+              "min": 1,
+              "max": 5,
+              "padrao": 2
+            }
+          ]
+        },
+        {
+          "nome": "SWERVE",
+          "descricao": "Alarme de curva brusca.",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "descricao": "Forma de alarme",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                },
+                {
+                  "label": "2 — GPRS + SMS + Chamada",
+                  "valor": "2"
+                }
+              ],
+              "padrao": "0"
+            },
+            {
+              "nome": "angulo",
+              "tipo": "numero",
+              "descricao": "Ângulo de curva (10-180)",
+              "min": 10,
+              "max": 180,
+              "unidade": "°",
+              "padrao": 30
+            },
+            {
+              "nome": "velocidade",
+              "tipo": "numero",
+              "descricao": "Velocidade mínima (10-200)",
+              "min": 10,
+              "max": 200,
+              "unidade": "km/h",
+              "padrao": 60
+            },
+            {
+              "nome": "duracao",
+              "tipo": "numero",
+              "descricao": "Duração para detecção (1-30)",
+              "min": 1,
+              "max": 30,
+              "unidade": "s",
+              "padrao": 3
+            }
+          ]
+        },
+        {
+          "nome": "SPEEDCHECK",
+          "descricao": "Alarme de aceleração ou frenagem brusca.",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "descricao": "Forma de alarme",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            },
+            {
+              "nome": "duracao",
+              "tipo": "numero",
+              "descricao": "Duração para detecção (1-30)",
+              "min": 1,
+              "max": 30,
+              "unidade": "s",
+              "padrao": 4
+            },
+            {
+              "nome": "dv1",
+              "tipo": "numero",
+              "descricao": "Variação para aceleração brusca (10-300)",
+              "min": 10,
+              "max": 300,
+              "unidade": "km/h",
+              "padrao": 30
+            },
+            {
+              "nome": "dv2",
+              "tipo": "numero",
+              "descricao": "Variação para frenagem brusca (10-300)",
+              "min": 10,
+              "max": 300,
+              "unidade": "km/h",
+              "padrao": 50
+            }
+          ]
+        },
+        {
+          "nome": "COLLIDE",
+          "descricao": "Alarme de colisão.",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "descricao": "Forma de alarme",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            },
+            {
+              "nome": "intensidade",
+              "tipo": "numero",
+              "descricao": "Limiar de colisão (10-1024, menor = mais sensível)",
+              "min": 10,
+              "max": 1024,
+              "padrao": 800
+            }
+          ]
+        },
+        {
+          "nome": "POWERALM",
+          "descricao": "Alarme de corte de energia externa.",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "descricao": "Forma de alarme",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                },
+                {
+                  "label": "2 — GPRS + SMS + Chamada",
+                  "valor": "2"
+                }
+              ],
+              "padrao": "2"
+            },
+            {
+              "nome": "T1",
+              "tipo": "numero",
+              "descricao": "Tempo de detecção do corte (0-60)",
+              "min": 0,
+              "max": 60,
+              "unidade": "s",
+              "padrao": 5
+            },
+            {
+              "nome": "T2",
+              "tipo": "numero",
+              "descricao": "Tempo mínimo de carregamento (0-3600)",
+              "min": 0,
+              "max": 3600,
+              "unidade": "s",
+              "padrao": 300
+            }
+          ]
+        },
+        {
+          "nome": "VERSION",
+          "descricao": "Consulta a versão do firmware.",
+          "grupo": "Consultas",
+          "parametros": []
+        },
+        {
+          "nome": "STATUS",
+          "descricao": "Solicita o status geral do equipamento.",
+          "grupo": "Consultas",
+          "parametros": []
+        },
+        {
+          "nome": "GPRSSET",
+          "descricao": "Consulta as configurações de servidor e APN.",
+          "grupo": "Consultas",
+          "parametros": []
+        },
+        {
+          "nome": "WHERE",
+          "descricao": "Retorna link com as coordenadas GPS atuais.",
+          "grupo": "Consultas",
+          "parametros": []
+        },
+        {
+          "nome": "URL",
+          "descricao": "Retorna a URL com a posição GPS atual.",
+          "grupo": "Consultas",
+          "parametros": []
+        },
+        {
+          "nome": "RESET",
+          "descricao": "Reinicia o equipamento.",
+          "grupo": "Sistema",
+          "parametros": []
+        },
+        {
+          "nome": "LEDSLEEP",
+          "descricao": "Controla o modo de suspensão dos LEDs.",
+          "grupo": "Sistema",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            }
+          ]
+        },
+        {
+          "nome": "FACTORY",
+          "descricao": "Restaura as configurações de fábrica.",
+          "grupo": "Sistema",
+          "parametros": []
+        }
+      ]
     },
     {
       "id": "vl03",
@@ -11483,7 +13995,1449 @@
       "descricao": "Rastreador veicular linha VL — comandos em cadastro.",
       "categoria": "Rastreador",
       "linha": "vl",
-      "comandos": []
+      "comandos": [
+        {
+          "nome": "APN",
+          "descricao": "Configura o APN da operadora.",
+          "grupo": "Configuração Inicial",
+          "parametros": [
+            {
+              "nome": "apn",
+              "tipo": "texto",
+              "placeholder": "ex.: claro.com.br"
+            },
+            {
+              "nome": "usuario",
+              "tipo": "texto",
+              "obrigatorio": false
+            },
+            {
+              "nome": "senha",
+              "tipo": "texto",
+              "obrigatorio": false
+            }
+          ]
+        },
+        {
+          "nome": "ASETAPN",
+          "descricao": "Configuração automática de APN. Desativar ao usar APN privada.",
+          "grupo": "Configuração Inicial",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            }
+          ]
+        },
+        {
+          "nome": "SERVER",
+          "descricao": "Define o servidor de destino (modo 0 = IP, 1 = domínio).",
+          "grupo": "Configuração Inicial",
+          "parametros": [
+            {
+              "nome": "modo",
+              "opcoes": [
+                {
+                  "label": "0 — IP",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — Domínio (DNS)",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "1"
+            },
+            {
+              "nome": "servidor",
+              "tipo": "texto",
+              "placeholder": "host ou IP"
+            },
+            {
+              "nome": "porta",
+              "tipo": "texto",
+              "placeholder": "ex.: 21100"
+            },
+            {
+              "nome": "protocolo",
+              "opcoes": [
+                {
+                  "label": "0 — TCP",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — UDP",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            }
+          ]
+        },
+        {
+          "nome": "GMT",
+          "descricao": "Configura o fuso horário.",
+          "grupo": "Rede e WiFi",
+          "parametros": [
+            {
+              "nome": "direcao",
+              "opcoes": [
+                {
+                  "label": "E — Leste (Oriental)",
+                  "valor": "E"
+                },
+                {
+                  "label": "W — Oeste (Ocidental)",
+                  "valor": "W"
+                }
+              ],
+              "padrao": "E"
+            },
+            {
+              "nome": "horas",
+              "tipo": "numero",
+              "descricao": "Fuso (0-12)",
+              "min": 0,
+              "max": 12,
+              "padrao": 8
+            },
+            {
+              "nome": "minutos",
+              "opcoes": [
+                {
+                  "label": "0",
+                  "valor": "0"
+                },
+                {
+                  "label": "15",
+                  "valor": "15"
+                },
+                {
+                  "label": "30",
+                  "valor": "30"
+                },
+                {
+                  "label": "45",
+                  "valor": "45"
+                }
+              ],
+              "padrao": "0"
+            }
+          ]
+        },
+        {
+          "nome": "ASETGMT",
+          "descricao": "Configuração automática de fuso horário.",
+          "grupo": "Rede e WiFi",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            }
+          ]
+        },
+        {
+          "nome": "GPRSON",
+          "descricao": "Habilita ou desabilita a rede GPRS.",
+          "grupo": "Rede e WiFi",
+          "parametros": [
+            {
+              "nome": "X",
+              "opcoes": [
+                {
+                  "label": "1 — Habilitar GPRS",
+                  "valor": "1"
+                },
+                {
+                  "label": "0 — Desabilitar GPRS",
+                  "valor": "0"
+                }
+              ],
+              "padrao": "1"
+            }
+          ]
+        },
+        {
+          "nome": "GPRSALM",
+          "descricao": "Alerta quando a rede GPRS é bloqueada.",
+          "grupo": "Rede e WiFi",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            }
+          ]
+        },
+        {
+          "nome": "TIMER",
+          "descricao": "Intervalo de envio de posição por tempo (ignição ligada/desligada).",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "T1",
+              "tipo": "numero",
+              "descricao": "Intervalo com ignição ON (0 ou 5-18000)",
+              "min": 0,
+              "max": 18000,
+              "unidade": "s",
+              "padrao": 20
+            },
+            {
+              "nome": "T2",
+              "tipo": "numero",
+              "descricao": "Intervalo com ignição OFF (0 ou 5-18000)",
+              "min": 0,
+              "max": 18000,
+              "unidade": "s",
+              "padrao": 60
+            }
+          ]
+        },
+        {
+          "nome": "DISTANCE",
+          "descricao": "Envio de posição por distância percorrida. Anula o envio por tempo.",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "D",
+              "tipo": "numero",
+              "descricao": "Distância (0=desativar, 50-10000)",
+              "min": 0,
+              "max": 10000,
+              "unidade": "m",
+              "padrao": 0
+            }
+          ]
+        },
+        {
+          "nome": "GPSDUP",
+          "descricao": "Upload de dados GPS mesmo sem posicionamento válido.",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            }
+          ]
+        },
+        {
+          "nome": "LBSON",
+          "descricao": "Upload de localização via LBS (torre celular).",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "T1",
+              "tipo": "numero",
+              "descricao": "Intervalo de upload LBS (10-3600)",
+              "min": 10,
+              "max": 3600,
+              "unidade": "s",
+              "padrao": 60
+            },
+            {
+              "nome": "T2",
+              "tipo": "numero",
+              "descricao": "Tempo limite sem GPS para iniciar LBS (10-3600)",
+              "min": 10,
+              "max": 3600,
+              "unidade": "s",
+              "padrao": 60
+            }
+          ]
+        },
+        {
+          "nome": "SF",
+          "descricao": "Efeito estrela — filtra posições duplicadas quando parado.",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            }
+          ]
+        },
+        {
+          "nome": "MILEAGE",
+          "descricao": "Odômetro — ativa contagem de quilometragem.",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "inicial",
+              "tipo": "numero",
+              "descricao": "Valor inicial do odômetro (0-999999)",
+              "min": 0,
+              "max": 999999,
+              "unidade": "km",
+              "padrao": 0
+            }
+          ]
+        },
+        {
+          "nome": "ADT",
+          "descricao": "Upload periódico da tensão da bateria externa.",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "intervalo",
+              "tipo": "numero",
+              "descricao": "Intervalo de upload (5-3600)",
+              "min": 5,
+              "max": 3600,
+              "unidade": "s",
+              "padrao": 600
+            }
+          ]
+        },
+        {
+          "nome": "DEFENSE",
+          "descricao": "Delay para armar a cerca eletrônica após ignição desligar.",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "delay",
+              "tipo": "numero",
+              "descricao": "Delay para armar (1-60)",
+              "min": 1,
+              "max": 60,
+              "unidade": "min",
+              "padrao": 10
+            }
+          ]
+        },
+        {
+          "nome": "SENDS",
+          "descricao": "Tempo sem vibração para desligar o GPS.",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "tempo",
+              "tipo": "numero",
+              "descricao": "Tempo de detecção (0-300)",
+              "min": 0,
+              "max": 300,
+              "unidade": "min",
+              "padrao": 5
+            }
+          ]
+        },
+        {
+          "nome": "ANGLEREP",
+          "descricao": "Gera evento ao detectar variação de ângulo do veículo.",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            },
+            {
+              "nome": "angulo",
+              "tipo": "numero",
+              "descricao": "Limiar de ângulo (5-180)",
+              "min": 5,
+              "max": 180,
+              "unidade": "°",
+              "padrao": 180
+            },
+            {
+              "nome": "tempo",
+              "tipo": "numero",
+              "descricao": "Tempo de detecção (2-5)",
+              "min": 2,
+              "max": 5,
+              "unidade": "s",
+              "padrao": 5
+            }
+          ]
+        },
+        {
+          "nome": "ACCREP",
+          "descricao": "Relatório automático de mudança de status da ignição (ACC).",
+          "grupo": "Rastreamento",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            }
+          ]
+        },
+        {
+          "nome": "RELAY",
+          "descricao": "Controla a saída de relé para bloqueio do veículo.",
+          "grupo": "Controle",
+          "parametros": [
+            {
+              "nome": "C",
+              "opcoes": [
+                {
+                  "label": "0 — Reconectar combustível/energia",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — Cortar combustível/energia",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            }
+          ]
+        },
+        {
+          "nome": "FENCE",
+          "descricao": "Cerca eletrônica circular.",
+          "grupo": "Controle",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            },
+            {
+              "nome": "tipo",
+              "tipo": "fixo",
+              "valor": "0"
+            },
+            {
+              "nome": "latitude",
+              "tipo": "texto",
+              "placeholder": "ex.: -23.525339"
+            },
+            {
+              "nome": "longitude",
+              "tipo": "texto",
+              "placeholder": "ex.: -46.679023"
+            },
+            {
+              "nome": "raio",
+              "tipo": "numero",
+              "descricao": "Raio (1-9999 metros)",
+              "min": 1,
+              "max": 9999,
+              "unidade": "m"
+            },
+            {
+              "nome": "direcao",
+              "opcoes": [
+                {
+                  "label": "IN — Ao entrar",
+                  "valor": "IN"
+                },
+                {
+                  "label": "OUT — Ao sair",
+                  "valor": "OUT"
+                }
+              ],
+              "obrigatorio": false
+            },
+            {
+              "nome": "modo",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — GPRS + SMS",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            }
+          ]
+        },
+        {
+          "nome": "FENCE Retangular",
+          "descricao": "Cerca eletrônica retangular.",
+          "grupo": "Controle",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            },
+            {
+              "nome": "tipo",
+              "tipo": "fixo",
+              "valor": "1"
+            },
+            {
+              "nome": "lat 1",
+              "tipo": "texto",
+              "placeholder": "Latitude ponto 1"
+            },
+            {
+              "nome": "lon 1",
+              "tipo": "texto",
+              "placeholder": "Longitude ponto 1"
+            },
+            {
+              "nome": "lat 2",
+              "tipo": "texto",
+              "placeholder": "Latitude ponto 2"
+            },
+            {
+              "nome": "lon 2",
+              "tipo": "texto",
+              "placeholder": "Longitude ponto 2"
+            },
+            {
+              "nome": "direcao",
+              "opcoes": [
+                {
+                  "label": "IN — Ao entrar",
+                  "valor": "IN"
+                },
+                {
+                  "label": "OUT — Ao sair",
+                  "valor": "OUT"
+                }
+              ],
+              "obrigatorio": false
+            },
+            {
+              "nome": "modo",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — GPRS + SMS",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            }
+          ]
+        },
+        {
+          "nome": "SOS",
+          "descricao": "Adiciona ou remove números de emergência SOS.",
+          "grupo": "Controle",
+          "parametros": [
+            {
+              "nome": "acao",
+              "opcoes": [
+                {
+                  "label": "A — Adicionar",
+                  "valor": "A"
+                },
+                {
+                  "label": "D — Deletar",
+                  "valor": "D"
+                }
+              ],
+              "padrao": "A"
+            },
+            {
+              "nome": "telefone 1",
+              "tipo": "texto",
+              "placeholder": "ex.: 5511999990000"
+            },
+            {
+              "nome": "telefone 2",
+              "tipo": "texto",
+              "obrigatorio": false
+            },
+            {
+              "nome": "telefone 3",
+              "tipo": "texto",
+              "obrigatorio": false
+            }
+          ]
+        },
+        {
+          "nome": "CENTER",
+          "descricao": "Adiciona ou remove o número central para recebimento de alarmes.",
+          "grupo": "Controle",
+          "parametros": [
+            {
+              "nome": "acao",
+              "opcoes": [
+                {
+                  "label": "A — Adicionar",
+                  "valor": "A"
+                },
+                {
+                  "label": "D — Deletar",
+                  "valor": "D"
+                }
+              ],
+              "padrao": "A"
+            },
+            {
+              "nome": "telefone",
+              "tipo": "texto",
+              "placeholder": "ex.: 5511999990000",
+              "obrigatorio": false
+            }
+          ]
+        },
+        {
+          "nome": "ACC",
+          "descricao": "Define o modo de detecção da ignição (linha ou virtual).",
+          "grupo": "Controle",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            },
+            {
+              "nome": "modo",
+              "opcoes": [
+                {
+                  "label": "0 — Detecção por linha",
+                  "valor": "0"
+                },
+                {
+                  "label": "3 — ACC virtual (ADC + vibração + velocidade)",
+                  "valor": "3"
+                },
+                {
+                  "label": "4 — ACC virtual 2 (vibração + velocidade)",
+                  "valor": "4"
+                }
+              ],
+              "padrao": "0"
+            }
+          ]
+        },
+        {
+          "nome": "ACCSET",
+          "descricao": "Parâmetros de avaliação da ACC virtual.",
+          "grupo": "Controle",
+          "parametros": [
+            {
+              "nome": "tempo",
+              "tipo": "numero",
+              "descricao": "Tempo de avaliação de vibração (5-300)",
+              "min": 5,
+              "max": 300,
+              "unidade": "s",
+              "padrao": 180
+            },
+            {
+              "nome": "tensao",
+              "tipo": "texto",
+              "descricao": "Variação de tensão com ignição ON (0.1-1.0 V)",
+              "placeholder": "ex.: 0.4"
+            },
+            {
+              "nome": "velocidade",
+              "tipo": "numero",
+              "descricao": "Variação de velocidade (1-10)",
+              "min": 1,
+              "max": 10,
+              "unidade": "km/h",
+              "padrao": 3
+            }
+          ]
+        },
+        {
+          "nome": "BUZZER",
+          "descricao": "Habilita saída para buzzer (alarme sonoro de excesso de velocidade). Requer firmware MEBNEW_V12.11.",
+          "grupo": "Controle",
+          "parametros": [
+            {
+              "nome": "A",
+              "opcoes": [
+                {
+                  "label": "ON — Função buzzer na saída",
+                  "valor": "ON"
+                },
+                {
+                  "label": "OFF — Função relay (bloqueio) na saída",
+                  "valor": "OFF"
+                }
+              ],
+              "padrao": "ON"
+            }
+          ]
+        },
+        {
+          "nome": "SENALM",
+          "descricao": "Alarme de vibração.",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "descricao": "Forma de alarme",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                },
+                {
+                  "label": "2 — GPRS + SMS + Chamada",
+                  "valor": "2"
+                },
+                {
+                  "label": "3 — GPRS + Chamada",
+                  "valor": "3"
+                }
+              ],
+              "padrao": "0"
+            }
+          ]
+        },
+        {
+          "nome": "BATALM",
+          "descricao": "Alarme de bateria interna baixa.",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "descricao": "Forma de alarme",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "1"
+            }
+          ]
+        },
+        {
+          "nome": "EXBATALM",
+          "descricao": "Alarme de bateria externa baixa.",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "descricao": "Forma de alarme",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                },
+                {
+                  "label": "2 — GPRS + SMS + Chamada",
+                  "valor": "2"
+                },
+                {
+                  "label": "3 — GPRS + Chamada",
+                  "valor": "3"
+                }
+              ],
+              "padrao": "1"
+            },
+            {
+              "nome": "N1",
+              "tipo": "numero",
+              "descricao": "Limite de baixa tensão (10-360, N1/10 = V)",
+              "min": 10,
+              "max": 360,
+              "padrao": 115
+            },
+            {
+              "nome": "N2",
+              "tipo": "numero",
+              "descricao": "Tensão para disparar alarme (10-360, N2/10 = V)",
+              "min": 10,
+              "max": 360,
+              "padrao": 125
+            },
+            {
+              "nome": "T",
+              "tipo": "numero",
+              "descricao": "Tempo de detecção (1-300)",
+              "min": 1,
+              "max": 300,
+              "unidade": "s",
+              "padrao": 10
+            }
+          ]
+        },
+        {
+          "nome": "SOSALM",
+          "descricao": "Alarme de pânico (botão SOS).",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "descricao": "Forma de alarme",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                },
+                {
+                  "label": "2 — GPRS + SMS + Chamada",
+                  "valor": "2"
+                },
+                {
+                  "label": "3 — GPRS + Chamada",
+                  "valor": "3"
+                }
+              ],
+              "padrao": "2"
+            }
+          ]
+        },
+        {
+          "nome": "MOVING",
+          "descricao": "Alarme de movimento inesperado do veículo.",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "descricao": "Forma de alarme",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                },
+                {
+                  "label": "2 — GPRS + SMS + Chamada",
+                  "valor": "2"
+                },
+                {
+                  "label": "3 — GPRS + Chamada",
+                  "valor": "3"
+                }
+              ],
+              "padrao": "1"
+            },
+            {
+              "nome": "raio",
+              "tipo": "numero",
+              "descricao": "Raio de movimentação (100-1000)",
+              "min": 100,
+              "max": 1000,
+              "unidade": "m",
+              "padrao": 300
+            }
+          ]
+        },
+        {
+          "nome": "SPEED",
+          "descricao": "Alarme de excesso de velocidade.",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "descricao": "Forma de alarme",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            },
+            {
+              "nome": "limite",
+              "tipo": "numero",
+              "descricao": "Limite de velocidade (1-255)",
+              "min": 1,
+              "max": 255,
+              "unidade": "km/h",
+              "padrao": 50
+            },
+            {
+              "nome": "tempo",
+              "tipo": "numero",
+              "descricao": "Tempo de detecção (5-600)",
+              "min": 5,
+              "max": 600,
+              "unidade": "s",
+              "padrao": 20
+            }
+          ]
+        },
+        {
+          "nome": "POWERALM",
+          "descricao": "Alarme de corte de energia externa.",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "descricao": "Forma de alarme",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                },
+                {
+                  "label": "2 — GPRS + SMS + Chamada",
+                  "valor": "2"
+                }
+              ],
+              "padrao": "2"
+            },
+            {
+              "nome": "T1",
+              "tipo": "numero",
+              "descricao": "Tempo de detecção do corte (0-60)",
+              "min": 0,
+              "max": 60,
+              "unidade": "s",
+              "padrao": 5
+            },
+            {
+              "nome": "T2",
+              "tipo": "numero",
+              "descricao": "Tempo mínimo de carregamento (0-3600)",
+              "min": 0,
+              "max": 3600,
+              "unidade": "s",
+              "padrao": 300
+            }
+          ]
+        },
+        {
+          "nome": "SWERVE",
+          "descricao": "Alarme de curva brusca.",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "descricao": "Forma de alarme",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                },
+                {
+                  "label": "2 — GPRS + SMS + Chamada",
+                  "valor": "2"
+                }
+              ],
+              "padrao": "0"
+            },
+            {
+              "nome": "angulo",
+              "tipo": "numero",
+              "descricao": "Ângulo de curva (10-180)",
+              "min": 10,
+              "max": 180,
+              "unidade": "°",
+              "padrao": 30
+            },
+            {
+              "nome": "velocidade",
+              "tipo": "numero",
+              "descricao": "Velocidade mínima (10-200)",
+              "min": 10,
+              "max": 200,
+              "unidade": "km/h",
+              "padrao": 60
+            },
+            {
+              "nome": "duracao",
+              "tipo": "numero",
+              "descricao": "Duração para detecção (1-30)",
+              "min": 1,
+              "max": 30,
+              "unidade": "s",
+              "padrao": 3
+            }
+          ]
+        },
+        {
+          "nome": "SPEEDCHECK",
+          "descricao": "Alarme de aceleração ou frenagem brusca.",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "descricao": "Forma de alarme",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            },
+            {
+              "nome": "duracao",
+              "tipo": "numero",
+              "descricao": "Duração para detecção (1-30)",
+              "min": 1,
+              "max": 30,
+              "unidade": "s",
+              "padrao": 4
+            },
+            {
+              "nome": "dv1",
+              "tipo": "numero",
+              "descricao": "Variação para aceleração brusca (10-300)",
+              "min": 10,
+              "max": 300,
+              "unidade": "km/h",
+              "padrao": 30
+            },
+            {
+              "nome": "dv2",
+              "tipo": "numero",
+              "descricao": "Variação para frenagem brusca (10-300)",
+              "min": 10,
+              "max": 300,
+              "unidade": "km/h",
+              "padrao": 50
+            }
+          ]
+        },
+        {
+          "nome": "COLLIDE",
+          "descricao": "Alarme de colisão.",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "descricao": "Forma de alarme",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            },
+            {
+              "nome": "intensidade",
+              "tipo": "numero",
+              "descricao": "Limiar de colisão (10-1024, menor = mais sensível)",
+              "min": 10,
+              "max": 1024,
+              "padrao": 800
+            }
+          ]
+        },
+        {
+          "nome": "TURN",
+          "descricao": "Alerta de curva brusca (parâmetros simplificados).",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "aceleracao",
+              "tipo": "numero",
+              "descricao": "Aceleração (20-60 × 0,1 m/s²)",
+              "min": 20,
+              "max": 60,
+              "padrao": 40
+            },
+            {
+              "nome": "angulo",
+              "tipo": "numero",
+              "descricao": "Ângulo de curva (30-80)",
+              "min": 30,
+              "max": 80,
+              "unidade": "°",
+              "padrao": 40
+            },
+            {
+              "nome": "modo",
+              "descricao": "Forma de alarme",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            }
+          ]
+        },
+        {
+          "nome": "JAMMER",
+          "descricao": "Detecção de bloqueador de sinal (Jammer). Requer firmware 16.3+.",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "A",
+              "opcoes": [
+                {
+                  "label": "LTE — Habilitar detecção",
+                  "valor": "LTE"
+                },
+                {
+                  "label": "OFF — Desabilitar",
+                  "valor": "OFF"
+                }
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "B",
+              "tipo": "numero",
+              "descricao": "Tempo de detecção efetiva (0-60000)",
+              "min": 0,
+              "max": 60000,
+              "unidade": "s",
+              "padrao": 3
+            },
+            {
+              "nome": "C",
+              "opcoes": [
+                {
+                  "label": "OFF — Não reportar",
+                  "valor": "OFF"
+                },
+                {
+                  "label": "0 — Via GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — Via SMS + GPRS",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            },
+            {
+              "nome": "D",
+              "tipo": "numero",
+              "descricao": "Tempo de silêncio após alarme (0-60000)",
+              "min": 0,
+              "max": 60000,
+              "unidade": "s",
+              "padrao": 0
+            },
+            {
+              "nome": "E",
+              "opcoes": [
+                {
+                  "label": "0 — Não associar ao corte do motor",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — Cortar motor após detecção",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            }
+          ]
+        },
+        {
+          "nome": "FATIGUE",
+          "descricao": "Alarme de fadiga (tempo contínuo de condução).",
+          "grupo": "Eventos",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "T1",
+              "tipo": "numero",
+              "descricao": "Limite de condução (1-1440)",
+              "min": 1,
+              "max": 1440,
+              "unidade": "min",
+              "padrao": 240
+            },
+            {
+              "nome": "T2",
+              "tipo": "numero",
+              "descricao": "Atraso do alarme (1-60)",
+              "min": 1,
+              "max": 60,
+              "unidade": "min",
+              "padrao": 20
+            },
+            {
+              "nome": "T3",
+              "tipo": "numero",
+              "descricao": "Tempo de descanso (0=imediato, outros em min)",
+              "min": 0,
+              "max": 1440,
+              "unidade": "min",
+              "padrao": 30
+            },
+            {
+              "nome": "modo",
+              "descricao": "Forma de alarme",
+              "opcoes": [
+                {
+                  "label": "0 — Somente GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            }
+          ]
+        },
+        {
+          "nome": "VERSION",
+          "descricao": "Consulta a versão do firmware.",
+          "grupo": "Consultas",
+          "parametros": []
+        },
+        {
+          "nome": "PARAM",
+          "descricao": "Consulta os parâmetros principais do dispositivo.",
+          "grupo": "Consultas",
+          "parametros": []
+        },
+        {
+          "nome": "STATUS",
+          "descricao": "Solicita o status geral do equipamento.",
+          "grupo": "Consultas",
+          "parametros": []
+        },
+        {
+          "nome": "GPRSSET",
+          "descricao": "Consulta as configurações de servidor e APN.",
+          "grupo": "Consultas",
+          "parametros": []
+        },
+        {
+          "nome": "WHERE",
+          "descricao": "Retorna link com as coordenadas GPS atuais.",
+          "grupo": "Consultas",
+          "parametros": []
+        },
+        {
+          "nome": "URL",
+          "descricao": "Retorna a URL com a posição GPS atual.",
+          "grupo": "Consultas",
+          "parametros": []
+        },
+        {
+          "nome": "POSITION",
+          "descricao": "Retorna a posição GPS via SMS.",
+          "grupo": "Consultas",
+          "parametros": []
+        },
+        {
+          "nome": "CHECK",
+          "descricao": "Exibe status de trabalho e principais parâmetros.",
+          "grupo": "Consultas",
+          "parametros": []
+        },
+        {
+          "nome": "RESET",
+          "descricao": "Reinicia o equipamento.",
+          "grupo": "Sistema",
+          "parametros": []
+        },
+        {
+          "nome": "LEDSW",
+          "descricao": "Controla o modo de suspensão dos LEDs.",
+          "grupo": "Sistema",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            }
+          ]
+        },
+        {
+          "nome": "FACTORY",
+          "descricao": "Restaura as configurações de fábrica.",
+          "grupo": "Sistema",
+          "parametros": []
+        }
+      ]
     },
     {
       "id": "wetrack2",
