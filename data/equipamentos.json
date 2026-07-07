@@ -9827,18 +9827,1612 @@
     {
       "id": "vl110",
       "equipamento": "VL110",
-      "descricao": "Rastreador veicular linha VL — comandos em cadastro.",
+      "descricao": "Rastreador veicular 4G linha VL. Configuração via SMS ou plataforma.",
       "categoria": "Rastreador",
       "linha": "vl",
-      "comandos": []
+      "comandos": [
+        {
+          "nome": "APN",
+          "descricao": "Configura o APN da operadora.",
+          "parametros": [
+            {
+              "nome": "apn",
+              "tipo": "texto",
+              "placeholder": "ex.: claro.com.br"
+            },
+            {
+              "nome": "usuario",
+              "tipo": "texto",
+              "obrigatorio": false
+            },
+            {
+              "nome": "senha",
+              "tipo": "texto",
+              "obrigatorio": false
+            }
+          ],
+          "grupo": "Rede"
+        },
+        {
+          "nome": "ASETAPN",
+          "descricao": "Detecção automática do APN pela operadora.",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            }
+          ],
+          "grupo": "Rede"
+        },
+        {
+          "nome": "SERVER",
+          "descricao": "Define o servidor principal. Modo 0 = IP direto, 1 = DNS. Protocolo 0 = TCP, 1 = UDP.",
+          "parametros": [
+            {
+              "nome": "modo",
+              "opcoes": [
+                {
+                  "label": "0 — IP",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — DNS",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "1"
+            },
+            {
+              "nome": "servidor",
+              "tipo": "texto",
+              "placeholder": "host ou IP"
+            },
+            {
+              "nome": "porta",
+              "tipo": "texto",
+              "placeholder": "ex.: 21100"
+            },
+            {
+              "nome": "protocolo",
+              "opcoes": [
+                {
+                  "label": "0 — TCP",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — UDP",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            }
+          ],
+          "grupo": "Rede"
+        },
+        {
+          "nome": "SECOND_SERVER",
+          "descricao": "Define o servidor secundário (backup). Mesmos parâmetros do SERVER.",
+          "parametros": [
+            {
+              "nome": "modo",
+              "opcoes": [
+                {
+                  "label": "0 — IP",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — DNS",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "1"
+            },
+            {
+              "nome": "servidor",
+              "tipo": "texto",
+              "placeholder": "host ou IP"
+            },
+            {
+              "nome": "porta",
+              "tipo": "texto",
+              "placeholder": "ex.: 21100"
+            },
+            {
+              "nome": "protocolo",
+              "opcoes": [
+                {
+                  "label": "0 — TCP",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — UDP",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            }
+          ],
+          "grupo": "Rede"
+        },
+        {
+          "nome": "GPSDUP",
+          "descricao": "Força envio de posição mesmo sem mudança (recomendado ON).",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            }
+          ],
+          "grupo": "Rede"
+        },
+        {
+          "nome": "GPRSON",
+          "descricao": "Ativa ou desativa o dado móvel (GPRS/4G).",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            }
+          ],
+          "grupo": "Rede"
+        },
+        {
+          "nome": "SF",
+          "descricao": "Filtro de efeito estrela — OFF desliga o filtro.",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            }
+          ],
+          "grupo": "Rede"
+        },
+        {
+          "nome": "HBT",
+          "descricao": "Heartbeat: T1 = intervalo de envio (s), T2 = timeout de resposta (s). Padrão 3,5.",
+          "parametros": [
+            {
+              "nome": "T1",
+              "tipo": "numero",
+              "padrao": "3",
+              "unidade": "s"
+            },
+            {
+              "nome": "T2",
+              "tipo": "numero",
+              "padrao": "5",
+              "unidade": "s"
+            }
+          ],
+          "grupo": "Rede"
+        },
+        {
+          "nome": "TIMER",
+          "descricao": "Intervalo de envio de posição em segundos. 0 desativa; faixa válida 5–18000.",
+          "parametros": [
+            {
+              "nome": "T1",
+              "tipo": "numero",
+              "min": 0,
+              "max": 18000,
+              "padrao": "30",
+              "unidade": "s"
+            },
+            {
+              "nome": "T2",
+              "tipo": "numero",
+              "min": 0,
+              "max": 18000,
+              "padrao": "3600",
+              "unidade": "s",
+              "obrigatorio": false
+            }
+          ],
+          "grupo": "Rastreamento"
+        },
+        {
+          "nome": "DISTANCE",
+          "descricao": "Envia posição a cada D metros percorridos. 0 desativa; faixa válida 50–10000 m.",
+          "parametros": [
+            {
+              "nome": "distancia",
+              "tipo": "numero",
+              "min": 0,
+              "max": 10000,
+              "padrao": "0",
+              "unidade": "m"
+            }
+          ],
+          "grupo": "Rastreamento"
+        },
+        {
+          "nome": "STATICREP",
+          "descricao": "Relatório em parado: SW = ON/OFF, T = intervalo (s), V = velocidade limite, N = nº de reportes.",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "intervalo",
+              "tipo": "numero",
+              "unidade": "s"
+            },
+            {
+              "nome": "velocidade",
+              "tipo": "numero",
+              "unidade": "km/h"
+            },
+            {
+              "nome": "quantidade",
+              "tipo": "numero"
+            }
+          ],
+          "grupo": "Rastreamento"
+        },
+        {
+          "nome": "ANGLEREP",
+          "descricao": "Reporta ao mudar de direção. B = ângulo mínimo (°), C = intervalo mínimo (s). Padrão ON,180,5.",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            },
+            {
+              "nome": "angulo",
+              "tipo": "numero",
+              "min": 5,
+              "max": 180,
+              "padrao": "180",
+              "unidade": "°"
+            },
+            {
+              "nome": "intervalo",
+              "tipo": "numero",
+              "padrao": "5",
+              "unidade": "s"
+            }
+          ],
+          "grupo": "Rastreamento"
+        },
+        {
+          "nome": "SV",
+          "descricao": "Envia dados de satélites: SW = ON/OFF, T1 = intervalo ligado (s), T2 = intervalo desligado (s).",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "T1",
+              "tipo": "numero",
+              "unidade": "s"
+            },
+            {
+              "nome": "T2",
+              "tipo": "numero",
+              "unidade": "s"
+            }
+          ],
+          "grupo": "Rastreamento"
+        },
+        {
+          "nome": "GPSCOLD",
+          "descricao": "Reinicia o GNSS (cold start). Útil quando o GPS trava ou não adquire satélites.",
+          "parametros": [],
+          "grupo": "GNSS"
+        },
+        {
+          "nome": "AGPS",
+          "descricao": "Ativa/desativa AGPS para aquisição mais rápida de satélites.",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            }
+          ],
+          "grupo": "GNSS"
+        },
+        {
+          "nome": "LBSON",
+          "descricao": "LBS (localização por torres): SW = ON/OFF, T1 = intervalo ligado (s), T2 = intervalo desligado (s).",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "T1",
+              "tipo": "numero",
+              "unidade": "s"
+            },
+            {
+              "nome": "T2",
+              "tipo": "numero",
+              "unidade": "s"
+            }
+          ],
+          "grupo": "GNSS"
+        },
+        {
+          "nome": "FDRIFT",
+          "descricao": "Filtro de deriva GPS: SW = ON/OFF, S = distância máxima (m), V = velocidade máxima (km/h).",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "distancia",
+              "tipo": "numero",
+              "unidade": "m"
+            },
+            {
+              "nome": "velocidade",
+              "tipo": "numero",
+              "unidade": "km/h"
+            }
+          ],
+          "grupo": "GNSS"
+        },
+        {
+          "nome": "MILEAGE",
+          "descricao": "Hodômetro: A = ON/OFF, B = quilometragem inicial (km). Padrão OFF,0.",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "km_inicial",
+              "tipo": "numero",
+              "padrao": "0",
+              "unidade": "km"
+            }
+          ],
+          "grupo": "Hodômetro"
+        },
+        {
+          "nome": "GMT",
+          "descricao": "Fuso horário manual: A = E (leste) ou W (oeste), B = horas (0–12), C = minutos (0/15/30/45).",
+          "parametros": [
+            {
+              "nome": "direcao",
+              "opcoes": [
+                {
+                  "label": "E — Leste",
+                  "valor": "E"
+                },
+                {
+                  "label": "W — Oeste",
+                  "valor": "W"
+                }
+              ],
+              "padrao": "W"
+            },
+            {
+              "nome": "horas",
+              "tipo": "numero",
+              "min": 0,
+              "max": 12,
+              "padrao": "3"
+            },
+            {
+              "nome": "minutos",
+              "opcoes": [
+                "0",
+                "15",
+                "30",
+                "45"
+              ],
+              "padrao": "0"
+            }
+          ],
+          "grupo": "Fuso Horário"
+        },
+        {
+          "nome": "ASETGMT",
+          "descricao": "Ajuste automático de fuso horário pela rede.",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            }
+          ],
+          "grupo": "Fuso Horário"
+        },
+        {
+          "nome": "ACC",
+          "descricao": "Modo de detecção de ignição: 0 = fio, 3 = virtual 1, 4 = virtual 2.",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            },
+            {
+              "nome": "modo",
+              "opcoes": [
+                {
+                  "label": "0 — Fio",
+                  "valor": "0"
+                },
+                {
+                  "label": "3 — Virtual 1",
+                  "valor": "3"
+                },
+                {
+                  "label": "4 — Virtual 2",
+                  "valor": "4"
+                }
+              ],
+              "padrao": "0"
+            }
+          ],
+          "grupo": "Ignição"
+        },
+        {
+          "nome": "ACCREP",
+          "descricao": "Envia posição quando a ignição muda de estado.",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            }
+          ],
+          "grupo": "Ignição"
+        },
+        {
+          "nome": "ACCALM",
+          "descricao": "Alarme de ignição: SW, modo de envio M, intervalo T (s), quantidade N.",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "tipo": "texto"
+            },
+            {
+              "nome": "intervalo",
+              "tipo": "numero",
+              "unidade": "s"
+            },
+            {
+              "nome": "quantidade",
+              "tipo": "numero"
+            }
+          ],
+          "grupo": "Ignição"
+        },
+        {
+          "nome": "ENG",
+          "descricao": "Detecção de motor por tensão: SW = ON/OFF, V = tensão (mV), T = tempo (s).",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "tensao",
+              "tipo": "numero",
+              "unidade": "mV"
+            },
+            {
+              "nome": "tempo",
+              "tipo": "numero",
+              "unidade": "s"
+            }
+          ],
+          "grupo": "Ignição"
+        },
+        {
+          "nome": "ENGALM",
+          "descricao": "Alarme de motor: SW = ON/OFF, M = modo de envio.",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "tipo": "texto"
+            }
+          ],
+          "grupo": "Ignição"
+        },
+        {
+          "nome": "FLAMEALM",
+          "descricao": "Alarme de chama: SW = ON/OFF, M = modo, T = sensibilidade.",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "tipo": "texto"
+            },
+            {
+              "nome": "sensibilidade",
+              "tipo": "numero"
+            }
+          ],
+          "grupo": "Ignição"
+        },
+        {
+          "nome": "OVERTIME",
+          "descricao": "Alerta de tempo de condução: SW, modo M, T1 = tempo máximo (min), T2 = descanso mínimo (min).",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "tipo": "texto"
+            },
+            {
+              "nome": "tempo_max",
+              "tipo": "numero",
+              "unidade": "min"
+            },
+            {
+              "nome": "descanso_min",
+              "tipo": "numero",
+              "unidade": "min"
+            }
+          ],
+          "grupo": "Ignição"
+        },
+        {
+          "nome": "PERMIT",
+          "descricao": "Define permissão de números de telefone para envio de comandos SMS. M = modo.",
+          "parametros": [
+            {
+              "nome": "modo",
+              "tipo": "texto"
+            }
+          ],
+          "grupo": "Segurança"
+        },
+        {
+          "nome": "PWDSW",
+          "descricao": "Ativa (ON) ou desativa (PASSWORD,OFF) a exigência de senha nos comandos.",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            },
+            {
+              "nome": "senha",
+              "tipo": "texto",
+              "obrigatorio": false,
+              "placeholder": "necessário apenas para desativar"
+            }
+          ],
+          "grupo": "Segurança"
+        },
+        {
+          "nome": "PASSWORD",
+          "descricao": "Altera a senha de comando SMS.",
+          "parametros": [
+            {
+              "nome": "senha_atual",
+              "tipo": "texto",
+              "placeholder": "senha atual"
+            },
+            {
+              "nome": "senha_nova",
+              "tipo": "texto",
+              "placeholder": "nova senha"
+            }
+          ],
+          "grupo": "Segurança"
+        },
+        {
+          "nome": "SOS",
+          "descricao": "Números SOS: use A para adicionar, D para remover. Até 3 números.",
+          "parametros": [
+            {
+              "nome": "acao",
+              "opcoes": [
+                {
+                  "label": "A — Adicionar",
+                  "valor": "A"
+                },
+                {
+                  "label": "D — Remover",
+                  "valor": "D"
+                }
+              ],
+              "padrao": "A"
+            },
+            {
+              "nome": "telefone1",
+              "tipo": "texto"
+            },
+            {
+              "nome": "telefone2",
+              "tipo": "texto",
+              "obrigatorio": false
+            },
+            {
+              "nome": "telefone3",
+              "tipo": "texto",
+              "obrigatorio": false
+            }
+          ],
+          "grupo": "Segurança"
+        },
+        {
+          "nome": "SOSALM",
+          "descricao": "Configuração do alarme SOS: P1, P2, P3 = parâmetros de envio.",
+          "parametros": [
+            {
+              "nome": "P1",
+              "tipo": "texto"
+            },
+            {
+              "nome": "P2",
+              "tipo": "texto"
+            },
+            {
+              "nome": "P3",
+              "tipo": "texto"
+            }
+          ],
+          "grupo": "Segurança"
+        },
+        {
+          "nome": "CENTER",
+          "descricao": "Número central de monitoramento: A para adicionar, D para remover.",
+          "parametros": [
+            {
+              "nome": "acao",
+              "opcoes": [
+                {
+                  "label": "A — Adicionar",
+                  "valor": "A"
+                },
+                {
+                  "label": "D — Remover",
+                  "valor": "D"
+                }
+              ],
+              "padrao": "A"
+            },
+            {
+              "nome": "telefone",
+              "tipo": "texto",
+              "obrigatorio": false
+            }
+          ],
+          "grupo": "Segurança"
+        },
+        {
+          "nome": "DEFMODE",
+          "descricao": "Modo de defesa: 0 = automático, 1 = manual.",
+          "parametros": [
+            {
+              "nome": "modo",
+              "opcoes": [
+                {
+                  "label": "0 — Automático",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — Manual",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            }
+          ],
+          "grupo": "Defesa"
+        },
+        {
+          "nome": "DEFENSE",
+          "descricao": "Tempo de atraso para ativar a defesa após parar o veículo (s).",
+          "parametros": [
+            {
+              "nome": "atraso",
+              "tipo": "numero",
+              "unidade": "s"
+            }
+          ],
+          "grupo": "Defesa"
+        },
+        {
+          "nome": "DSRESET",
+          "descricao": "Reinicia o estado de defesa.",
+          "parametros": [],
+          "grupo": "Defesa"
+        },
+        {
+          "nome": "SENALM",
+          "descricao": "Alarme de vibração: A = ON/OFF, M = modo, N = sensibilidade, T1/T2/T3 = tempos.",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "tipo": "texto"
+            },
+            {
+              "nome": "quantidade",
+              "tipo": "numero"
+            },
+            {
+              "nome": "T1",
+              "tipo": "numero",
+              "unidade": "s"
+            },
+            {
+              "nome": "T2",
+              "tipo": "numero",
+              "unidade": "s"
+            },
+            {
+              "nome": "T3",
+              "tipo": "numero",
+              "unidade": "s"
+            }
+          ],
+          "grupo": "Alertas"
+        },
+        {
+          "nome": "MOVING",
+          "descricao": "Alarme de movimento: A = ON/OFF, M = modo, R = raio (m).",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "tipo": "texto"
+            },
+            {
+              "nome": "raio",
+              "tipo": "numero",
+              "unidade": "m"
+            }
+          ],
+          "grupo": "Alertas"
+        },
+        {
+          "nome": "SPEED",
+          "descricao": "Alarme de velocidade: SW = ON/OFF, M = modo, V = velocidade limite (km/h), T = duração (s).",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "tipo": "texto"
+            },
+            {
+              "nome": "velocidade",
+              "tipo": "numero",
+              "unidade": "km/h"
+            },
+            {
+              "nome": "duracao",
+              "tipo": "numero",
+              "unidade": "s"
+            }
+          ],
+          "grupo": "Alertas"
+        },
+        {
+          "nome": "SWERVE",
+          "descricao": "Alarme de curva brusca: SW, M = modo, A = ângulo (°), V = velocidade mín. (km/h), T = tempo (s).",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "tipo": "texto"
+            },
+            {
+              "nome": "angulo",
+              "tipo": "numero",
+              "unidade": "°"
+            },
+            {
+              "nome": "velocidade_min",
+              "tipo": "numero",
+              "unidade": "km/h"
+            },
+            {
+              "nome": "tempo",
+              "tipo": "numero",
+              "unidade": "s"
+            }
+          ],
+          "grupo": "Alertas"
+        },
+        {
+          "nome": "SPEEDCHECK",
+          "descricao": "Alarme de aceleração/frenagem brusca: SW, M, T = tempo (s), V1 = aceleração máx., V2 = frenagem máx.",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "tipo": "texto"
+            },
+            {
+              "nome": "tempo",
+              "tipo": "numero",
+              "unidade": "s"
+            },
+            {
+              "nome": "acel_max",
+              "tipo": "numero"
+            },
+            {
+              "nome": "fren_max",
+              "tipo": "numero"
+            }
+          ],
+          "grupo": "Alertas"
+        },
+        {
+          "nome": "COLLIDE",
+          "descricao": "Alarme de colisão: SW, M, N = sensibilidade, T1/T2 = tempos (s), V = velocidade mín. (km/h).",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "tipo": "texto"
+            },
+            {
+              "nome": "sensibilidade",
+              "tipo": "numero"
+            },
+            {
+              "nome": "T1",
+              "tipo": "numero",
+              "unidade": "s"
+            },
+            {
+              "nome": "T2",
+              "tipo": "numero",
+              "unidade": "s"
+            },
+            {
+              "nome": "velocidade_min",
+              "tipo": "numero",
+              "unidade": "km/h"
+            }
+          ],
+          "grupo": "Alertas"
+        },
+        {
+          "nome": "VERSION",
+          "descricao": "Retorna a versão do firmware.",
+          "parametros": [],
+          "grupo": "Consultas"
+        },
+        {
+          "nome": "PARAM",
+          "descricao": "Retorna todos os parâmetros configurados.",
+          "parametros": [],
+          "grupo": "Consultas"
+        },
+        {
+          "nome": "STATUS",
+          "descricao": "Retorna o status atual do dispositivo.",
+          "parametros": [],
+          "grupo": "Consultas"
+        },
+        {
+          "nome": "WHERE",
+          "descricao": "Retorna a posição atual (coordenadas).",
+          "parametros": [],
+          "grupo": "Consultas"
+        },
+        {
+          "nome": "URL",
+          "descricao": "Retorna link do Google Maps com a posição atual.",
+          "parametros": [],
+          "grupo": "Consultas"
+        },
+        {
+          "nome": "POSITION",
+          "descricao": "Retorna endereço por SMS (modo 1).",
+          "parametros": [],
+          "grupo": "Consultas"
+        },
+        {
+          "nome": "ICCID",
+          "descricao": "Retorna o ICCID do SIM card.",
+          "parametros": [],
+          "grupo": "Consultas"
+        },
+        {
+          "nome": "IMSI",
+          "descricao": "Retorna o IMSI do SIM card.",
+          "parametros": [],
+          "grupo": "Consultas"
+        }
+      ]
     },
     {
       "id": "ll303",
       "equipamento": "LL303",
-      "descricao": "Rastreador veicular linha VL — comandos em cadastro.",
+      "descricao": "Rastreador pessoal/veicular 4G com GPS, Wi-Fi, LBS e BLE. Configuração via SMS.",
       "categoria": "Rastreador",
       "linha": "vl",
-      "comandos": []
+      "comandos": [
+        {
+          "nome": "APN",
+          "descricao": "Configura o APN da operadora. Usuário e senha opcionais para APNs privados.",
+          "parametros": [
+            {
+              "nome": "apn",
+              "tipo": "texto",
+              "placeholder": "ex.: claro.com.br"
+            },
+            {
+              "nome": "usuario",
+              "tipo": "texto",
+              "obrigatorio": false
+            },
+            {
+              "nome": "senha",
+              "tipo": "texto",
+              "obrigatorio": false
+            }
+          ],
+          "grupo": "Rede"
+        },
+        {
+          "nome": "SERVER",
+          "descricao": "Define o servidor de destino. Modo 0 = IP direto, 1 = domínio DNS.",
+          "parametros": [
+            {
+              "nome": "modo",
+              "opcoes": [
+                {
+                  "label": "0 — IP",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — Domínio",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "1"
+            },
+            {
+              "nome": "servidor",
+              "tipo": "texto",
+              "placeholder": "host ou IP"
+            },
+            {
+              "nome": "porta",
+              "tipo": "texto",
+              "placeholder": "ex.: 21100"
+            }
+          ],
+          "grupo": "Rede"
+        },
+        {
+          "nome": "GPRS",
+          "descricao": "Ativa ou desativa a conexão de dados GPRS/4G.",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            }
+          ],
+          "grupo": "Rede"
+        },
+        {
+          "nome": "GPSDUP",
+          "descricao": "Upload de dados GPS. Recomendado OFF para economizar energia (somente modo 1 é válido).",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            }
+          ],
+          "grupo": "Rede"
+        },
+        {
+          "nome": "MODE",
+          "descricao": "Modo 1 (periódico): envia localização em intervalo fixo. T = 0 desativa ou 10–86400s. GPS/Wi-Fi/LBS ligados por padrão; BLE desligado.",
+          "parametros": [
+            {
+              "nome": "modo",
+              "tipo": "fixo",
+              "valor": "1"
+            },
+            {
+              "nome": "intervalo",
+              "tipo": "numero",
+              "min": 0,
+              "max": 86400,
+              "padrao": "60",
+              "unidade": "s",
+              "placeholder": "0 ou 10–86400"
+            },
+            {
+              "nome": "gps",
+              "opcoes": [
+                {
+                  "label": "1 — GPS ON",
+                  "valor": "1"
+                },
+                {
+                  "label": "0 — GPS OFF",
+                  "valor": "0"
+                }
+              ],
+              "padrao": "1"
+            },
+            {
+              "nome": "wifi",
+              "opcoes": [
+                {
+                  "label": "1 — Wi-Fi ON",
+                  "valor": "1"
+                },
+                {
+                  "label": "0 — Wi-Fi OFF",
+                  "valor": "0"
+                }
+              ],
+              "padrao": "1"
+            },
+            {
+              "nome": "lbs",
+              "opcoes": [
+                {
+                  "label": "1 — LBS ON",
+                  "valor": "1"
+                },
+                {
+                  "label": "0 — LBS OFF",
+                  "valor": "0"
+                }
+              ],
+              "padrao": "1"
+            },
+            {
+              "nome": "ble",
+              "opcoes": [
+                {
+                  "label": "0 — BLE OFF",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — BLE ON",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            }
+          ],
+          "grupo": "Modo de Trabalho"
+        },
+        {
+          "nome": "MODE",
+          "descricao": "Modo 2 (smart): T1 = intervalo em movimento (10–86400s), T2 = intervalo parado (0 = sem upload, ou 180–86400s). GPRS pode ser desligado quando inativo.",
+          "parametros": [
+            {
+              "nome": "modo",
+              "tipo": "fixo",
+              "valor": "2"
+            },
+            {
+              "nome": "intervalo_movel",
+              "tipo": "numero",
+              "min": 10,
+              "max": 86400,
+              "padrao": "20",
+              "unidade": "s"
+            },
+            {
+              "nome": "intervalo_parado",
+              "tipo": "numero",
+              "min": 0,
+              "max": 86400,
+              "padrao": "0",
+              "unidade": "s",
+              "placeholder": "0 ou 180–86400"
+            },
+            {
+              "nome": "gps",
+              "tipo": "fixo",
+              "valor": "1"
+            },
+            {
+              "nome": "wifi",
+              "opcoes": [
+                {
+                  "label": "1 — Wi-Fi ON",
+                  "valor": "1"
+                },
+                {
+                  "label": "0 — Wi-Fi OFF",
+                  "valor": "0"
+                }
+              ],
+              "padrao": "1"
+            },
+            {
+              "nome": "lbs",
+              "opcoes": [
+                {
+                  "label": "1 — LBS ON",
+                  "valor": "1"
+                },
+                {
+                  "label": "0 — LBS OFF",
+                  "valor": "0"
+                }
+              ],
+              "padrao": "1"
+            },
+            {
+              "nome": "ble",
+              "opcoes": [
+                {
+                  "label": "0 — BLE OFF",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — BLE ON",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            },
+            {
+              "nome": "gprs_inativo",
+              "opcoes": [
+                {
+                  "label": "1 — GPRS sempre ligado",
+                  "valor": "1"
+                },
+                {
+                  "label": "0 — GPRS desliga quando parado",
+                  "valor": "0"
+                }
+              ],
+              "padrao": "1"
+            }
+          ],
+          "grupo": "Modo de Trabalho"
+        },
+        {
+          "nome": "MODE",
+          "descricao": "Modo 3 (economia de bateria): acorda no horário T1 e envia localização com intervalo T2 (minutos).",
+          "parametros": [
+            {
+              "nome": "modo",
+              "tipo": "fixo",
+              "valor": "3"
+            },
+            {
+              "nome": "hora_inicio",
+              "tipo": "texto",
+              "placeholder": "HH:MM"
+            },
+            {
+              "nome": "intervalo",
+              "tipo": "numero",
+              "min": 5,
+              "max": 43200,
+              "padrao": "1440",
+              "unidade": "min"
+            },
+            {
+              "nome": "gps",
+              "opcoes": [
+                {
+                  "label": "1 — GPS ON",
+                  "valor": "1"
+                },
+                {
+                  "label": "0 — GPS OFF",
+                  "valor": "0"
+                }
+              ],
+              "padrao": "1"
+            },
+            {
+              "nome": "wifi",
+              "opcoes": [
+                {
+                  "label": "1 — Wi-Fi ON",
+                  "valor": "1"
+                },
+                {
+                  "label": "0 — Wi-Fi OFF",
+                  "valor": "0"
+                }
+              ],
+              "padrao": "1"
+            },
+            {
+              "nome": "lbs",
+              "opcoes": [
+                {
+                  "label": "1 — LBS ON",
+                  "valor": "1"
+                },
+                {
+                  "label": "0 — LBS OFF",
+                  "valor": "0"
+                }
+              ],
+              "padrao": "1"
+            },
+            {
+              "nome": "ble",
+              "opcoes": [
+                {
+                  "label": "0 — BLE OFF",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — BLE ON",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            }
+          ],
+          "grupo": "Modo de Trabalho"
+        },
+        {
+          "nome": "SENALM",
+          "descricao": "Alarme de vibração: A = ON/OFF, M = 0 (só GPRS) ou 1 (SMS+GPRS).",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "modo",
+              "opcoes": [
+                {
+                  "label": "0 — Só GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "1"
+            }
+          ],
+          "grupo": "Alertas"
+        },
+        {
+          "nome": "LEVEL",
+          "descricao": "Sensibilidade do sensor de vibração. 1 = mais sensível, 5 = menos sensível. Padrão: 3.",
+          "parametros": [
+            {
+              "nome": "nivel",
+              "tipo": "numero",
+              "min": 1,
+              "max": 5,
+              "padrao": "3"
+            }
+          ],
+          "grupo": "Alertas"
+        },
+        {
+          "nome": "GPRSALM",
+          "descricao": "Envia SMS quando o servidor não responde (bloqueio GPRS).",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            }
+          ],
+          "grupo": "Alertas"
+        },
+        {
+          "nome": "REMALM",
+          "descricao": "Alarme de remoção/violação: A = ON/OFF, M = 0 (só GPRS) ou 1 (SMS+GPRS).",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            },
+            {
+              "nome": "modo",
+              "opcoes": [
+                {
+                  "label": "0 — Só GPRS",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — SMS + GPRS",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            }
+          ],
+          "grupo": "Alertas"
+        },
+        {
+          "nome": "CANCEL",
+          "descricao": "Cancela o modo de rastreamento ativado após alarme de violação.",
+          "parametros": [],
+          "grupo": "Alertas"
+        },
+        {
+          "nome": "SPEAK",
+          "descricao": "Controla o buzzer no alarme de remoção. T = duração do som (1–300s). Padrão: ON, 60s.",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            },
+            {
+              "nome": "duracao",
+              "tipo": "numero",
+              "min": 1,
+              "max": 300,
+              "padrao": "60",
+              "unidade": "s"
+            }
+          ],
+          "grupo": "Buzzer"
+        },
+        {
+          "nome": "AUTOSLEEP",
+          "descricao": "Sleep automático por nível de bateria: B = % para entrar no sleep (10–90), C = % para sair (20–100), D = intervalo no modo 3 (min).",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "bat_sleep",
+              "tipo": "numero",
+              "min": 10,
+              "max": 90,
+              "padrao": "20",
+              "unidade": "%"
+            },
+            {
+              "nome": "bat_wake",
+              "tipo": "numero",
+              "min": 20,
+              "max": 100,
+              "padrao": "30",
+              "unidade": "%"
+            },
+            {
+              "nome": "intervalo_modo3",
+              "tipo": "numero",
+              "min": 5,
+              "max": 43200,
+              "padrao": "1440",
+              "unidade": "min"
+            }
+          ],
+          "grupo": "Energia"
+        },
+        {
+          "nome": "SCS",
+          "descricao": "Envia status periódico ao servidor: A = ON/OFF, B = intervalo (1–3600s).",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "intervalo",
+              "tipo": "numero",
+              "min": 1,
+              "max": 3600,
+              "padrao": "5",
+              "unidade": "s"
+            }
+          ],
+          "grupo": "Status"
+        },
+        {
+          "nome": "BTMAC",
+          "descricao": "Gerencia sensores BLE por MAC address. Use ADD para adicionar (até 10) ou DELALL para remover todos.",
+          "parametros": [
+            {
+              "nome": "acao",
+              "opcoes": [
+                {
+                  "label": "ADD — Adicionar",
+                  "valor": "ADD"
+                },
+                {
+                  "label": "DELALL — Remover todos",
+                  "valor": "DELALL"
+                }
+              ],
+              "padrao": "ADD"
+            },
+            {
+              "nome": "macs",
+              "tipo": "texto",
+              "placeholder": "MAC0,MAC1,... (até 10)",
+              "obrigatorio": false
+            }
+          ],
+          "grupo": "Bluetooth"
+        },
+        {
+          "nome": "RFID",
+          "descricao": "Ativa ou desativa o leitor RFID.",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            }
+          ],
+          "grupo": "RFID"
+        }
+      ]
     },
     {
       "id": "vl01",
