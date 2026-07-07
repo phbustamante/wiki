@@ -1,0 +1,291 @@
+{% extends "base.html" %}
+{% block title %}{{ template.nome }} — Central de Automação JIMI{% endblock %}
+
+{% block content %}
+
+<script id="comandos-data" type="application/json">
+  {{ comandos | tojson }}
+</script>
+
+<div x-data="templateForm(
+  JSON.parse(document.getElementById('comandos-data').textContent),
+  '{{ url('template_gerar', kwargs={'linha': linha, 'equipamento_id': equipamento.id, 'template_id': template.id}) }}'
+)">
+
+  <!-- Voltar + cabeçalho -->
+  <div class="mb-6">
+    <a href="{{ url('templates_do_equipamento', kwargs={'linha': linha, 'equipamento_id': equipamento.id}) }}"
+       class="mb-3 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground">
+      <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+      {{ equipamento.equipamento }}
+    </a>
+    <div class="flex flex-wrap items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">{{ template.nome }}</h1>
+      <span class="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary">
+        {{ equipamento.equipamento }}
+      </span>
+    </div>
+    {% if template.descricao %}
+    <p class="mt-1 text-sm text-muted-foreground max-w-prose">{{ template.descricao }}</p>
+    {% endif %}
+  </div>
+
+  <!-- Grid: sidebar | comandos | preview + gerar -->
+  <div class="grid gap-4 lg:grid-cols-[280px_1fr_320px] lg:items-start">
+
+    <!-- ══════════════════════════════════════════
+         COLUNA ESQUERDA — Navegação de comandos
+    ══════════════════════════════════════════ -->
+    <div class="flex flex-col rounded-2xl border border-border bg-card shadow-soft overflow-hidden
+                lg:sticky lg:top-32 lg:max-h-[calc(100dvh-9rem)]">
+
+      <!-- Busca -->
+      <div class="p-3 border-b border-border">
+        <div class="relative">
+          <svg class="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground"
+               xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input x-model="busca" type="search" placeholder="Buscar comando..."
+                 class="h-9 w-full rounded-lg border border-input bg-background pl-8 pr-3 text-[13px] outline-none
+                        placeholder:text-muted-foreground focus:border-ring focus:ring-2 focus:ring-ring/20" />
+        </div>
+      </div>
+
+      <!-- Contador -->
+      <div class="flex items-center justify-between px-4 py-2 bg-accent/30 border-b border-border">
+        <span class="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Comandos</span>
+        <span class="text-[11px] font-semibold tabular-nums text-muted-foreground"
+              x-text="`${comandos.filter(c => comandoCompleto(c)).length}/${comandos.length}`"></span>
+      </div>
+
+      <!-- Grupos -->
+      <div class="flex flex-col overflow-y-auto flex-1 scroll-thin">
+        <div class="p-3 space-y-5">
+          <template x-for="grupo in comandosAgrupados" :key="grupo.grupo">
+            <div>
+              <div class="flex items-center gap-2 mb-2 px-2">
+                <span class="h-2 w-2 rounded-full shrink-0" :class="grupoCorDot(grupo.grupo)"></span>
+                <span class="text-[10px] font-extrabold uppercase tracking-[0.12em]"
+                      :class="grupoCorText(grupo.grupo)" x-text="grupo.grupo"></span>
+                <span class="ml-auto text-[10px] font-medium tabular-nums text-muted-foreground/60"
+                      x-text="grupo.comandos.length"></span>
+              </div>
+
+              <div class="space-y-0.5">
+                <template x-for="c in grupo.comandos" :key="c.nome">
+                  <button @click="irPara(c.nome)"
+                          :title="c.descricao || ''"
+                          class="w-full flex items-center gap-2 py-1.5 pl-3 pr-3 text-left font-mono text-[12px]
+                                 border-l-[3px] border-transparent text-foreground/80 rounded-r-lg
+                                 transition-all duration-100 hover:bg-accent/60 hover:text-foreground">
+                    <svg x-show="comandoCompleto(c)" class="h-3 w-3 shrink-0 text-emerald-500"
+                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                    <span x-show="!comandoCompleto(c)" class="h-3 w-3 shrink-0 rounded-full border border-muted-foreground/30"></span>
+                    <span class="truncate" x-text="c.nome"></span>
+                    <svg x-show="comandoBloqueado(c)" class="h-3 w-3 shrink-0 ml-auto text-muted-foreground/60"
+                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  </button>
+                </template>
+              </div>
+            </div>
+          </template>
+
+          <p x-show="comandosFiltrados.length === 0"
+             class="py-4 text-center text-sm text-muted-foreground">
+            Nenhum comando encontrado.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         COLUNA CENTRAL — Cards de parâmetros, agrupados por categoria
+    ══════════════════════════════════════════ -->
+    <div class="space-y-8">
+      <template x-for="grupo in comandosAgrupados" :key="`central-${grupo.grupo}`">
+        <div>
+          <!-- Cabeçalho do grupo -->
+          <div class="mb-3 flex items-center gap-2.5 px-1">
+            <span class="h-2.5 w-2.5 rounded-full shrink-0" :class="grupoCorDot(grupo.grupo)"></span>
+            <h2 class="text-sm font-extrabold uppercase tracking-[0.1em]" :class="grupoCorText(grupo.grupo)" x-text="grupo.grupo"></h2>
+            <span class="h-px flex-1 bg-border"></span>
+            <span class="text-xs font-medium text-muted-foreground" x-text="`${grupo.comandos.length} comando${grupo.comandos.length === 1 ? '' : 's'}`"></span>
+          </div>
+
+          <div class="space-y-4">
+            <template x-for="comando in grupo.comandos" :key="comando.nome">
+              <div :id="`card-${comando.nome}`"
+                   class="rounded-2xl border border-border bg-card shadow-soft overflow-hidden scroll-mt-32">
+
+                <!-- Cabeçalho do comando -->
+                <div class="border-b border-border px-6 py-5">
+                  <div class="flex items-start gap-4">
+                    <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl"
+                         :class="grupoCorBg(comando.grupo)">
+                      <svg class="h-5 w-5" :class="grupoCorText(comando.grupo)"
+                           xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/>
+                        <line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/>
+                        <line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/>
+                        <line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/>
+                      </svg>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <div class="flex flex-wrap items-center gap-2.5">
+                        <h3 class="font-mono text-lg font-bold tracking-tight leading-none" x-text="comando.nome"></h3>
+                        <svg x-show="comandoCompleto(comando)" class="h-4 w-4 text-emerald-500"
+                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                        <span x-show="comandoBloqueado(comando)"
+                              class="inline-flex items-center gap-1 rounded-full bg-accent px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                          <svg class="h-2.5 w-2.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                          padrão
+                        </span>
+                      </div>
+                      <p x-show="comando.descricao" x-text="comando.descricao"
+                         class="mt-2 text-sm leading-relaxed text-muted-foreground max-w-prose"></p>
+                    </div>
+
+                    <!-- Botão editar (só aparece quando bloqueado) -->
+                    <button x-show="comandoBloqueado(comando)"
+                            @click="desbloquear(comando.nome)"
+                            type="button"
+                            class="shrink-0 inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-1.5 text-xs font-semibold
+                                   text-foreground transition-colors hover:bg-accent">
+                      <svg class="h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
+                      Editar
+                    </button>
+
+                    <!-- Botão minimizar/expandir -->
+                    <button @click="toggleCard(comando.nome)"
+                            type="button"
+                            :title="cardAberto(comando.nome) ? 'Minimizar' : 'Expandir'"
+                            class="shrink-0 flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground
+                                   transition-colors hover:bg-accent hover:text-foreground">
+                      <svg class="h-4 w-4 transition-transform duration-200" :class="cardAberto(comando.nome) ? '' : '-rotate-90'"
+                           xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Parâmetros (recolhível) -->
+                <div x-show="cardAberto(comando.nome)" x-transition class="px-6 py-5">
+                  <div x-show="comando.parametros.some(p => tipoDe(p) !== 'fixo')"
+                       :class="comandoBloqueado(comando) ? 'opacity-60' : ''">
+                    <div class="mb-4 flex items-center justify-between">
+                      <h4 class="text-[10px] font-extrabold uppercase tracking-[0.12em] text-muted-foreground">
+                        Parâmetros
+                      </h4>
+                      <span x-show="comandoBloqueado(comando)" class="text-xs text-muted-foreground">
+                        Valores padrão da configuração — clique em "Editar" para alterar
+                      </span>
+                    </div>
+                    <div class="space-y-6">
+                      <template x-for="p in comando.parametros.filter(p => tipoDe(p) !== 'fixo')" :key="p.nome">
+                        <div class="grid gap-y-2">
+
+                          <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
+                            <span class="text-sm font-semibold" x-text="p.nome.replace(/_/g, ' ')"></span>
+                            <span x-show="isObrigatorio(p)"
+                                  class="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-bold text-primary">obrigatório</span>
+                            <span x-show="!isObrigatorio(p)"
+                                  class="rounded-full bg-accent px-2 py-0.5 text-[10px] font-medium text-muted-foreground">opcional</span>
+                            <span x-show="p.descricao" x-text="p.descricao" class="text-xs text-muted-foreground"></span>
+                          </div>
+
+                          <!-- SELECT: pills -->
+                          <div x-show="tipoDe(p) === 'select'" class="flex flex-wrap gap-2">
+                            <template x-for="op in opcoesDe(p)" :key="op.valor">
+                              <button @click="!comandoBloqueado(comando) && (valores[`${comando.nome}.${p.nome}`] = op.valor)"
+                                      type="button"
+                                      :disabled="comandoBloqueado(comando)"
+                                      :class="[
+                                        valores[`${comando.nome}.${p.nome}`] === op.valor
+                                          ? 'border-primary bg-primary text-primary-foreground shadow-soft'
+                                          : 'border-border bg-card text-foreground hover:border-primary/40 hover:bg-accent',
+                                        comandoBloqueado(comando) ? 'cursor-not-allowed' : ''
+                                      ]"
+                                      class="inline-flex items-center gap-1.5 rounded-xl border px-3.5 py-2 text-sm font-medium transition-all duration-150 active:scale-[0.97]">
+                                <svg x-show="valores[`${comando.nome}.${p.nome}`] === op.valor"
+                                     class="h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                                <span x-text="op.label"></span>
+                              </button>
+                            </template>
+                          </div>
+
+                          <!-- NUMERO -->
+                          <div x-show="tipoDe(p) === 'numero'" class="max-w-sm">
+                            <input type="number"
+                                   :min="p.min ?? undefined" :max="p.max ?? undefined" :step="p.step ?? 1"
+                                   :placeholder="p.placeholder || ''"
+                                   :disabled="comandoBloqueado(comando)"
+                                   x-model="valores[`${comando.nome}.${p.nome}`]"
+                                   class="w-full rounded-xl border border-input bg-background px-3 py-2 text-sm font-mono
+                                          outline-none focus:border-ring focus:ring-2 focus:ring-ring/20 disabled:cursor-not-allowed disabled:bg-accent/40" />
+                          </div>
+
+                          <!-- TEXTO -->
+                          <input x-show="tipoDe(p) === 'texto'"
+                                 type="text"
+                                 :maxlength="p.maxLength || undefined"
+                                 :placeholder="p.placeholder || 'Digite o valor...'"
+                                 :disabled="comandoBloqueado(comando)"
+                                 x-model="valores[`${comando.nome}.${p.nome}`]"
+                                 class="max-w-sm w-full rounded-xl border border-input bg-background px-3 py-2 text-sm font-mono
+                                        outline-none placeholder:text-muted-foreground focus:border-ring focus:ring-2 focus:ring-ring/20 disabled:cursor-not-allowed disabled:bg-accent/40" />
+
+                        </div>
+                      </template>
+                    </div>
+                  </div>
+
+                  <div x-show="!comando.parametros.some(p => tipoDe(p) !== 'fixo')"
+                       class="flex items-center gap-2.5 rounded-xl border border-border bg-accent/30 px-4 py-3">
+                    <svg class="h-4 w-4 shrink-0 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                    <p class="text-sm text-muted-foreground">Comando sem parâmetros — já está pronto.</p>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+      </template>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         COLUNA DIREITA — Preview + gerar
+    ══════════════════════════════════════════ -->
+    <aside class="lg:sticky lg:top-32 rounded-2xl border border-border bg-card shadow-soft overflow-hidden">
+      <div class="border-b border-border px-4 py-3 bg-accent/20 flex items-center justify-between">
+        <span class="text-[10px] font-extrabold uppercase tracking-[0.12em] text-muted-foreground">
+          Writeconfig gerado
+        </span>
+        <span x-show="completo" class="inline-flex items-center gap-1 text-xs font-semibold text-emerald-500">
+          <svg class="h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          Pronto
+        </span>
+      </div>
+
+      <div class="p-4">
+        <pre class="max-h-96 overflow-auto rounded-xl border border-border bg-background/70 p-3 font-mono text-xs leading-relaxed"
+             x-text="preview || '—'"></pre>
+
+        <p x-show="!completo" class="mt-3 text-xs text-muted-foreground">
+          Preencha todos os campos obrigatórios para liberar o download.
+        </p>
+        <p x-show="erro" x-text="erro" class="mt-3 text-xs text-red-500"></p>
+
+        <button @click="gerar()"
+                :disabled="!completo || gerando"
+                :class="completo && !gerando
+                  ? 'bg-primary text-primary-foreground hover:bg-primary/90'
+                  : 'bg-muted text-muted-foreground cursor-not-allowed'"
+                class="mt-4 flex w-full items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold shadow-soft transition-all">
+          <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+          <span x-text="gerando ? 'Gerando...' : 'Gerar writeconfig'"></span>
+        </button>
+      </div>
+    </aside>
+
+  </div>
+</div>
+
+{% endblock %}

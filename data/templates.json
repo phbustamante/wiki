@@ -1,0 +1,113 @@
+{
+  "equipamentos": [
+    {
+      "equipamentoId": "jc181",
+      "templates": [
+        {
+          "id": "config-inicial-jc181",
+          "nome": "Configuração Inicial da JC181",
+          "descricao": "Comandos essenciais para o apontamento da câmera JC181 para o servidor de monitoramento.",
+          "comandos": ["ASETAPN", "APN", "SERVER", "URLTYPE"]
+        },
+        {
+          "id": "config-padrao-jc181",
+          "nome": "Configuração Padrão da JC181",
+          "descricao": "Configuração padrão da JC181, incluindo todos os comandos do dispositivo em sua configuração padrão recomendada pela Wiki.",
+          "comandos": ["APN","ASETAPN","SERVER","URLTYPE","WIFIAP","SSID","TIMER","ANGLEREP","ACCREP","SF","VIDEO,PARAM,1","VOLUME","GMT","ASETGMT","RELAY","SENDS","GPSDUP","RECORDVSW","RECORDSW","MILEAGE","SPEED","SENALM","COLLIDE","SPEEDCHECK","SWERVE","FATIGUE","PICTIMER","EXBATALM","POWERALM","PWRLIMIT","SHUTDOWNTIME"]
+        }
+      ]
+    },
+    {
+      "equipamentoId": "jc182",
+      "templates": [
+        {
+          "id": "config-inicial-jc182",
+          "nome": "Configuração Inicial da JC182",
+          "descricao": "Comandos essenciais para o apontamento da câmera JC182 para o servidor de monitoramento.",
+          "comandos": ["ASETAPN", "APN", "SERVER", "URLTYPE"]
+        },
+        {
+          "id": "config-padrao-jc182",
+          "nome": "Configuração Padrão da JC182",
+          "descricao": "Configuração padrão da JC182, incluindo todos os comandos do dispositivo em sua configuração padrão recomendada pela Wiki.",
+          "comandos": ["APN","ASETAPN","SERVER","URLTYPE","VIDEOTIMEZONE","SF","TIMER","BCD","TLR","RECORDSW,1","RECORDAUDIO,1","LIGHT","MILE","ANGLEREP","EVENTSET,AOSD","EVENTSET,AVD","EVENTSET,AEPLV","EVENTSET,ACD","ACC","ACCV","WIFIAP","WIFIAPT","SSID","VOLUME"]
+        }
+      ]
+    },
+    {
+      "equipamentoId": "jc371",
+      "templates": [
+        {
+          "id": "config-inicial-jc371",
+          "nome": "Configuração Inicial da JC371",
+          "descricao": "Comandos essenciais para o apontamento da câmera JC371 para o servidor de monitoramento.",
+          "comandos": ["APN", "SERVER", "URLTYPE","RATATION","VOICESW","TIMESYNC","VIDEOTIMEZONE","BCD"]
+        },
+        {
+          "id": "config-padrao-jc371",
+          "nome": "Configuração Padrão da JC371",
+          "descricao": "Configuração padrão da JC371, incluindo todos os comandos do dispositivo em sua configuração padrão recomendada pela Wiki.",
+          "comandos": ["APN","SERVER","URLTYPE","RATATION","VOICESW","TIMESYNC","VIDEOTIMEZONE","LED","DISK","KEYFUN","VOLUME","TFMODE","PWDSW","UPFILESIZE","ASETAPN","WIFIAP","WIFIAPT","SSID","HDS","BCD","ACC","ACCV","SENSORSET","SHUTDOWNTIME","TIMER","ANGLEREP","MILEAGE","VIDEORSL","VIDEORSL_SUB","RECORDSW","RECORDSW_SUB","RECORDAUDIO","RECORDAUDIO_SUB","MILE","UPLOAD","PICTIMER","VIDEOPARAM","PICRATE","PICTURE","EVENTALERT,ASOS","EVENTSET,AOSD","EVENTALERT,AOSD","EVENTSET,AODD","EVENTALERT,AODD","EVENTSET,AVD","EVENTALERT,AVD","EVENTSET,AEPLV","EVENTALERT,AEPLV","EVENTSET,AHADU","EVENTALERT,AHADU","EVENTSET,AHBDU","EVENTALERT,AHBDU","EVENTSET,AHTDU","EVENTALERT,AHTDU","EVENTSET,ACDU","EVENTALERT,ACDU","DMSSW","DMSSP","ADAS,CALIBRATION","EVENTSET,ALDW","EVENTALERT,ALDW","EVENTSET,AHMW","EVENTALERT,AHMW","EVENTSET,AFCW","EVENTALERT,AFCW","EVENTSET,APCW","EVENTALERT,APCW","EVENTSET,AFVS","EVENTALERT,AFVS","EVENTSET,ADCA","EVENTALERT,ADCA","EVENTSET,ACEA","EVENTALERT,ACEA","EVENTALERT,ASCE","EVENTSET,ADDW","EVENTALERT,ADDW","EVENTSET,ADW","EVENTALERT,ADW","EVENTSET,ASW","EVENTALERT,ASW","EVENTSET,ACPW","EVENTALERT,ACPW","EVENTSET,AMS","EVENTALERT,AMS","EVENTSET,ASS","EVENTALERT,ASS","EVENTSET,ADA","EVENTALERT,ADA","EVENTSET,ANDD","EVENTALERT,ANDD","EVENTSET,AFIF","EVENTALERT,AFIS","EVENTALERT,AFIF","EVENTSET,AWSB","EVENTALERT,AWSB","EVENTSET,ANWSB","EVENTALERT,ANWSB","RELAY","UARTCONFIG","UARTDL"]
+        }
+      ]
+    },
+
+    {
+      "equipamentoId": "jc400",
+      "templates": [
+        {
+          "id": "config-inicial-jc400",
+          "nome": "Configuração Inicial da JC400",
+          "descricao": "Comandos essenciais para o apontamento da câmera JC400 para o servidor de monitoramento.",
+          "comandos": ["COREKITSW,0","APN", "SERVER", "RSERVICE","UPLOAD","RATATION","VOICESW"]
+        },
+        {
+          "id": "config-padrao-jc400",
+          "nome": "Configuração Padrão da JC400",
+          "descricao": "Configuração padrão da JC400, incluindo todos os comandos do dispositivo em sua configuração padrão recomendada pela Wiki.",
+          "comandos": ["COREKITSW,0","APN","DMSSW","SERVER","WIFIAP","SSID","UPLOAD","TIMER","TIMER1","ANGLEREP","SHUTDOWNTIME","MILEAGE","RATATION","CAMERA","CAR","VOICESW","LED","TIMESYNC","VOLUME","RECORDAUDIO","RECORDSW","SENALM","SHOCK","SHAKEDELAY","CRASHALM","SENSOR","SPEED","RAPIDACC","RAPIDDEC","RAPIDTURN","FATIGUE","SOSALM","SOS","EXBATALM","ADASVSP","DMSSEP","DMSSP","DMSPI","ADAS,CALIBRATION","ADASSEN","ADAS,CENTERPOINT"]
+        }
+      ]
+    },
+    {
+      "equipamentoId": "jc400ad",
+      "templates": [
+        {
+          "id": "config-inicial-jc400ad",
+          "nome": "Configuração Inicial da JC400AD",
+          "descricao": "Comandos essenciais para o apontamento da câmera JC400AD para o servidor de monitoramento.",
+          "comandos": ["COREKITSW","APN", "SERVER", "RSERVICE","UPLOAD","RATATION","VOICESW","AUDIOURL"]
+        },
+        {
+          "id": "config-padrao-jc400ad",
+          "nome": "Configuração Padrão da JC400AD",
+          "descricao": "Configuração padrão da JC400AD, incluindo todos os comandos do dispositivo em sua configuração padrão recomendada pela Wiki.",
+          "comandos": ["COREKITSW","APN","DMSSW","VOICESW","AUDIOURL","SERVER","UPLOAD","RSERVICE","WIFIAP","SSID","TIMER","TIMER1","ANGLEREP","ACCREP","SHUTDOWNTIME","RATATION","VIDEORESOLUTION_SUB","CAMERA","CAR","VOLUME","LED","TIMESYNC","TIMEZONE","RECORDAUDIO","RECORDAUDIO_SUB","RECORDSW","RELAY","EXDEVICESW","MILEAGE","FILTER","HTTPUPLOADLIMIT","UPLOADSW","SPEED","FATIGUE","SOSALM","SOS","CALL","SENALM","SHOCK","SHAKEDELAY","CRASHALM","COLLIDE","SENSOR","RAPIDACC","RAPIDDEC","RAPIDTURN","EXBATALM","NOSDCARDALM","SDABNORMAL","DMS_SWITCH","DMS_VOICE_CUSTOM","DMS_ALERT_CUSTOM","DMS_CONTINUITY","DMS_LOSTFACE_LIMIT","DMS_CALIB_ABNORMAL","DMS_SECOND_EVENT","ADAS,CALMODE","ADAS,CALIBRATION","ADASSEN","ADASSEP","ADASSW","ADASPI"]
+        }
+      ]
+    },
+    {
+      "equipamentoId": "jc450",
+      "templates": [
+        {
+          "id": "config-inicial-jc450",
+          "nome": "Configuração Inicial da JC450",
+          "descricao": "Comandos essenciais para o apontamento da câmera JC450 para o servidor de monitoramento.",
+          "comandos": ["PRESETAPN","APN", "SERVER", "URLTYPE","RATATION","TIMESYNC","TIMEZONE","VOICESW"]
+        },
+        {
+          "id": "config-padrao-jc450",
+          "nome": "Configuração Padrão da JC450",
+          "descricao": "Configuração padrão da JC450, incluindo todos os comandos do dispositivo em sua configuração padrão recomendada pela Wiki.",
+          "comandos": ["PRESETAPN","SERVER","URLTYPE","WAKEMODE","APN","WIFIAPT","WIFIAP","SSID","LOCATEREP","ANGLEREP","SF","SHUTDOWNTIME","VIDEORSL","PICQ","CAR","RATATION","VOLUME","VOICESW","LED","TIMESYNC","TIMEZONE","RECORDVSW","RECORDSW","RELAY","FORMAT","PIPPARM","ENCODEPRM","MILEAGE","DMSPI","SPEED","SHAKETHD","CRASHALM","RAPIDACC","RAPIDDEC","RAPIDTURN","TFMODE","INPUTFUN","UPLOAD","PICTIMER","ALARMFLT","DMSSP","DMSVI","DMSSEN","ADAS,CALIBRATION","ADASSEN","SNAPNUM","DMSSEP","ADAS,CENTERPOINT","HTTPMP3"]
+        }
+      ]
+    }
+     
+    
+  ]
+}
+
+
+
+  

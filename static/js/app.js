@@ -50,7 +50,9 @@ function parametrosVisiveis(comando) {
 function selecaoInicial(comando) {
   const sel = {};
   for (const p of comando.parametros) {
-    if (tipoDe(p) !== "fixo" && p.padrao !== undefined) sel[p.nome] = p.padrao;
+    if (p.tipo !== "fixo" && p.padrao !== undefined) {
+      sel[p.nome] = p.padrao;
+    }
   }
   return sel;
 }
@@ -78,6 +80,32 @@ function montarComando(comando, selecao) {
   const corpo = [comando.nome, ...tokens].join(sep);
   const texto = `${comando.prefixo ?? ""}${corpo}${comando.sufixo ?? ""}`;
   return { texto, completo: faltando.length === 0, faltando };
+}
+
+function montarTemplate(comandos, valores) {
+  const linhas = [];
+  let completo = true;
+  const faltando = [];
+
+  for (const comando of comandos) {
+    const selecao = {};
+
+    for (const parametro of comando.parametros) {
+      if (parametro.tipo === "fixo") continue;
+      const chave = `${comando.nome}.${parametro.nome}`;
+      selecao[parametro.nome] = valores[chave];
+    }
+
+    const resultado = montarComando(comando, selecao);
+    linhas.push(resultado.texto);
+
+    if (!resultado.completo) {
+      completo = false;
+      faltando.push(...resultado.faltando);
+    }
+  }
+
+  return { preview: linhas.join("\n"), completo, faltando };
 }
 
 // ── Store persistente (localStorage) ─────────────────────────────────────────
@@ -431,6 +459,157 @@ function videoUpload() {
       e.preventDefault();
       this.arrastando = false;
       this.selecionar(e.dataTransfer.files?.[0]);
+    },
+  };
+}
+
+// ── Componente: página de template (formulário guiado) ────────────────────────
+
+const CATEGORIA_LIVRE = "Configuração Inicial";
+
+function templateForm(comandos, endpoint) {
+  return {
+    comandos,
+    endpoint,
+
+    valores: {},
+    preview: "",
+    completo: false,
+    erro: "",
+    gerando: false,
+    busca: "",
+
+    cardsFechados: {},
+    desbloqueados: {},
+
+    init() {
+      for (const comando of this.comandos) {
+        for (const parametro of comando.parametros) {
+          if (parametro.tipo === "fixo") continue;
+          const chave = `${comando.nome}.${parametro.nome}`;
+          this.valores[chave] = parametro.padrao !== undefined ? parametro.padrao : "";
+        }
+      }
+
+      this.$watch("valores", () => this.atualizarPreview(), { deep: true });
+      this.atualizarPreview();
+    },
+
+    atualizarPreview() {
+      const resultado = montarTemplate(this.comandos, this.valores);
+      this.preview = resultado.preview;
+      this.completo = resultado.completo;
+    },
+
+    // ── Navegação lateral (agrupada, igual à página de equipamento) ──
+
+    get comandosFiltrados() {
+      const q = normalize(this.busca);
+      if (!q) return this.comandos;
+      return this.comandos.filter(c =>
+        [c.nome, c.descricao, c.grupo].filter(Boolean).some(v => normalize(String(v)).includes(q))
+      );
+    },
+
+    get comandosAgrupados() {
+      const ORDEM = ["Consultas","Configuração Inicial","Sistema","Rede e WiFi","Rastreamento","Vídeo","Controle","Eventos","IA / ADAS / DMS","Diagnóstico","Outros"];
+      const mapa = {};
+      for (const c of this.comandosFiltrados) {
+        const g = c.grupo || "Outros";
+        if (!mapa[g]) mapa[g] = [];
+        mapa[g].push(c);
+      }
+      return ORDEM.filter(g => mapa[g]).map(g => ({ grupo: g, comandos: mapa[g] }));
+    },
+
+    // Usa id no DOM (não x-ref) porque precisa ser dinâmico por iteração.
+    irPara(nomeComando) {
+      const alvo = document.getElementById(`card-${nomeComando}`);
+      if (alvo) alvo.scrollIntoView({ behavior: "smooth", block: "start" });
+    },
+
+    comandoCompleto(comando) {
+      for (const p of comando.parametros) {
+        if (p.tipo === "fixo") continue;
+        const obrigatorio = p.obrigatorio !== false;
+        if (!obrigatorio) continue;
+        const chave = `${comando.nome}.${p.nome}`;
+        const valor = (this.valores[chave] ?? "").toString().trim();
+        if (!valor) return false;
+      }
+      return true;
+    },
+
+    tipoDe(p) { return tipoDe(p); },
+    isObrigatorio(p) { return isObrigatorio(p); },
+    opcoesDe(p) { return normalizarOpcoes(p.opcoes); },
+
+    grupoCorText(grupo) { return (GRUPO_CORES[grupo] || {}).text || "text-muted-foreground"; },
+    grupoCorBg(grupo)   { return (GRUPO_CORES[grupo] || {}).bg   || "bg-accent/40"; },
+    grupoCorDot(grupo)  { return (GRUPO_CORES[grupo] || {}).dot  || "bg-muted-foreground"; },
+
+    // ── Expandir / minimizar cards ──
+
+    cardAberto(nomeComando) {
+      return !this.cardsFechados[nomeComando];
+    },
+
+    toggleCard(nomeComando) {
+      this.cardsFechados = { ...this.cardsFechados, [nomeComando]: !this.cardsFechados[nomeComando] };
+    },
+
+    // ── Regra: comandos fora de "Configuração Inicial" vêm bloqueados,
+    //           pré-preenchidos com o padrão do JSON, até o cliente clicar em "Editar" ──
+
+    comandoBloqueavel(comando) {
+      return (comando.grupo || "Outros") !== CATEGORIA_LIVRE;
+    },
+
+    comandoBloqueado(comando) {
+      return this.comandoBloqueavel(comando) && !this.desbloqueados[comando.nome];
+    },
+
+    desbloquear(nomeComando) {
+      this.desbloqueados = { ...this.desbloqueados, [nomeComando]: true };
+    },
+
+    // ── Geração / download ──
+
+    async gerar() {
+      if (!this.completo || this.gerando) return;
+      this.gerando = true;
+      this.erro = "";
+
+      try {
+        const res = await fetch(this.endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(this.valores),
+        });
+
+        if (!res.ok) {
+          const corpo = await res.json().catch(() => ({}));
+          this.erro = (corpo.erros || ["Erro ao gerar configuração."]).join(" ");
+          return;
+        }
+
+        const blob = await res.blob();
+
+        const disposition = res.headers.get("Content-Disposition") || "";
+        const filenameMatch = disposition.match(/filename="?([^"]+)"?/i);
+        const filename = filenameMatch ? filenameMatch[1] : "writeconfig.txt";
+
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        a.click();
+        window.URL.revokeObjectURL(url);
+      } catch (e) {
+        this.erro = "Falha de conexão ao gerar o writeconfig.";
+      } finally {
+        this.gerando = false;
+      }
     },
   };
 }

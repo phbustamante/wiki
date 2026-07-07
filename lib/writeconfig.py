@@ -54,17 +54,17 @@ def gerar_conteudo_writeconfig(itens):
     return conteudo
 
 
-def gerar_writeconfig(itens):
-    return gerar_conteudo_writeconfig(itens)
+def gerar_writeconfig(itens, equipamento_id):
+    comandos = _normalizar_comandos(itens)
 
+    conteudo = "\n".join(comandos)
+    if conteudo:
+        conteudo += "\n"
 
-def gerar_writeconfig_favoritos(favoritos=None):
-    if favoritos is None:
-        favoritos = _carregar_store().get("favoritos", [])
-    return gerar_writeconfig(favoritos)
+    nome_arquivo = (
+        "config.txt"
+        if equipamento_id.lower() == "jc182"
+        else "writeconfig.txt"
+    )
 
-
-def gerar_writeconfig_historico(historico=None):
-    if historico is None:
-        historico = _carregar_store().get("historico", [])
-    return gerar_writeconfig(historico)
+    return conteudo, nome_arquivo
