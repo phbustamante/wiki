@@ -7,6 +7,13 @@
       "runtimeArgs": ["manage.py", "runserver", "5001"],
       "port": 5001,
       "autoPort": false
+    },
+    {
+      "name": "Flask Wiki",
+      "runtimeExecutable": ".venv/bin/python",
+      "runtimeArgs": ["app.py"],
+      "port": 5001,
+      "autoPort": false
     }
   ]
 }

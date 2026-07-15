@@ -4,10 +4,10 @@
 
 <div>
   <!-- Voltar -->
-  <a href="/{{ atualizacao.linha }}/"
+  <a href="{{ url('equipment', kwargs={'linha': atualizacao.linha, 'slug': atualizacao.id}) }}"
      class="mb-6 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground">
     <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
-    Início
+    {{ atualizacao.equipamento }}
   </a>
 
   <!-- Cabeçalho -->
@@ -18,6 +18,10 @@
     <p class="mt-2 max-w-prose text-muted-foreground">{{ atualizacao.descricao }}</p>
     {% endif %}
   </div>
+
+  {% with equipamento_id = atualizacao.id, secao_ativa = 'atualizacao' %}
+    {% include "_secao_nav.html" %}
+  {% endwith %}
 
   <div class="grid gap-6 lg:grid-cols-2 lg:items-start">
 

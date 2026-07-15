@@ -47,12 +47,29 @@ def landing(request):
 def home(request, linha):
     if linha not in LINHAS:
         raise Http404
+    ids_com_atualizacao = {a["id"] for a in get_atualizacoes(linha)}
+    templates_por_equipamento = {
+        g["equipamento"]["id"]: g["quantidade_templates"]
+        for g in get_equipamentos_com_templates(linha=linha)
+    }
+    equipamentos = []
+    for e in get_equipamentos(linha):
+        e = dict(e)
+        e["n_templates"] = templates_por_equipamento.get(e["id"], 0)
+        e["tem_atualizacao"] = e["id"] in ids_com_atualizacao
+        equipamentos.append(e)
     return render(request, "home.html", {
-        "equipamentos": get_equipamentos(linha),
-        "atualizacoes": get_atualizacoes(linha),
-        "templates_equipamentos": get_equipamentos_com_templates(linha=linha),
+        "equipamentos": equipamentos,
         "linha": linha,
     })
+
+
+def _secoes_do_equipamento(linha, slug):
+    """Flags usadas pelo hub e pela navegação entre as seções do equipamento."""
+    return {
+        "n_templates": len(get_templates_do_equipamento(slug)),
+        "tem_atualizacao": any(a["id"] == slug for a in get_atualizacoes(linha)),
+    }
 
 
 def equipment(request, linha, slug):
@@ -61,7 +78,24 @@ def equipment(request, linha, slug):
     eq = next((e for e in get_equipamentos(linha) if e["id"] == slug), None)
     if not eq:
         raise Http404
-    return render(request, "equipment.html", {"equipamento": eq})
+    return render(request, "equipment_hub.html", {
+        "equipamento": eq,
+        "linha": linha,
+        **_secoes_do_equipamento(linha, slug),
+    })
+
+
+def equipment_comandos(request, linha, slug):
+    if linha not in LINHAS:
+        raise Http404
+    eq = next((e for e in get_equipamentos(linha) if e["id"] == slug), None)
+    if not eq:
+        raise Http404
+    return render(request, "equipment.html", {
+        "equipamento": eq,
+        "linha": linha,
+        **_secoes_do_equipamento(linha, slug),
+    })
 
 
 def update(request, linha, slug):
@@ -70,7 +104,14 @@ def update(request, linha, slug):
     at = next((a for a in get_atualizacoes(linha) if a["id"] == slug), None)
     if not at:
         raise Http404
-    return render(request, "update.html", {"atualizacao": at})
+    equipamento = next(
+        (e for e in get_equipamentos(linha) if e["id"] == slug), None)
+    return render(request, "update.html", {
+        "atualizacao": at,
+        "equipamento": equipamento,
+        "linha": linha,
+        **_secoes_do_equipamento(linha, slug),
+    })
 
 
 # --- Templates de Configuração (novo) ---
@@ -86,6 +127,7 @@ def templates_do_equipamento(request, linha, equipamento_id):
         "equipamento": equipamento,
         "templates": templates,
         "linha": linha,
+        **_secoes_do_equipamento(linha, equipamento_id),
     })
 
 

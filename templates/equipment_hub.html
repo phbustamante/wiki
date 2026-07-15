@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% block title %}{{ equipamento.equipamento }} — Central de Automação JIMI{% endblock %}
+{% block content %}
+
+<div>
+  <!-- Voltar + cabeçalho -->
+  <div class="mb-8">
+    <a href="{{ url('home', kwargs={'linha': linha}) }}"
+       class="mb-3 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground">
+      <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+      Equipamentos
+    </a>
+    <div class="flex flex-wrap items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">{{ equipamento.equipamento }}</h1>
+      <span class="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary">
+        Linha {{ linha }}
+      </span>
+      {% if equipamento.categoria %}
+      <span class="inline-flex items-center rounded-full bg-muted px-3 py-1 text-xs font-medium text-foreground">
+        {{ equipamento.categoria }}
+      </span>
+      {% endif %}
+    </div>
+    {% if equipamento.descricao %}
+    <p class="mt-2 max-w-prose text-muted-foreground">{{ equipamento.descricao }}</p>
+    {% endif %}
+    <p class="mt-4 max-w-prose text-sm text-muted-foreground">
+      Escolha abaixo o que deseja fazer com este equipamento.
+    </p>
+  </div>
+
+  <!-- As três seções -->
+  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+
+    <!-- 1. Automação e envio manual de comandos -->
+    <a href="{{ url('equipment_comandos', kwargs={'linha': linha, 'slug': equipamento.id}) }}"
+       class="group block focus-visible:outline-none">
+      <div class="flex h-full flex-col rounded-2xl border border-border bg-card p-6 shadow-soft transition-all duration-300 group-hover:-translate-y-0.5 group-hover:shadow-soft-lg group-focus-visible:ring-2 group-focus-visible:ring-ring">
+        <div class="flex items-start justify-between">
+          <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>
+          </div>
+          <svg class="h-5 w-5 text-muted-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:text-foreground" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </div>
+        <div class="mt-4 flex-1">
+          <h2 class="text-lg font-semibold tracking-tight">Automação e envio manual de comandos</h2>
+          <p class="mt-1 text-sm text-muted-foreground">
+            Monte comandos com parâmetros guiados, copie e salve os mais usados nos favoritos.
+          </p>
+        </div>
+        <div class="mt-4">
+          <span class="inline-flex items-center rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-foreground">
+            {{ equipamento.comandos | length }} comando{{ equipamento.comandos | length | pluralize }}
+          </span>
+        </div>
+      </div>
+    </a>
+
+    <!-- 2. Templates de comandos -->
+    {% if n_templates > 0 %}
+    <a href="{{ url('templates_do_equipamento', kwargs={'linha': linha, 'equipamento_id': equipamento.id}) }}"
+       class="group block focus-visible:outline-none">
+      <div class="flex h-full flex-col rounded-2xl border border-border bg-card p-6 shadow-soft transition-all duration-300 group-hover:-translate-y-0.5 group-hover:shadow-soft-lg group-focus-visible:ring-2 group-focus-visible:ring-ring">
+        <div class="flex items-start justify-between">
+          <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-500/10 text-violet-500">
+            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <svg class="h-5 w-5 text-muted-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:text-foreground" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </div>
+        <div class="mt-4 flex-1">
+          <h2 class="text-lg font-semibold tracking-tight">Templates de comandos</h2>
+          <p class="mt-1 text-sm text-muted-foreground">
+            Modelos prontos e homologados: preencha os dados e gere o arquivo de configuração.
+          </p>
+        </div>
+        <div class="mt-4">
+          <span class="inline-flex items-center rounded-full bg-violet-500/10 px-2.5 py-0.5 text-xs font-medium text-violet-500">
+            {{ n_templates }} template{{ n_templates | pluralize }}
+          </span>
+        </div>
+      </div>
+    </a>
+    {% else %}
+    <div class="flex h-full flex-col rounded-2xl border border-dashed border-border bg-card/50 p-6 opacity-70">
+      <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-muted text-muted-foreground">
+        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+      </div>
+      <div class="mt-4 flex-1">
+        <h2 class="text-lg font-semibold tracking-tight text-muted-foreground">Templates de comandos</h2>
+        <p class="mt-1 text-sm text-muted-foreground">
+          Nenhum template cadastrado para este equipamento ainda.
+        </p>
+      </div>
+      <div class="mt-4">
+        <span class="inline-flex items-center rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
+          em breve
+        </span>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- 3. Atualização de equipamentos -->
+    {% if tem_atualizacao %}
+    <a href="{{ url('update', kwargs={'linha': linha, 'slug': equipamento.id}) }}"
+       class="group block focus-visible:outline-none">
+      <div class="flex h-full flex-col rounded-2xl border border-border bg-card p-6 shadow-soft transition-all duration-300 group-hover:-translate-y-0.5 group-hover:shadow-soft-lg group-focus-visible:ring-2 group-focus-visible:ring-ring">
+        <div class="flex items-start justify-between">
+          <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-500">
+            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+          </div>
+          <svg class="h-5 w-5 text-muted-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:text-foreground" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </div>
+        <div class="mt-4 flex-1">
+          <h2 class="text-lg font-semibold tracking-tight">Atualização de equipamentos</h2>
+          <p class="mt-1 text-sm text-muted-foreground">
+            Tutoriais de atualização de firmware: passo a passo, arquivos para download e vídeo do processo.
+          </p>
+        </div>
+        <div class="mt-4">
+          <span class="inline-flex items-center rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-xs font-medium text-emerald-500">
+            firmware
+          </span>
+        </div>
+      </div>
+    </a>
+    {% else %}
+    <div class="flex h-full flex-col rounded-2xl border border-dashed border-border bg-card/50 p-6 opacity-70">
+      <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-muted text-muted-foreground">
+        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+      </div>
+      <div class="mt-4 flex-1">
+        <h2 class="text-lg font-semibold tracking-tight text-muted-foreground">Atualização de equipamentos</h2>
+        <p class="mt-1 text-sm text-muted-foreground">
+          Nenhum tutorial de atualização cadastrado para este equipamento ainda.
+        </p>
+      </div>
+      <div class="mt-4">
+        <span class="inline-flex items-center rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
+          em breve
+        </span>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+{% endblock %}

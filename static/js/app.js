@@ -403,11 +403,10 @@ function equipmentPage(equipamento) {
 
 // ── Componente: página inicial (busca) ────────────────────────────────────────
 
-function homePage(equipamentos, atualizacoes, linha) {
+function homePage(equipamentos, linha) {
   return {
     busca: "",
     equipamentos,
-    atualizacoes,
     linha: linha || "jc",
 
     get filtrados() {
@@ -415,16 +414,6 @@ function homePage(equipamentos, atualizacoes, linha) {
       if (!q) return this.equipamentos;
       return this.equipamentos.filter(e =>
         [e.equipamento, e.descricao, e.categoria, ...(e.comandos || []).map(c => c.nome)]
-          .filter(Boolean)
-          .some(v => normalize(String(v)).includes(q))
-      );
-    },
-
-    get atualizacoesFiltradas() {
-      const q = normalize(this.busca);
-      if (!q) return this.atualizacoes;
-      return this.atualizacoes.filter(a =>
-        [a.equipamento, a.descricao, a.categoria]
           .filter(Boolean)
           .some(v => normalize(String(v)).includes(q))
       );
