@@ -89,6 +89,38 @@ def templates_do_equipamento(request, linha, equipamento_id):
     })
 
 
+def template_personalizado(request, linha, equipamento_id):
+    if linha not in LINHAS:
+        raise Http404
+
+    equipamento = get_equipamento(equipamento_id)
+    if not equipamento:
+        raise Http404
+
+    templates = get_templates_do_equipamento(equipamento_id)
+
+    base_comandos = []
+    base_info = None
+    base_id = request.GET.get("base")
+    if base_id:
+        template_base = get_template(equipamento_id, base_id)
+        if template_base:
+            _, base_comandos = resolver_comandos_do_template(
+                equipamento_id, template_base)
+            base_info = {
+                "nome": template_base["nome"],
+                "descricao": template_base.get("descricao", ""),
+            }
+
+    return render(request, "template_builder.html", {
+        "equipamento": equipamento,
+        "templates": templates,
+        "base_comandos": base_comandos,
+        "base_info": base_info,
+        "linha": linha,
+    })
+
+
 def template_detail(request, linha, equipamento_id, template_id):
     if linha not in LINHAS:
         raise Http404
@@ -150,7 +182,7 @@ def template_gerar(request, linha, equipamento_id, template_id):
 @csrf_exempt
 @require_POST
 def writeconfig(request, origem):
-    if origem not in ("favoritos", "historico"):
+    if origem not in ("favoritos", "historico", "template-custom"):
         raise Http404
 
     dados = json.loads(request.body or b"{}")

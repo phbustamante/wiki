@@ -41,13 +41,304 @@
           "id": "config-inicial-jc371",
           "nome": "Configuração Inicial da JC371",
           "descricao": "Comandos essenciais para o apontamento da câmera JC371 para o servidor de monitoramento.",
-          "comandos": ["APN", "SERVER", "URLTYPE","RATATION","VOICESW","TIMESYNC","VIDEOTIMEZONE","BCD"]
+          "comandos": ["APN", "SERVER", "URLTYPE","VOICESW","TIMESYNC","VIDEOTIMEZONE","BCD",
+          {"comando": "RATATION", "instancia": "ch2", "titulo": "RATATION — Canal 2", "overrides": {"canal": "2", "resolucao": "1080"},"ocultar": ["canal"]}]
         },
         {
           "id": "config-padrao-jc371",
           "nome": "Configuração Padrão da JC371",
           "descricao": "Configuração padrão da JC371, incluindo todos os comandos do dispositivo em sua configuração padrão recomendada pela Wiki.",
-          "comandos": ["APN","SERVER","URLTYPE","RATATION","VOICESW","TIMESYNC","VIDEOTIMEZONE","LED","DISK","KEYFUN","VOLUME","TFMODE","PWDSW","UPFILESIZE","ASETAPN","WIFIAP","WIFIAPT","SSID","HDS","BCD","ACC","ACCV","SENSORSET","SHUTDOWNTIME","TIMER","ANGLEREP","MILEAGE","VIDEORSL","VIDEORSL_SUB","RECORDSW","RECORDSW_SUB","RECORDAUDIO","RECORDAUDIO_SUB","MILE","UPLOAD","PICTIMER","VIDEOPARAM","PICRATE","PICTURE","EVENTALERT,ASOS","EVENTSET,AOSD","EVENTALERT,AOSD","EVENTSET,AODD","EVENTALERT,AODD","EVENTSET,AVD","EVENTALERT,AVD","EVENTSET,AEPLV","EVENTALERT,AEPLV","EVENTSET,AHADU","EVENTALERT,AHADU","EVENTSET,AHBDU","EVENTALERT,AHBDU","EVENTSET,AHTDU","EVENTALERT,AHTDU","EVENTSET,ACDU","EVENTALERT,ACDU","DMSSW","DMSSP","ADAS,CALIBRATION","EVENTSET,ALDW","EVENTALERT,ALDW","EVENTSET,AHMW","EVENTALERT,AHMW","EVENTSET,AFCW","EVENTALERT,AFCW","EVENTSET,APCW","EVENTALERT,APCW","EVENTSET,AFVS","EVENTALERT,AFVS","EVENTSET,ADCA","EVENTALERT,ADCA","EVENTSET,ACEA","EVENTALERT,ACEA","EVENTALERT,ASCE","EVENTSET,ADDW","EVENTALERT,ADDW","EVENTSET,ADW","EVENTALERT,ADW","EVENTSET,ASW","EVENTALERT,ASW","EVENTSET,ACPW","EVENTALERT,ACPW","EVENTSET,AMS","EVENTALERT,AMS","EVENTSET,ASS","EVENTALERT,ASS","EVENTSET,ADA","EVENTALERT,ADA","EVENTSET,ANDD","EVENTALERT,ANDD","EVENTSET,AFIF","EVENTALERT,AFIS","EVENTALERT,AFIF","EVENTSET,AWSB","EVENTALERT,AWSB","EVENTSET,ANWSB","EVENTALERT,ANWSB","RELAY","UARTCONFIG","UARTDL"]
+          "comandos": ["APN","SERVER","URLTYPE","VOICESW","TIMESYNC","VIDEOTIMEZONE","LED","DISK","KEYFUN","VOLUME","TFMODE","PWDSW","UPFILESIZE","ASETAPN","WIFIAP","WIFIAPT","SSID","HDS","BCD","ACC","ACCV","SENSORSET","SHUTDOWNTIME","TIMER","ANGLEREP","MILEAGE","MILE","PICTIMER","VIDEOPARAM","EVENTALERT,ASOS","EVENTSET,AOSD","EVENTALERT,AOSD","EVENTSET,AODD","EVENTALERT,AODD","EVENTSET,AVD","EVENTALERT,AVD","EVENTSET,AEPLV","EVENTALERT,AEPLV","EVENTSET,AHADU","EVENTALERT,AHADU","EVENTSET,AHBDU","EVENTALERT,AHBDU","EVENTSET,AHTDU","EVENTALERT,AHTDU","EVENTSET,ACDU","EVENTALERT,ACDU","ADAS,CALIBRATION","EVENTSET,ALDW","EVENTALERT,ALDW","EVENTSET,AHMW","EVENTALERT,AHMW","EVENTSET,AFCW","EVENTALERT,AFCW","EVENTSET,APCW","EVENTALERT,APCW","EVENTSET,AFVS","EVENTALERT,AFVS","EVENTSET,ADCA","EVENTALERT,ADCA","EVENTSET,ACEA","EVENTALERT,ACEA","EVENTALERT,ASCE","EVENTSET,ADDW","EVENTALERT,ADDW","EVENTSET,ADW","EVENTALERT,ADW","EVENTSET,ASW","EVENTALERT,ASW","EVENTSET,ACPW","EVENTALERT,ACPW","EVENTSET,AMS","EVENTALERT,AMS","EVENTSET,ASS","EVENTALERT,ASS","EVENTSET,ADA","EVENTALERT,ADA","EVENTSET,ANDD","EVENTALERT,ANDD","EVENTSET,AFIF","EVENTALERT,AFIS","EVENTALERT,AFIF","EVENTSET,AWSB","EVENTALERT,AWSB","EVENTSET,ANWSB","EVENTALERT,ANWSB","RELAY",
+           {
+    "comando": "VIDEORSL",
+    "instancia": "ch1",
+    "titulo": "Resolução (principal) — Canal 1 (Estrada/ADAS)",
+    "overrides": {
+      "canal": "1",
+      "resolucao": "1080",
+      "fps": "25",
+      "bitrate": "8",
+      "codec": "2"
+    }
+  },
+  {
+    "comando": "VIDEORSL",
+    "instancia": "ch2",
+    "titulo": "Resolução (principal) — Canal 2 (Interna USB)",
+    "overrides": {
+      "canal": "2",
+      "resolucao": "720",
+      "fps": "15",
+      "bitrate": "4",
+      "codec": "2"
+    }
+  },
+  {
+    "comando": "VIDEORSL",
+    "instancia": "ch3",
+    "titulo": "Resolução (principal) — Canal 3 (DMS)",
+    "overrides": {
+      "canal": "3",
+      "resolucao": "720",
+      "fps": "15",
+      "bitrate": "4",
+      "codec": "2"
+    }
+  },
+  {
+    "comando": "VIDEORSL_SUB",
+    "instancia": "ch1",
+    "titulo": "Resolução (streaming) — Canal 1 (Estrada/ADAS)",
+    "overrides": {
+      "canal": "1",
+      "resolucao": "360",
+      "fps": "10",
+      "bitrate": "0.5",
+      "codec": "1"
+    }
+  },
+  {
+    "comando": "VIDEORSL_SUB",
+    "instancia": "ch2",
+    "titulo": "Resolução (streaming) — Canal 2 (Interna USB)",
+    "overrides": {
+      "canal": "2",
+      "resolucao": "360",
+      "fps": "10",
+      "bitrate": "0.5",
+      "codec": "1"
+    }
+  },
+  {
+    "comando": "VIDEORSL_SUB",
+    "instancia": "ch3",
+    "titulo": "Resolução (streaming) — Canal 3 (DMS)",
+    "overrides": {
+      "canal": "3",
+      "resolucao": "360",
+      "fps": "10",
+      "bitrate": "0.5",
+      "codec": "1"
+    }
+  },
+  {
+    "comando": "RECORDSW",
+    "instancia": "ch1",
+    "titulo": "Gravação (cartão SD) — Canal 1 (Estrada/ADAS)",
+    "overrides": {
+      "canal": "1",
+      "estado": "ON"
+    }
+  },
+  {
+    "comando": "RECORDSW",
+    "instancia": "ch2",
+    "titulo": "Gravação (cartão SD) — Canal 2 (Interna USB)",
+    "overrides": {
+      "canal": "2",
+      "estado": "ON"
+    }
+  },
+  {
+    "comando": "RECORDSW",
+    "instancia": "ch3",
+    "titulo": "Gravação (cartão SD) — Canal 3 (DMS)",
+    "overrides": {
+      "canal": "3",
+      "estado": "ON"
+    }
+  },
+  {
+    "comando": "RECORDSW_SUB",
+    "instancia": "ch1",
+    "titulo": "Gravação (streaming) — Canal 1 (Estrada/ADAS)",
+    "overrides": {
+      "canal": "1",
+      "estado": "ON"
+    }
+  },
+  {
+    "comando": "RECORDSW_SUB",
+    "instancia": "ch2",
+    "titulo": "Gravação (streaming) — Canal 2 (Interna USB)",
+    "overrides": {
+      "canal": "2",
+      "estado": "ON"
+    }
+  },
+  {
+    "comando": "RECORDSW_SUB",
+    "instancia": "ch3",
+    "titulo": "Gravação (streaming) — Canal 3 (DMS)",
+    "overrides": {
+      "canal": "3",
+      "estado": "ON"
+    }
+  },
+  {
+    "comando": "RECORDAUDIO",
+    "instancia": "ch1",
+    "titulo": "Áudio (cartão SD) — Canal 1 (Estrada/ADAS)",
+    "overrides": {
+      "canal": "1",
+      "audio": "ON"
+    }
+  },
+  {
+    "comando": "RECORDAUDIO",
+    "instancia": "ch2",
+    "titulo": "Áudio (cartão SD) — Canal 2 (Interna USB)",
+    "overrides": {
+      "canal": "2",
+      "audio": "ON"
+    }
+  },
+  {
+    "comando": "RECORDAUDIO",
+    "instancia": "ch3",
+    "titulo": "Áudio (cartão SD) — Canal 3 (IP67)",
+    "overrides": {
+      "canal": "3",
+      "audio": "ON"
+    }
+  },
+  {
+    "comando": "RECORDAUDIO_SUB",
+    "instancia": "ch1",
+    "titulo": "Áudio (streaming) — Canal 1 (Estrada/ADAS)",
+    "overrides": {
+      "canal": "1",
+      "audio": "ON"
+    }
+  },
+  {
+    "comando": "RECORDAUDIO_SUB",
+    "instancia": "ch2",
+    "titulo": "Áudio (streaming) — Canal 2 (USB DMS)",
+    "overrides": {
+      "canal": "2",
+      "audio": "ON"
+    }
+  },
+  {
+    "comando": "RECORDAUDIO_SUB",
+    "instancia": "ch3",
+    "titulo": "Áudio (streaming) — Canal 3 (IP67)",
+    "overrides": {
+      "canal": "3",
+      "audio": "ON"
+    }
+  },
+  {
+    "comando": "DMSSP",
+    "instancia": "adas",
+    "titulo": "Velocidade mínima — ADAS",
+    "overrides": {
+      "funcao": "ADAS",
+      "velocidade_min": "60",
+      "canal": "1",
+      "area": "0"
+    }
+  },
+  {
+    "comando": "DMSSP",
+    "instancia": "dms",
+    "titulo": "Velocidade mínima — DMS",
+    "overrides": {
+      "funcao": "DMS",
+      "velocidade_min": "30",
+      "canal": "1",
+      "area": "0"
+    }
+  },
+    {
+    "comando": "DMSSW",
+    "instancia": "adas",
+    "titulo": "Ativar módulo — ADAS",
+    "overrides": {
+      "funcao": "1",
+      "estado": "1"
+    }
+  },
+  {
+    "comando": "DMSSW",
+    "instancia": "dms",
+    "titulo": "Ativar módulo — DMS",
+    "overrides": {
+      "funcao": "2",
+      "estado": "1"
+    }
+  },
+  {
+    "comando": "DMSSW",
+    "instancia": "face",
+    "titulo": "Ativar módulo — Reconhecimento Facial",
+    "overrides": {
+      "funcao": "3",
+      "estado": "0"
+    }
+  },
+  {
+    "comando": "RATATION",
+    "instancia": "ch1",
+    "titulo": "Rotação/Espelhamento — Canal 1 (Estrada/ADAS)",
+    "overrides": {
+      "canal": "1",
+      "rotacao": "0",
+      "espelho": "0",
+      "resolucao": "1080"
+    }
+  },
+  {
+    "comando": "RATATION",
+    "instancia": "ch2",
+    "titulo": "Rotação/Espelhamento — Canal 2 (USB DMS)",
+    "overrides": {
+      "canal": "2",
+      "rotacao": "0",
+      "espelho": "0",
+      "resolucao": "720"
+    }
+  },
+  {
+    "comando": "RATATION",
+    "instancia": "ch3",
+    "titulo": "Rotação/Espelhamento — Canal 3 (IP67)",
+    "overrides": {
+      "canal": "3",
+      "rotacao": "0",
+      "espelho": "0",
+      "resolucao": "720"
+    }
+  },
+  {
+    "comando": "PICRATE",
+    "instancia": "ch1",
+    "titulo": "Qualidade da foto — Canal 1 (Estrada/ADAS)",
+    "overrides": {
+      "canal": "1",
+      "qualidade": "50"
+    }
+  },
+  {
+    "comando": "PICRATE",
+    "instancia": "ch2",
+    "titulo": "Qualidade da foto — Canal 2 (Interna USB)",
+    "overrides": {
+      "canal": "2",
+      "qualidade": "50"
+    }
+  },
+  {
+    "comando": "PICRATE",
+    "instancia": "ch3",
+    "titulo": "Qualidade da foto — Canal 3 (DMS)",
+    "overrides": {
+      "canal": "3",
+      "qualidade": "50"
+    }
+  }
+        ]
         }
       ]
     },
@@ -59,13 +350,312 @@
           "id": "config-inicial-jc400",
           "nome": "Configuração Inicial da JC400",
           "descricao": "Comandos essenciais para o apontamento da câmera JC400 para o servidor de monitoramento.",
-          "comandos": ["COREKITSW,0","APN", "SERVER", "RSERVICE","UPLOAD","RATATION","VOICESW"]
+          "comandos": ["COREKITSW,0","APN", "SERVER", "RSERVICE","UPLOAD","VOICESW","TIMESYNC","TIMEZONE"]
         },
         {
           "id": "config-padrao-jc400",
           "nome": "Configuração Padrão da JC400",
           "descricao": "Configuração padrão da JC400, incluindo todos os comandos do dispositivo em sua configuração padrão recomendada pela Wiki.",
-          "comandos": ["COREKITSW,0","APN","DMSSW","SERVER","WIFIAP","SSID","UPLOAD","TIMER","TIMER1","ANGLEREP","SHUTDOWNTIME","MILEAGE","RATATION","CAMERA","CAR","VOICESW","LED","TIMESYNC","VOLUME","RECORDAUDIO","RECORDSW","SENALM","SHOCK","SHAKEDELAY","CRASHALM","SENSOR","SPEED","RAPIDACC","RAPIDDEC","RAPIDTURN","FATIGUE","SOSALM","SOS","EXBATALM","ADASVSP","DMSSEP","DMSSP","DMSPI","ADAS,CALIBRATION","ADASSEN","ADAS,CENTERPOINT"]
+          "comandos": ["COREKITSW","APN","VOICESW","SERVER","UPLOAD","RSERVICE","WIFIAP","SSID","TIMER","TIMER1","ANGLEREP","ACCREP","RATATION","VIDEORESOLUTION_SUB","VOLUME","LED","TIMESYNC","TIMEZONE","RECORDAUDIO_SUB","RELAY","EXDEVICESW","MILEAGE","HTTPUPLOADLIMIT","SPEED","FATIGUE","SOSALM","CALL","SENALM","SHOCK","SHAKEDELAY","CRASHALM","COLLIDE","SENSOR","RAPIDACC","RAPIDDEC","RAPIDTURN","EXBATALM","NOSDCARDALM","SDABNORMAL","DMS_SWITCH","DMS_VOICE_CUSTOM","DMS_ALERT_CUSTOM","DMS_CONTINUITY","DMS_LOSTFACE_LIMIT","DMS_CALIB_ABNORMAL",
+
+  {
+    "comando": "CAMERA",
+    "instancia": "camout",
+    "titulo": "Resolução — Câmera Principal",
+    "overrides": {
+      "canal": "OUT",
+      "preset": "0"
+    }
+  },
+  {
+    "comando": "CAMERA",
+    "instancia": "camin",
+    "titulo": "Resolução — Câmera DMS",
+    "overrides": {
+      "canal": "IN",
+      "preset": "0"
+    }
+  },
+  {
+    "comando": "RECORDSW",
+    "instancia": "ch1",
+    "titulo": "Gravação — Câmera Frontal",
+    "overrides": {
+      "canal": "1",
+      "status_gravacao": "1"
+    }
+  },
+  {
+    "comando": "RECORDSW",
+    "instancia": "ch2",
+    "titulo": "Gravação — Câmera Interna",
+    "overrides": {
+      "canal": "2",
+      "status_gravacao": "1"
+    }
+  },
+  {
+    "comando": "FILTER",
+    "instancia": "evsos",
+    "titulo": "Filtro de repetição — SOS",
+    "overrides": {
+      "tipo_evento": "SOS",
+      "intervalo_minutos": "5"
+    }
+  },
+  {
+    "comando": "FILTER",
+    "instancia": "evcrash",
+    "titulo": "Filtro de repetição — CRASH",
+    "overrides": {
+      "tipo_evento": "CRASH",
+      "intervalo_minutos": "5"
+    }
+  },
+  {
+    "comando": "FILTER",
+    "instancia": "evvibrate",
+    "titulo": "Filtro de repetição — VIBRATE",
+    "overrides": {
+      "tipo_evento": "VIBRATE",
+      "intervalo_minutos": "5"
+    }
+  },
+  {
+    "comando": "FILTER",
+    "instancia": "evoverspeed",
+    "titulo": "Filtro de repetição — OVERSPEED",
+    "overrides": {
+      "tipo_evento": "OVERSPEED",
+      "intervalo_minutos": "5"
+    }
+  },
+  {
+    "comando": "FILTER",
+    "instancia": "evdrive",
+    "titulo": "Filtro de repetição — DRIVE",
+    "overrides": {
+      "tipo_evento": "DRIVE",
+      "intervalo_minutos": "5"
+    }
+  },
+  {
+    "comando": "FILTER",
+    "instancia": "evrapidacc",
+    "titulo": "Filtro de repetição — RAPIDACC",
+    "overrides": {
+      "tipo_evento": "RAPIDACC",
+      "intervalo_minutos": "5"
+    }
+  },
+  {
+    "comando": "FILTER",
+    "instancia": "evrapiddec",
+    "titulo": "Filtro de repetição — RAPIDDEC",
+    "overrides": {
+      "tipo_evento": "RAPIDDEC",
+      "intervalo_minutos": "5"
+    }
+  },
+  {
+    "comando": "FILTER",
+    "instancia": "evrapidturn",
+    "titulo": "Filtro de repetição — RAPIDTURN",
+    "overrides": {
+      "tipo_evento": "RAPIDTURN",
+      "intervalo_minutos": "5"
+    }
+  },
+    {
+    "comando": "UPLOADSW",
+    "instancia": "ev_yawn",
+    "titulo": "Upload de mídia — YAWN",
+    "overrides": {
+      "codigo_evento": "YAWN",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_phonecalling",
+    "titulo": "Upload de mídia — PHONECALLING",
+    "overrides": {
+      "codigo_evento": "PHONECALLING",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_shelter",
+    "titulo": "Upload de mídia — SHELTER",
+    "overrides": {
+      "codigo_evento": "SHELTER",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_smoking",
+    "titulo": "Upload de mídia — SMOKING",
+    "overrides": {
+      "codigo_evento": "SMOKING",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_missingface",
+    "titulo": "Upload de mídia — MISSINGFACE",
+    "overrides": {
+      "codigo_evento": "MISSINGFACE",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_distraction",
+    "titulo": "Upload de mídia — DISTRACTION",
+    "overrides": {
+      "codigo_evento": "DISTRACTION",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_closeeyes",
+    "titulo": "Upload de mídia — CLOSEEYES",
+    "overrides": {
+      "codigo_evento": "CLOSEEYES",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_rapidacc",
+    "titulo": "Upload de mídia — RAPIDACC",
+    "overrides": {
+      "codigo_evento": "RAPIDACC",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_crash",
+    "titulo": "Upload de mídia — CRASH",
+    "overrides": {
+      "codigo_evento": "CRASH",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_rapiddec",
+    "titulo": "Upload de mídia — RAPIDDEC",
+    "overrides": {
+      "codigo_evento": "RAPIDDEC",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_rapidturn",
+    "titulo": "Upload de mídia — RAPIDTURN",
+    "overrides": {
+      "codigo_evento": "RAPIDTURN",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_sos",
+    "titulo": "Upload de mídia — SOS",
+    "overrides": {
+      "codigo_evento": "SOS",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_overspeed",
+    "titulo": "Upload de mídia — OVERSPEED",
+    "overrides": {
+      "codigo_evento": "OVERSPEED",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_vibrate",
+    "titulo": "Upload de mídia — VIBRATE",
+    "overrides": {
+      "codigo_evento": "VIBRATE",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_voltagelow",
+    "titulo": "Upload de mídia — VOLTAGELOW",
+    "overrides": {
+      "codigo_evento": "VOLTAGELOW",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_power",
+    "titulo": "Upload de mídia — POWER",
+    "overrides": {
+      "codigo_evento": "POWER",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_relayoff",
+    "titulo": "Upload de mídia — RELAYOFF",
+    "overrides": {
+      "codigo_evento": "RELAYOFF",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_nosdcard",
+    "titulo": "Upload de mídia — NOSDCARD",
+    "overrides": {
+      "codigo_evento": "NOSDCARD",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_sdcardmount",
+    "titulo": "Upload de mídia — SDCARDMOUNT",
+    "overrides": {
+      "codigo_evento": "SDCARDMOUNT",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_drive",
+    "titulo": "Upload de mídia — DRIVE",
+    "overrides": {
+      "codigo_evento": "DRIVE",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_relayrecovery",
+    "titulo": "Upload de mídia — RELAYRECOVERY",
+    "overrides": {
+      "codigo_evento": "RELAYRECOVERY",
+      "modo_upload": "ON"
+    }
+  }
+]
         }
       ]
     },
@@ -76,13 +666,421 @@
           "id": "config-inicial-jc400ad",
           "nome": "Configuração Inicial da JC400AD",
           "descricao": "Comandos essenciais para o apontamento da câmera JC400AD para o servidor de monitoramento.",
-          "comandos": ["COREKITSW","APN", "SERVER", "RSERVICE","UPLOAD","RATATION","VOICESW","AUDIOURL"]
+          "comandos": ["COREKITSW","APN", "SERVER", "RSERVICE","UPLOAD","VOICESW","AUDIOURL","TIMESYNC","TIMEZONE"]
         },
         {
           "id": "config-padrao-jc400ad",
           "nome": "Configuração Padrão da JC400AD",
           "descricao": "Configuração padrão da JC400AD, incluindo todos os comandos do dispositivo em sua configuração padrão recomendada pela Wiki.",
-          "comandos": ["COREKITSW","APN","DMSSW","VOICESW","AUDIOURL","SERVER","UPLOAD","RSERVICE","WIFIAP","SSID","TIMER","TIMER1","ANGLEREP","ACCREP","SHUTDOWNTIME","RATATION","VIDEORESOLUTION_SUB","CAMERA","CAR","VOLUME","LED","TIMESYNC","TIMEZONE","RECORDAUDIO","RECORDAUDIO_SUB","RECORDSW","RELAY","EXDEVICESW","MILEAGE","FILTER","HTTPUPLOADLIMIT","UPLOADSW","SPEED","FATIGUE","SOSALM","SOS","CALL","SENALM","SHOCK","SHAKEDELAY","CRASHALM","COLLIDE","SENSOR","RAPIDACC","RAPIDDEC","RAPIDTURN","EXBATALM","NOSDCARDALM","SDABNORMAL","DMS_SWITCH","DMS_VOICE_CUSTOM","DMS_ALERT_CUSTOM","DMS_CONTINUITY","DMS_LOSTFACE_LIMIT","DMS_CALIB_ABNORMAL","DMS_SECOND_EVENT","ADAS,CALMODE","ADAS,CALIBRATION","ADASSEN","ADASSEP","ADASSW","ADASPI"]
+          "comandos": ["COREKITSW","APN","DMSSW","VOICESW","AUDIOURL","SERVER","UPLOAD","RSERVICE","WIFIAP","SSID","TIMER","TIMER1","ANGLEREP","ACCREP","SHUTDOWNTIME","RATATION","VIDEORESOLUTION_SUB","VOLUME","LED","TIMESYNC","TIMEZONE","RECORDAUDIO_SUB","RECORDSW","RELAY","EXDEVICESW","MILEAGE","HTTPUPLOADLIMIT","SPEED","FATIGUE","SOSALM","CALL","SENALM","SHOCK","SHAKEDELAY","CRASHALM","COLLIDE","SENSOR","RAPIDACC","RAPIDDEC","RAPIDTURN","EXBATALM","NOSDCARDALM","SDABNORMAL","DMS_SWITCH","DMS_VOICE_CUSTOM","DMS_ALERT_CUSTOM","DMS_CONTINUITY","DMS_LOSTFACE_LIMIT","DMS_CALIB_ABNORMAL","ADAS,CALMODE","ADASSW",
+
+  {
+    "comando": "CAMERA",
+    "instancia": "camout",
+    "titulo": "Resolução — Câmera Principal",
+    "overrides": {
+      "canal": "OUT",
+      "preset": "0"
+    }
+  },
+  {
+    "comando": "CAMERA",
+    "instancia": "camin",
+    "titulo": "Resolução — Câmera DMS",
+    "overrides": {
+      "canal": "IN",
+      "preset": "0"
+    }
+  },
+  {
+    "comando": "RECORDSW",
+    "instancia": "ch1",
+    "titulo": "Gravação — Câmera Frontal",
+    "overrides": {
+      "canal": "1",
+      "status_gravacao": "1"
+    }
+  },
+  {
+    "comando": "RECORDSW",
+    "instancia": "ch2",
+    "titulo": "Gravação — Câmera Interna",
+    "overrides": {
+      "canal": "2",
+      "status_gravacao": "1"
+    }
+  },
+  {
+    "comando": "FILTER",
+    "instancia": "evsos",
+    "titulo": "Filtro de repetição — SOS",
+    "overrides": {
+      "tipo_evento": "SOS",
+      "intervalo_minutos": "5"
+    }
+  },
+  {
+    "comando": "FILTER",
+    "instancia": "evcrash",
+    "titulo": "Filtro de repetição — CRASH",
+    "overrides": {
+      "tipo_evento": "CRASH",
+      "intervalo_minutos": "5"
+    }
+  },
+  {
+    "comando": "FILTER",
+    "instancia": "evvibrate",
+    "titulo": "Filtro de repetição — VIBRATE",
+    "overrides": {
+      "tipo_evento": "VIBRATE",
+      "intervalo_minutos": "5"
+    }
+  },
+  {
+    "comando": "FILTER",
+    "instancia": "evoverspeed",
+    "titulo": "Filtro de repetição — OVERSPEED",
+    "overrides": {
+      "tipo_evento": "OVERSPEED",
+      "intervalo_minutos": "5"
+    }
+  },
+  {
+    "comando": "FILTER",
+    "instancia": "evdrive",
+    "titulo": "Filtro de repetição — DRIVE",
+    "overrides": {
+      "tipo_evento": "DRIVE",
+      "intervalo_minutos": "5"
+    }
+  },
+  {
+    "comando": "FILTER",
+    "instancia": "evrapidacc",
+    "titulo": "Filtro de repetição — RAPIDACC",
+    "overrides": {
+      "tipo_evento": "RAPIDACC",
+      "intervalo_minutos": "5"
+    }
+  },
+  {
+    "comando": "FILTER",
+    "instancia": "evrapiddec",
+    "titulo": "Filtro de repetição — RAPIDDEC",
+    "overrides": {
+      "tipo_evento": "RAPIDDEC",
+      "intervalo_minutos": "5"
+    }
+  },
+  {
+    "comando": "FILTER",
+    "instancia": "evrapidturn",
+    "titulo": "Filtro de repetição — RAPIDTURN",
+    "overrides": {
+      "tipo_evento": "RAPIDTURN",
+      "intervalo_minutos": "5"
+    }
+  },
+  {
+    "comando": "ADASSEN",
+    "instancia": "ev1",
+    "titulo": "Sensibilidade ADAS — LDW — Saída de faixa",
+    "overrides": {
+      "tipo_evento": "1",
+      "valor_b": "-0.1"
+    }
+  },
+  {
+    "comando": "ADASSEN",
+    "instancia": "ev2",
+    "titulo": "Sensibilidade ADAS — FCW — Colisão frontal",
+    "overrides": {
+      "tipo_evento": "2",
+      "valor_b": "1.0"
+    }
+  },
+  {
+    "comando": "ADASSEN",
+    "instancia": "ev3",
+    "titulo": "Sensibilidade ADAS — HMW — Veículo próximo",
+    "overrides": {
+      "tipo_evento": "3",
+      "valor_b": "0.6"
+    }
+  },
+  {
+    "comando": "ADASSEP",
+    "instancia": "ev1",
+    "titulo": "Ativar/desativar — LDW — Saída de faixa",
+    "overrides": {
+      "tipo_evento": "1",
+      "status": "1"
+    }
+  },
+  {
+    "comando": "ADASSEP",
+    "instancia": "ev2",
+    "titulo": "Ativar/desativar — FCW — Colisão frontal",
+    "overrides": {
+      "tipo_evento": "2",
+      "status": "1"
+    }
+  },
+  {
+    "comando": "ADASSEP",
+    "instancia": "ev3",
+    "titulo": "Ativar/desativar — HMW — Veículo próximo",
+    "overrides": {
+      "tipo_evento": "3",
+      "status": "1"
+    }
+  },
+  {
+    "comando": "ADASPI",
+    "instancia": "ev1",
+    "titulo": "Intervalo de alerta — LDW — Saída de faixa",
+    "overrides": {
+      "tipo_evento": "1",
+      "tempo_espera_segundos": "60"
+    }
+  },
+  {
+    "comando": "ADASPI",
+    "instancia": "ev2",
+    "titulo": "Intervalo de alerta — FCW — Colisão frontal",
+    "overrides": {
+      "tipo_evento": "2",
+      "tempo_espera_segundos": "60"
+    }
+  },
+  {
+    "comando": "ADASPI",
+    "instancia": "ev3",
+    "titulo": "Intervalo de alerta — HMW — Veículo próximo",
+    "overrides": {
+      "tipo_evento": "3",
+      "tempo_espera_segundos": "60"
+    }
+    },
+    {
+    "comando": "UPLOADSW",
+    "instancia": "ev_yawn",
+    "titulo": "Upload de mídia — YAWN",
+    "overrides": {
+      "codigo_evento": "YAWN",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_phonecalling",
+    "titulo": "Upload de mídia — PHONECALLING",
+    "overrides": {
+      "codigo_evento": "PHONECALLING",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_shelter",
+    "titulo": "Upload de mídia — SHELTER",
+    "overrides": {
+      "codigo_evento": "SHELTER",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_smoking",
+    "titulo": "Upload de mídia — SMOKING",
+    "overrides": {
+      "codigo_evento": "SMOKING",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_missingface",
+    "titulo": "Upload de mídia — MISSINGFACE",
+    "overrides": {
+      "codigo_evento": "MISSINGFACE",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_distraction",
+    "titulo": "Upload de mídia — DISTRACTION",
+    "overrides": {
+      "codigo_evento": "DISTRACTION",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_closeeyes",
+    "titulo": "Upload de mídia — CLOSEEYES",
+    "overrides": {
+      "codigo_evento": "CLOSEEYES",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_lanedeparture",
+    "titulo": "Upload de mídia — LANEDEPARTURE",
+    "overrides": {
+      "codigo_evento": "LANEDEPARTURE",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_forwardcollision",
+    "titulo": "Upload de mídia — FORWARDCOLLISION",
+    "overrides": {
+      "codigo_evento": "FORWARDCOLLISION",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_vehicletooclose",
+    "titulo": "Upload de mídia — VEHICLETOOCLOSE",
+    "overrides": {
+      "codigo_evento": "VEHICLETOOCLOSE",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_rapidacc",
+    "titulo": "Upload de mídia — RAPIDACC",
+    "overrides": {
+      "codigo_evento": "RAPIDACC",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_crash",
+    "titulo": "Upload de mídia — CRASH",
+    "overrides": {
+      "codigo_evento": "CRASH",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_rapiddec",
+    "titulo": "Upload de mídia — RAPIDDEC",
+    "overrides": {
+      "codigo_evento": "RAPIDDEC",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_rapidturn",
+    "titulo": "Upload de mídia — RAPIDTURN",
+    "overrides": {
+      "codigo_evento": "RAPIDTURN",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_sos",
+    "titulo": "Upload de mídia — SOS",
+    "overrides": {
+      "codigo_evento": "SOS",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_overspeed",
+    "titulo": "Upload de mídia — OVERSPEED",
+    "overrides": {
+      "codigo_evento": "OVERSPEED",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_vibrate",
+    "titulo": "Upload de mídia — VIBRATE",
+    "overrides": {
+      "codigo_evento": "VIBRATE",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_voltagelow",
+    "titulo": "Upload de mídia — VOLTAGELOW",
+    "overrides": {
+      "codigo_evento": "VOLTAGELOW",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_power",
+    "titulo": "Upload de mídia — POWER",
+    "overrides": {
+      "codigo_evento": "POWER",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_relayoff",
+    "titulo": "Upload de mídia — RELAYOFF",
+    "overrides": {
+      "codigo_evento": "RELAYOFF",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_nosdcard",
+    "titulo": "Upload de mídia — NOSDCARD",
+    "overrides": {
+      "codigo_evento": "NOSDCARD",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_sdcardmount",
+    "titulo": "Upload de mídia — SDCARDMOUNT",
+    "overrides": {
+      "codigo_evento": "SDCARDMOUNT",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_drive",
+    "titulo": "Upload de mídia — DRIVE",
+    "overrides": {
+      "codigo_evento": "DRIVE",
+      "modo_upload": "ON"
+    }
+  },
+  {
+    "comando": "UPLOADSW",
+    "instancia": "ev_relayrecovery",
+    "titulo": "Upload de mídia — RELAYRECOVERY",
+    "overrides": {
+      "codigo_evento": "RELAYRECOVERY",
+      "modo_upload": "ON"
+    }
+  }
+
+]
         }
       ]
     },
@@ -93,13 +1091,677 @@
           "id": "config-inicial-jc450",
           "nome": "Configuração Inicial da JC450",
           "descricao": "Comandos essenciais para o apontamento da câmera JC450 para o servidor de monitoramento.",
-          "comandos": ["PRESETAPN","APN", "SERVER", "URLTYPE","RATATION","TIMESYNC","TIMEZONE","VOICESW"]
+          "comandos": ["PRESETAPN","APN", "SERVER", "URLTYPE","TIMESYNC","TIMEZONE","VOICESW"]
         },
         {
           "id": "config-padrao-jc450",
           "nome": "Configuração Padrão da JC450",
           "descricao": "Configuração padrão da JC450, incluindo todos os comandos do dispositivo em sua configuração padrão recomendada pela Wiki.",
-          "comandos": ["PRESETAPN","SERVER","URLTYPE","WAKEMODE","APN","WIFIAPT","WIFIAP","SSID","LOCATEREP","ANGLEREP","SF","SHUTDOWNTIME","VIDEORSL","PICQ","CAR","RATATION","VOLUME","VOICESW","LED","TIMESYNC","TIMEZONE","RECORDVSW","RECORDSW","RELAY","FORMAT","PIPPARM","ENCODEPRM","MILEAGE","DMSPI","SPEED","SHAKETHD","CRASHALM","RAPIDACC","RAPIDDEC","RAPIDTURN","TFMODE","INPUTFUN","UPLOAD","PICTIMER","ALARMFLT","DMSSP","DMSVI","DMSSEN","ADAS,CALIBRATION","ADASSEN","SNAPNUM","DMSSEP","ADAS,CENTERPOINT","HTTPMP3"]
+          "comandos": ["PRESETAPN","SERVER","URLTYPE","WAKEMODE","APN","WIFIAPT","WIFIAP","SSID","LOCATEREP","ANGLEREP","SF","SHUTDOWNTIME","PICQ","RATATION","VOLUME","VOICESW","LED","TIMESYNC","TIMEZONE","RELAY","FORMAT","PIPPARM","ENCODEPRM","MILEAGE","SPEED","SHAKETHD","CRASHALM","RAPIDACC","RAPIDDEC","RAPIDTURN","TFMODE","ALARMFLT",
+        
+  {
+    "comando": "RECORDSW",
+    "instancia": "ch1",
+    "titulo": "Gravação de vídeo — Canal 1",
+    "overrides": {
+      "canal": "1",
+      "gravar_video": "1"
+    },
+    "ocultar": ["canal"]
+  },
+  {
+    "comando": "RECORDSW",
+    "instancia": "ch2",
+    "titulo": "Gravação de vídeo — Canal 2",
+    "overrides": {
+      "canal": "2",
+      "gravar_video": "1"
+    },
+    "ocultar": ["canal"]
+  },
+  {
+    "comando": "RECORDSW",
+    "instancia": "ch3",
+    "titulo": "Gravação de vídeo — Canal 3",
+    "overrides": {
+      "canal": "3",
+      "gravar_video": "1"
+    },
+    "ocultar": ["canal"]
+  },
+  {
+    "comando": "RECORDSW",
+    "instancia": "ch4",
+    "titulo": "Gravação de vídeo — Canal 4",
+    "overrides": {
+      "canal": "4",
+      "gravar_video": "1"
+    },
+    "ocultar": ["canal"]
+  },
+  {
+    "comando": "RECORDSW",
+    "instancia": "ch5",
+    "titulo": "Gravação de vídeo — Canal 5",
+    "overrides": {
+      "canal": "5",
+      "gravar_video": "1"
+    },
+    "ocultar": ["canal"]
+  },
+  {
+    "comando": "RECORDVSW",
+    "instancia": "ch1",
+    "titulo": "Gravação de áudio — Canal 1",
+    "overrides": {
+      "canal": "1",
+      "gravar_audio": "1"
+    },
+    "ocultar": ["canal"]
+  },
+  {
+    "comando": "RECORDVSW",
+    "instancia": "ch2",
+    "titulo": "Gravação de áudio — Canal 2",
+    "overrides": {
+      "canal": "2",
+      "gravar_audio": "0"
+    },
+    "ocultar": ["canal"]
+  },
+  {
+    "comando": "RECORDVSW",
+    "instancia": "ch3",
+    "titulo": "Gravação de áudio — Canal 3",
+    "overrides": {
+      "canal": "3",
+      "gravar_audio": "0"
+    },
+    "ocultar": ["canal"]
+  },
+  {
+    "comando": "RECORDVSW",
+    "instancia": "ch4",
+    "titulo": "Gravação de áudio — Canal 4",
+    "overrides": {
+      "canal": "4",
+      "gravar_audio": "0"
+    },
+    "ocultar": ["canal"]
+  },
+  {
+    "comando": "RECORDVSW",
+    "instancia": "ch5",
+    "titulo": "Gravação de áudio — Canal 5",
+    "overrides": {
+      "canal": "5",
+      "gravar_audio": "0"
+    },
+    "ocultar": ["canal"]
+  },
+  {
+    "comando": "VIDEORSL",
+    "instancia": "ch1",
+    "titulo": "Resolução — Canal 1",
+    "overrides": {
+      "canal": "1",
+      "resolucao": "720",
+      "fps": "25",
+      "bitrate": "2048"
+    },
+    "ocultar": ["canal"]
+  },
+  {
+    "comando": "VIDEORSL",
+    "instancia": "ch2",
+    "titulo": "Resolução — Canal 2",
+    "overrides": {
+      "canal": "2",
+      "resolucao": "480",
+      "fps": "15",
+      "bitrate": "1024"
+    },
+    "ocultar": ["canal"]
+  },
+  {
+    "comando": "VIDEORSL",
+    "instancia": "ch3",
+    "titulo": "Resolução — Canal 3",
+    "overrides": {
+      "canal": "3",
+      "resolucao": "480",
+      "fps": "15",
+      "bitrate": "1024"
+    },
+    "ocultar": ["canal"]
+  },
+  {
+    "comando": "VIDEORSL",
+    "instancia": "ch4",
+    "titulo": "Resolução — Canal 4",
+    "overrides": {
+      "canal": "4",
+      "resolucao": "480",
+      "fps": "15",
+      "bitrate": "1024"
+    },
+    "ocultar": ["canal"]
+  },
+  {
+    "comando": "VIDEORSL",
+    "instancia": "ch5",
+    "titulo": "Resolução — Canal 5",
+    "overrides": {
+      "canal": "5",
+      "resolucao": "480",
+      "fps": "15",
+      "bitrate": "1024"
+    },
+    "ocultar": ["canal"]
+  },
+
+
+  {
+    "comando": "DMSSP",
+    "instancia": "adas",
+    "titulo": "Velocidade mínima — ADAS",
+    "overrides": {
+      "tipo_sistema": "1",
+      "velocidade_kmh": "57"
+    },
+    "ocultar": ["tipo_sistema"]
+  },
+  {
+    "comando": "DMSSP",
+    "instancia": "dms",
+    "titulo": "Velocidade mínima — DMS",
+    "overrides": {
+      "tipo_sistema": "2",
+      "velocidade_kmh": "28"
+    },
+    "ocultar": ["tipo_sistema"]
+  },
+  {
+    "comando": "DMSVI",
+    "instancia": "ev1",
+    "titulo": "Intervalo de alerta sonoro — FCW",
+    "overrides": {
+      "tipo_evento": "1",
+      "intervalo_segundos": "30"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSVI",
+    "instancia": "ev2",
+    "titulo": "Intervalo de alerta sonoro — HMW",
+    "overrides": {
+      "tipo_evento": "2",
+      "intervalo_segundos": "10"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSVI",
+    "instancia": "ev3",
+    "titulo": "Intervalo de alerta sonoro — LDW",
+    "overrides": {
+      "tipo_evento": "3",
+      "intervalo_segundos": "5"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSVI",
+    "instancia": "ev5",
+    "titulo": "Intervalo de alerta sonoro — DFW",
+    "overrides": {
+      "tipo_evento": "5",
+      "intervalo_segundos": "5"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSVI",
+    "instancia": "ev6",
+    "titulo": "Intervalo de alerta sonoro — YAWN",
+    "overrides": {
+      "tipo_evento": "6",
+      "intervalo_segundos": "5"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSVI",
+    "instancia": "ev7",
+    "titulo": "Intervalo de alerta sonoro — FSW",
+    "overrides": {
+      "tipo_evento": "7",
+      "intervalo_segundos": "5"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSVI",
+    "instancia": "ev8",
+    "titulo": "Intervalo de alerta sonoro — CALL",
+    "overrides": {
+      "tipo_evento": "8",
+      "intervalo_segundos": "30"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSVI",
+    "instancia": "ev9",
+    "titulo": "Intervalo de alerta sonoro — SMOKE",
+    "overrides": {
+      "tipo_evento": "9",
+      "intervalo_segundos": "30"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSVI",
+    "instancia": "ev10",
+    "titulo": "Intervalo de alerta sonoro — YCW",
+    "overrides": {
+      "tipo_evento": "10",
+      "intervalo_segundos": "120"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSPI",
+    "instancia": "ev1",
+    "titulo": "Intervalo de upload — FCW",
+    "overrides": {
+      "tipo_evento": "1",
+      "intervalo_segundos": "60"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSPI",
+    "instancia": "ev2",
+    "titulo": "Intervalo de upload — HMW",
+    "overrides": {
+      "tipo_evento": "2",
+      "intervalo_segundos": "60"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSPI",
+    "instancia": "ev3",
+    "titulo": "Intervalo de upload — LDW",
+    "overrides": {
+      "tipo_evento": "3",
+      "intervalo_segundos": "60"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSPI",
+    "instancia": "ev4",
+    "titulo": "Intervalo de upload — DFW",
+    "overrides": {
+      "tipo_evento": "4",
+      "intervalo_segundos": "60"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSPI",
+    "instancia": "ev5",
+    "titulo": "Intervalo de upload — YAWN",
+    "overrides": {
+      "tipo_evento": "5",
+      "intervalo_segundos": "60"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSPI",
+    "instancia": "ev6",
+    "titulo": "Intervalo de upload — FSW",
+    "overrides": {
+      "tipo_evento": "6",
+      "intervalo_segundos": "60"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSPI",
+    "instancia": "ev7",
+    "titulo": "Intervalo de upload — CALL",
+    "overrides": {
+      "tipo_evento": "7",
+      "intervalo_segundos": "60"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSPI",
+    "instancia": "ev8",
+    "titulo": "Intervalo de upload — SMOKE",
+    "overrides": {
+      "tipo_evento": "8",
+      "intervalo_segundos": "60"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSPI",
+    "instancia": "ev9",
+    "titulo": "Intervalo de upload — YCW",
+    "overrides": {
+      "tipo_evento": "9",
+      "intervalo_segundos": "60"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSSEP",
+    "instancia": "ev1",
+    "titulo": "Ativar/desativar — FCW",
+    "overrides": {
+      "tipo_evento": "1",
+      "status": "1"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSSEP",
+    "instancia": "ev2",
+    "titulo": "Ativar/desativar — HMW",
+    "overrides": {
+      "tipo_evento": "2",
+      "status": "1"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSSEP",
+    "instancia": "ev3",
+    "titulo": "Ativar/desativar — LDW",
+    "overrides": {
+      "tipo_evento": "3",
+      "status": "1"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSSEP",
+    "instancia": "ev5",
+    "titulo": "Ativar/desativar — DFW",
+    "overrides": {
+      "tipo_evento": "5",
+      "status": "1"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSSEP",
+    "instancia": "ev6",
+    "titulo": "Ativar/desativar — YAWN",
+    "overrides": {
+      "tipo_evento": "6",
+      "status": "1"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSSEP",
+    "instancia": "ev7",
+    "titulo": "Ativar/desativar — FSW",
+    "overrides": {
+      "tipo_evento": "7",
+      "status": "1"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSSEP",
+    "instancia": "ev8",
+    "titulo": "Ativar/desativar — CALL",
+    "overrides": {
+      "tipo_evento": "8",
+      "status": "1"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSSEP",
+    "instancia": "ev9",
+    "titulo": "Ativar/desativar — SMOKE",
+    "overrides": {
+      "tipo_evento": "9",
+      "status": "1"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSSEP",
+    "instancia": "ev10",
+    "titulo": "Ativar/desativar — YCW",
+    "overrides": {
+      "tipo_evento": "10",
+      "status": "0"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSSEN",
+    "instancia": "ev1",
+    "titulo": "Sensibilidade DMS — Olhos fechados",
+    "overrides": {
+      "tipo_evento": "1",
+      "b": "2.5",
+      "c": "0.08"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSSEN",
+    "instancia": "ev2",
+    "titulo": "Sensibilidade DMS — Chamada telefônica",
+    "overrides": {
+      "tipo_evento": "2",
+      "b": "1.0",
+      "c": "3.5",
+      "d": "0.8"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSSEN",
+    "instancia": "ev3",
+    "titulo": "Sensibilidade DMS — Fumo",
+    "overrides": {
+      "tipo_evento": "3",
+      "b": "0.2",
+      "c": "1.3",
+      "d": "0.6",
+      "e": "1"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSSEN",
+    "instancia": "ev4",
+    "titulo": "Sensibilidade DMS — Bocejo",
+    "overrides": {
+      "tipo_evento": "4",
+      "b": "1.2",
+      "c": "0.5"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSSEN",
+    "instancia": "ev5",
+    "titulo": "Sensibilidade DMS — Distração (FSW)",
+    "overrides": {
+      "tipo_evento": "5",
+      "b": "1.5",
+      "c": "30",
+      "d": "20"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSSEN",
+    "instancia": "ev7",
+    "titulo": "Sensibilidade DMS — Nenhum rosto (YCW)",
+    "overrides": {
+      "tipo_evento": "7",
+      "b": "8.0"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSSEN",
+    "instancia": "ev8",
+    "titulo": "Sensibilidade DMS — Calibração facial",
+    "overrides": {
+      "tipo_evento": "8",
+      "b": "15"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "DMSSEN",
+    "instancia": "ev10",
+    "titulo": "Sensibilidade DMS — Olhos fechados contínuo",
+    "overrides": {
+      "tipo_evento": "10",
+      "b": "6"
+    },
+    "ocultar": ["tipo_evento"]
+  
+  },
+  {
+    "comando": "ADASSEN",
+    "instancia": "ev1",
+    "titulo": "Sensibilidade ADAS — Saída de faixa (LDW)",
+    "overrides": {
+      "tipo_evento": "1",
+      "valor_b": "-0.1"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "ADASSEN",
+    "instancia": "ev2",
+    "titulo": "Sensibilidade ADAS — Colisão frontal (FCW)",
+    "overrides": {
+      "tipo_evento": "2",
+      "valor_b": "1.0"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "ADASSEN",
+    "instancia": "ev3",
+    "titulo": "Sensibilidade ADAS — Veículo próximo (HMW)",
+    "overrides": {
+      "tipo_evento": "3",
+      "valor_b": "0.6"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "SNAPNUM",
+    "instancia": "evjjs",
+    "titulo": "Câmeras do evento — JJS",
+    "overrides": {
+      "tipo_evento": "JJS",
+      "canais": "1"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "SNAPNUM",
+    "instancia": "evjds",
+    "titulo": "Câmeras do evento — JDS",
+    "overrides": {
+      "tipo_evento": "JDS",
+      "canais": "1"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "SNAPNUM",
+    "instancia": "evjzw",
+    "titulo": "Câmeras do evento — JZW",
+    "overrides": {
+      "tipo_evento": "JZW",
+      "canais": "1"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "SNAPNUM",
+    "instancia": "evcrash",
+    "titulo": "Câmeras do evento — CRASH",
+    "overrides": {
+      "tipo_evento": "CRASH",
+      "canais": "1"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "SNAPNUM",
+    "instancia": "evpark",
+    "titulo": "Câmeras do evento — PARK",
+    "overrides": {
+      "tipo_evento": "PARK",
+      "canais": "1"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "SNAPNUM",
+    "instancia": "evsos",
+    "titulo": "Câmeras do evento — SOS",
+    "overrides": {
+      "tipo_evento": "SOS",
+      "canais": "1"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "SNAPNUM",
+    "instancia": "evchaosu",
+    "titulo": "Câmeras do evento — CHAOSU",
+    "overrides": {
+      "tipo_evento": "CHAOSU",
+      "canais": "3"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "SNAPNUM",
+    "instancia": "evldw",
+    "titulo": "Câmeras do evento — LDW",
+    "overrides": {
+      "tipo_evento": "LDW",
+      "canais": "1"
+    },
+    "ocultar": ["tipo_evento"]
+  },
+  {
+    "comando": "SNAPNUM",
+    "instancia": "evdfw",
+    "titulo": "Câmeras do evento — DFW",
+    "overrides": {
+      "tipo_evento": "DFW",
+      "canais": "3"
+    },
+    "ocultar": ["tipo_evento"]
+  }
+]
         }
       ]
     }

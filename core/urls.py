@@ -12,6 +12,8 @@ urlpatterns = [
 
     path("<str:linha>/templates/<str:equipamento_id>/<str:template_id>/gerar",
          views.template_gerar, name="template_gerar"),
+    path("<str:linha>/templates/<str:equipamento_id>/personalizado",
+         views.template_personalizado, name="template_personalizado"),
     path("<str:linha>/templates/<str:equipamento_id>/<str:template_id>",
          views.template_detail, name="template_detail"),
     path("<str:linha>/templates/<str:equipamento_id>",

@@ -43,6 +43,12 @@ function isObrigatorio(p) {
   return p.obrigatorio !== false && tipoDe(p) !== "fixo";
 }
 
+// Identifica de forma única uma instância de comando dentro de um template.
+// Sem "chave" (comando comum, sem repetição), cai no nome — comportamento antigo preservado.
+function chaveDe(comando) {
+  return comando.chave ?? comando.nome;
+}
+
 function parametrosVisiveis(comando) {
   return comando.parametros.filter(p => tipoDe(p) !== "fixo");
 }
@@ -92,7 +98,7 @@ function montarTemplate(comandos, valores) {
 
     for (const parametro of comando.parametros) {
       if (parametro.tipo === "fixo") continue;
-      const chave = `${comando.nome}.${parametro.nome}`;
+      const chave = `${chaveDe(comando)}.${parametro.nome}`;
       selecao[parametro.nome] = valores[chave];
     }
 
@@ -118,7 +124,7 @@ function loadStore() {
     const raw = localStorage.getItem(STORE_KEY);
     if (raw) return JSON.parse(raw);
   } catch {}
-  return { theme: "system", historico: [], favoritos: [] };
+  return { theme: "system", historico: [], favoritos: [], templatesCustom: [] };
 }
 
 function saveStore(s) {
@@ -127,8 +133,17 @@ function saveStore(s) {
       theme: s.theme,
       historico: s.historico,
       favoritos: s.favoritos,
+      templatesCustom: s.templatesCustom,
     }));
   } catch {}
+}
+
+// Um comando é "repetível" no construtor de templates se tiver um parâmetro
+// canal/tipo_evento com opções fixas — cada opção vira uma instância possível.
+function discriminadorDe(comando) {
+  return (comando.parametros || []).find(
+    p => (p.nome === "canal" || p.nome === "tipo_evento") && p.opcoes && p.opcoes.length > 0
+  ) || null;
 }
 
 // ── Alpine.js store global ────────────────────────────────────────────────────
@@ -140,6 +155,7 @@ document.addEventListener("alpine:init", () => {
     theme: saved.theme ?? "system",
     historico: saved.historico ?? [],
     favoritos: saved.favoritos ?? [],
+    templatesCustom: saved.templatesCustom ?? [],
     writeconfigStatus: "",
     gruposFechados: {},
 
@@ -194,6 +210,34 @@ document.addEventListener("alpine:init", () => {
     removerFavorito(id) {
       this.favoritos = this.favoritos.filter(f => f.id !== id);
       saveStore(this);
+    },
+
+    salvarTemplateCustom(tpl) {
+      const agora = Date.now();
+      const existente = tpl.id && this.templatesCustom.find(t => t.id === tpl.id);
+      if (existente) {
+        this.templatesCustom = this.templatesCustom.map(t =>
+          t.id === tpl.id ? { ...t, ...tpl, atualizadoEm: agora } : t
+        );
+        saveStore(this);
+        return existente.id;
+      }
+      const novoId = uid();
+      this.templatesCustom = [
+        { ...tpl, id: novoId, criadoEm: agora, atualizadoEm: agora },
+        ...this.templatesCustom,
+      ];
+      saveStore(this);
+      return novoId;
+    },
+
+    removerTemplateCustom(id) {
+      this.templatesCustom = this.templatesCustom.filter(t => t.id !== id);
+      saveStore(this);
+    },
+
+    getTemplateCustom(id) {
+      return this.templatesCustom.find(t => t.id === id) || null;
     },
 
     agruparPorEquipamento(itens) {
@@ -486,7 +530,7 @@ function templateForm(comandos, endpoint) {
       for (const comando of this.comandos) {
         for (const parametro of comando.parametros) {
           if (parametro.tipo === "fixo") continue;
-          const chave = `${comando.nome}.${parametro.nome}`;
+          const chave = `${chaveDe(comando)}.${parametro.nome}`;
           this.valores[chave] = parametro.padrao !== undefined ? parametro.padrao : "";
         }
       }
@@ -533,7 +577,7 @@ function templateForm(comandos, endpoint) {
         if (p.tipo === "fixo") continue;
         const obrigatorio = p.obrigatorio !== false;
         if (!obrigatorio) continue;
-        const chave = `${comando.nome}.${p.nome}`;
+        const chave = `${chaveDe(comando)}.${p.nome}`;
         const valor = (this.valores[chave] ?? "").toString().trim();
         if (!valor) return false;
       }
@@ -566,7 +610,7 @@ function templateForm(comandos, endpoint) {
     },
 
     comandoBloqueado(comando) {
-      return this.comandoBloqueavel(comando) && !this.desbloqueados[comando.nome];
+      return this.comandoBloqueavel(comando) && !this.desbloqueados[chaveDe(comando)];
     },
 
     desbloquear(nomeComando) {
@@ -610,6 +654,380 @@ function templateForm(comandos, endpoint) {
       } finally {
         this.gerando = false;
       }
+    },
+  };
+}
+
+// ── Componente: listagem de templates do equipamento (oficiais + personalizados) ──
+
+function templatesEquipamentoPage(equipamento, templatesOficiais, linha) {
+  return {
+    equipamento,
+    templatesOficiais,
+    linha,
+
+    expandido: null,
+    escolhaAberta: false,
+    passoModal: "escolha",
+
+    get meusTemplates() {
+      return Alpine.store("app").templatesCustom.filter(t => t.equipamentoId === this.equipamento.id);
+    },
+
+    abrirEscolha() {
+      this.passoModal = "escolha";
+      this.escolhaAberta = true;
+    },
+
+    fecharEscolha() {
+      this.escolhaAberta = false;
+    },
+
+    criarDoZero() {
+      window.location.href = `/${this.linha}/templates/${this.equipamento.id}/personalizado`;
+    },
+
+    criarComBase(templateId) {
+      window.location.href = `/${this.linha}/templates/${this.equipamento.id}/personalizado?base=${encodeURIComponent(templateId)}`;
+    },
+
+    urlEditar(templateId) {
+      return `/${this.linha}/templates/${this.equipamento.id}/personalizado?editar=${encodeURIComponent(templateId)}`;
+    },
+
+    alternarExpandido(id) {
+      this.expandido = this.expandido === id ? null : id;
+    },
+
+    async gerarWriteconfig(tpl) {
+      const itens = tpl.itens.map(i => ({
+        equipamentoId: tpl.equipamentoId,
+        equipamentoNome: tpl.equipamentoNome,
+        resultado: i.resultado,
+        linha: tpl.linha,
+      }));
+      await Alpine.store("app").exportarWriteconfig("template-custom", itens, tpl.nome);
+    },
+
+    excluir(tpl) {
+      if (confirm(`Excluir o template "${tpl.nome}"? Essa ação não pode ser desfeita.`)) {
+        Alpine.store("app").removerTemplateCustom(tpl.id);
+      }
+    },
+  };
+}
+
+// ── Componente: construtor de template personalizado (criar/editar) ──────────
+
+function templateBuilderPage(equipamento, templatesOficiais, baseComandos, baseInfo, voltarUrl) {
+  return {
+    equipamento,
+    templatesOficiais,
+    baseComandos,
+    baseInfo,
+    voltarUrl,
+
+    editandoId: null,
+    nome: "",
+    descricao: "",
+    itens: [],
+
+    busca: "",
+    ativoNome: null,
+    editandoChave: null,
+    selecao: {},
+    tituloAtivo: "",
+
+    erroForm: "",
+    erro: "",
+    salvando: false,
+
+    init() {
+      const params = new URLSearchParams(window.location.search);
+      const editarId = params.get("editar");
+
+      if (editarId) {
+        const tpl = Alpine.store("app").getTemplateCustom(editarId);
+        if (tpl) {
+          this.editandoId = tpl.id;
+          this.nome = tpl.nome;
+          this.descricao = tpl.descricao || "";
+          this.itens = tpl.itens.map(i => this._recalcularCompletude(i));
+          return;
+        }
+      }
+
+      if (this.baseComandos && this.baseComandos.length) {
+        this.itens = this.baseComandos.map(c => this._itemFromResolvido(c));
+        if (this.baseInfo) {
+          this.nome = `Cópia de ${this.baseInfo.nome}`;
+          this.descricao = this.baseInfo.descricao || "";
+        }
+      }
+    },
+
+    // Recalcula completo/faltando a partir da definição atual do comando —
+    // garante que templates salvos antes desse campo existir continuem corretos.
+    _recalcularCompletude(item) {
+      const valores = { ...item.valores };
+      const base = this.equipamento.comandos.find(c => c.nome === item.nomeComando);
+      if (!base) return { ...item, valores, completo: true, faltando: [] };
+      const resultado = montarComando(base, valores);
+      return { ...item, valores, completo: resultado.completo, faltando: resultado.faltando };
+    },
+
+    _itemFromResolvido(c) {
+      const valores = selecaoInicial(c);
+      const resultado = montarComando(c, valores);
+      return {
+        chave: chaveDe(c),
+        nomeComando: c.nome,
+        titulo: c.titulo || null,
+        grupo: c.grupo,
+        valores,
+        resultado: resultado.texto,
+        completo: resultado.completo,
+        faltando: resultado.faltando,
+      };
+    },
+
+    // ── Lista de comandos (esquerda) ──
+
+    get comandosFiltrados() {
+      const q = normalize(this.busca);
+      if (!q) return this.equipamento.comandos;
+      return this.equipamento.comandos.filter(c =>
+        [c.nome, c.descricao, c.grupo].filter(Boolean).some(v => normalize(String(v)).includes(q))
+      );
+    },
+
+    get comandosAgrupados() {
+      const ORDEM = ["Consultas","Configuração Inicial","Sistema","Rede e WiFi","Rastreamento","Vídeo","Controle","Eventos","IA / ADAS / DMS","Diagnóstico","Outros"];
+      const mapa = {};
+      for (const c of this.comandosFiltrados) {
+        const g = c.grupo || "Outros";
+        if (!mapa[g]) mapa[g] = [];
+        mapa[g].push(c);
+      }
+      return ORDEM.filter(g => mapa[g]).map(g => ({ grupo: g, comandos: mapa[g] }));
+    },
+
+    existentesDoComando(comando) {
+      return this.itens.filter(i => i.nomeComando === comando.nome);
+    },
+
+    podeInserirNovo(comando) {
+      const disc = discriminadorDe(comando);
+      const existentes = this.existentesDoComando(comando);
+      if (!disc) return existentes.length === 0;
+      return existentes.length < normalizarOpcoes(disc.opcoes).length;
+    },
+
+    statusComando(comando) {
+      const disc = discriminadorDe(comando);
+      const existentes = this.existentesDoComando(comando);
+      if (!disc) return existentes.length > 0 ? "Inserido" : "";
+      const total = normalizarOpcoes(disc.opcoes).length;
+      return existentes.length > 0 ? `${existentes.length}/${total}` : "";
+    },
+
+    abrirComando(comando) {
+      const disc = discriminadorDe(comando);
+      if (!disc) {
+        const existente = this.itens.find(i => i.nomeComando === comando.nome);
+        if (existente) {
+          this.editarItem(existente.chave);
+          return;
+        }
+      }
+      this.selecionarComando(comando.nome);
+    },
+
+    selecionarComando(nome) {
+      const comando = this.equipamento.comandos.find(c => c.nome === nome);
+      if (!comando) return;
+      this.ativoNome = nome;
+      this.selecao = selecaoInicial(comando);
+      this.tituloAtivo = "";
+      this.editandoChave = null;
+      this.erroForm = "";
+    },
+
+    // ── Editor do comando ativo (centro) ──
+
+    get comandoAtivo() {
+      return this.ativoNome
+        ? (this.equipamento.comandos.find(c => c.nome === this.ativoNome) || null)
+        : null;
+    },
+
+    get discriminadorAtivo() {
+      return this.comandoAtivo ? discriminadorDe(this.comandoAtivo) : null;
+    },
+
+    get editorVisiveis() {
+      return this.comandoAtivo ? parametrosVisiveis(this.comandoAtivo) : [];
+    },
+
+    opcoesDoParametro(p) {
+      const todas = normalizarOpcoes(p.opcoes);
+      const disc = this.discriminadorAtivo;
+      if (!disc || p.nome !== disc.nome) return todas;
+      const usadosPorOutros = this.itens
+        .filter(i => i.nomeComando === this.comandoAtivo.nome && i.chave !== this.editandoChave)
+        .map(i => i.valores[disc.nome]);
+      return todas.filter(op => !usadosPorOutros.includes(op.valor));
+    },
+
+    tipoDe(p) { return tipoDe(p); },
+    isObrigatorio(p) { return isObrigatorio(p); },
+
+    setValor(nome, valor) {
+      this.selecao = { ...this.selecao, [nome]: valor };
+    },
+
+    toggleOpcao(p, valor) {
+      const desmarca = this.selecao[p.nome] === valor && !isObrigatorio(p);
+      this.selecao = { ...this.selecao, [p.nome]: desmarca ? "" : valor };
+    },
+
+    get resultadoAtivo() {
+      if (!this.comandoAtivo) return { texto: "", completo: false, faltando: [] };
+      return montarComando(this.comandoAtivo, this.selecao);
+    },
+
+    cancelarEdicao() {
+      this.ativoNome = null;
+      this.editandoChave = null;
+      this.selecao = {};
+      this.tituloAtivo = "";
+      this.erroForm = "";
+    },
+
+    inserir() {
+      if (!this.comandoAtivo) return;
+      this.erroForm = "";
+
+      const disc = this.discriminadorAtivo;
+      let chave;
+
+      if (this.editandoChave) {
+        chave = this.editandoChave;
+      } else if (disc) {
+        const valor = this.selecao[disc.nome];
+        if (!valor) {
+          this.erroForm = `Selecione o valor de "${disc.nome}" antes de inserir.`;
+          return;
+        }
+        const jaUsado = this.itens.some(i =>
+          i.nomeComando === this.comandoAtivo.nome && i.valores[disc.nome] === valor
+        );
+        if (jaUsado) {
+          this.erroForm = "Esse canal/evento já foi inserido neste template.";
+          return;
+        }
+        chave = `${this.comandoAtivo.nome}::${valor}`;
+      } else {
+        if (this.itens.some(i => i.nomeComando === this.comandoAtivo.nome)) {
+          this.erroForm = "Esse comando já foi inserido neste template.";
+          return;
+        }
+        chave = this.comandoAtivo.nome;
+      }
+
+      const resultado = montarComando(this.comandoAtivo, this.selecao);
+      const item = {
+        chave,
+        nomeComando: this.comandoAtivo.nome,
+        titulo: this.tituloAtivo.trim() || null,
+        grupo: this.comandoAtivo.grupo,
+        valores: { ...this.selecao },
+        resultado: resultado.texto,
+        completo: resultado.completo,
+        faltando: resultado.faltando,
+      };
+
+      const idx = this.itens.findIndex(i => i.chave === chave);
+      if (idx >= 0) {
+        this.itens = [...this.itens.slice(0, idx), item, ...this.itens.slice(idx + 1)];
+      } else {
+        this.itens = [...this.itens, item];
+      }
+
+      this.cancelarEdicao();
+    },
+
+    // ── Pré-visualização (direita) ──
+
+    get itensAgrupados() {
+      const mapa = {};
+      for (const i of this.itens) {
+        const g = i.grupo || "Outros";
+        if (!mapa[g]) mapa[g] = [];
+        mapa[g].push(i);
+      }
+      return Object.keys(mapa).map(g => ({ grupo: g, itens: mapa[g] }));
+    },
+
+    get itensIncompletos() {
+      return this.itens.filter(i => !i.completo);
+    },
+
+    comandoTemIncompleto(comando) {
+      return this.existentesDoComando(comando).some(i => !i.completo);
+    },
+
+    editarItem(chave) {
+      const item = this.itens.find(i => i.chave === chave);
+      if (!item) return;
+      this.ativoNome = item.nomeComando;
+      this.selecao = { ...item.valores };
+      this.tituloAtivo = item.titulo || "";
+      this.editandoChave = chave;
+      this.erroForm = "";
+    },
+
+    removerItem(chave) {
+      this.itens = this.itens.filter(i => i.chave !== chave);
+      if (this.editandoChave === chave) this.cancelarEdicao();
+    },
+
+    grupoCorText(grupo) { return (GRUPO_CORES[grupo] || {}).text || "text-muted-foreground"; },
+    grupoCorBg(grupo)   { return (GRUPO_CORES[grupo] || {}).bg   || "bg-accent/40"; },
+    grupoCorDot(grupo)  { return (GRUPO_CORES[grupo] || {}).dot  || "bg-muted-foreground"; },
+
+    // ── Salvar ──
+
+    salvar() {
+      this.erro = "";
+      if (!this.nome.trim()) {
+        this.erro = "Informe um nome para o template.";
+        return;
+      }
+      if (!this.itens.length) {
+        this.erro = "Insira ao menos um comando no template.";
+        return;
+      }
+      if (this.itensIncompletos.length > 0) {
+        this.erro = "Existem comandos com parâmetros obrigatórios pendentes. Edite-os antes de salvar.";
+        return;
+      }
+
+      this.salvando = true;
+      Alpine.store("app").salvarTemplateCustom({
+        id: this.editandoId,
+        equipamentoId: this.equipamento.id,
+        equipamentoNome: this.equipamento.equipamento,
+        linha: this.equipamento.linha,
+        nome: this.nome.trim(),
+        descricao: this.descricao.trim(),
+        itens: this.itens,
+      });
+      window.location.href = this.voltarUrl;
+    },
+
+    cancelar() {
+      window.location.href = this.voltarUrl;
     },
   };
 }
