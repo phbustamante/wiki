@@ -71,8 +71,8 @@
               </div>
 
               <div class="space-y-0.5">
-                <template x-for="c in grupo.comandos" :key="c.nome">
-                  <button @click="irPara(c.nome)"
+                <template x-for="c in grupo.comandos" :key="chaveDe(c)">
+                  <button @click="irPara(chaveDe(c))"
                           :title="c.descricao || ''"
                           class="w-full flex items-center gap-2 py-1.5 pl-3 pr-3 text-left font-mono text-[12px]
                                  border-l-[3px] border-transparent text-foreground/80 rounded-r-lg
@@ -80,7 +80,7 @@
                     <svg x-show="comandoCompleto(c)" class="h-3 w-3 shrink-0 text-emerald-500"
                          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
                     <span x-show="!comandoCompleto(c)" class="h-3 w-3 shrink-0 rounded-full border border-muted-foreground/30"></span>
-                    <span class="truncate" x-text="c.nome"></span>
+                    <span class="truncate" x-text="c.titulo || c.nome"></span>
                     <svg x-show="comandoBloqueado(c)" class="h-3 w-3 shrink-0 ml-auto text-muted-foreground/60"
                          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                   </button>
@@ -112,8 +112,8 @@
           </div>
 
           <div class="space-y-4">
-            <template x-for="comando in grupo.comandos" :key="comando.nome">
-              <div :id="`card-${comando.nome}`"
+            <template x-for="comando in grupo.comandos" :key="chaveDe(comando)">
+              <div :id="`card-${chaveDe(comando)}`"
                    class="rounded-2xl border border-border bg-card shadow-soft overflow-hidden scroll-mt-32">
 
                 <!-- Cabeçalho do comando -->
@@ -131,7 +131,9 @@
                     </div>
                     <div class="flex-1 min-w-0">
                       <div class="flex flex-wrap items-center gap-2.5">
-                        <h3 class="font-mono text-lg font-bold tracking-tight leading-none" x-text="comando.nome"></h3>
+                        <h3 class="font-mono text-lg font-bold tracking-tight leading-none" x-text="comando.titulo || comando.nome"></h3>
+                        <span x-show="comando.titulo && comando.titulo !== comando.nome"
+                              class="font-mono text-xs text-muted-foreground/70" x-text="comando.nome"></span>
                         <svg x-show="comandoCompleto(comando)" class="h-4 w-4 text-emerald-500"
                              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
                         <span x-show="comandoBloqueado(comando)"
@@ -146,7 +148,7 @@
 
                     <!-- Botão editar (só aparece quando bloqueado) -->
                     <button x-show="comandoBloqueado(comando)"
-                            @click="desbloquear(comando.nome)"
+                            @click="desbloquear(chaveDe(comando))"
                             type="button"
                             class="shrink-0 inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-1.5 text-xs font-semibold
                                    text-foreground transition-colors hover:bg-accent">
@@ -155,19 +157,19 @@
                     </button>
 
                     <!-- Botão minimizar/expandir -->
-                    <button @click="toggleCard(comando.nome)"
+                    <button @click="toggleCard(chaveDe(comando))"
                             type="button"
-                            :title="cardAberto(comando.nome) ? 'Minimizar' : 'Expandir'"
+                            :title="cardAberto(chaveDe(comando)) ? 'Minimizar' : 'Expandir'"
                             class="shrink-0 flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground
                                    transition-colors hover:bg-accent hover:text-foreground">
-                      <svg class="h-4 w-4 transition-transform duration-200" :class="cardAberto(comando.nome) ? '' : '-rotate-90'"
+                      <svg class="h-4 w-4 transition-transform duration-200" :class="cardAberto(chaveDe(comando)) ? '' : '-rotate-90'"
                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                     </button>
                   </div>
                 </div>
 
                 <!-- Parâmetros (recolhível) -->
-                <div x-show="cardAberto(comando.nome)" x-transition class="px-6 py-5">
+                <div x-show="cardAberto(chaveDe(comando))" x-transition class="px-6 py-5">
                   <div x-show="comando.parametros.some(p => tipoDe(p) !== 'fixo')"
                        :class="comandoBloqueado(comando) ? 'opacity-60' : ''">
                     <div class="mb-4 flex items-center justify-between">
@@ -194,17 +196,17 @@
                           <!-- SELECT: pills -->
                           <div x-show="tipoDe(p) === 'select'" class="flex flex-wrap gap-2">
                             <template x-for="op in opcoesDe(p)" :key="op.valor">
-                              <button @click="!comandoBloqueado(comando) && (valores[`${comando.nome}.${p.nome}`] = op.valor)"
+                              <button @click="!comandoBloqueado(comando) && (valores[`${chaveDe(comando)}.${p.nome}`] = op.valor)"
                                       type="button"
                                       :disabled="comandoBloqueado(comando)"
                                       :class="[
-                                        valores[`${comando.nome}.${p.nome}`] === op.valor
+                                        valores[`${chaveDe(comando)}.${p.nome}`] === op.valor
                                           ? 'border-primary bg-primary text-primary-foreground shadow-soft'
                                           : 'border-border bg-card text-foreground hover:border-primary/40 hover:bg-accent',
                                         comandoBloqueado(comando) ? 'cursor-not-allowed' : ''
                                       ]"
                                       class="inline-flex items-center gap-1.5 rounded-xl border px-3.5 py-2 text-sm font-medium transition-all duration-150 active:scale-[0.97]">
-                                <svg x-show="valores[`${comando.nome}.${p.nome}`] === op.valor"
+                                <svg x-show="valores[`${chaveDe(comando)}.${p.nome}`] === op.valor"
                                      class="h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
                                 <span x-text="op.label"></span>
                               </button>
@@ -217,7 +219,7 @@
                                    :min="p.min ?? undefined" :max="p.max ?? undefined" :step="p.step ?? 1"
                                    :placeholder="p.placeholder || ''"
                                    :disabled="comandoBloqueado(comando)"
-                                   x-model="valores[`${comando.nome}.${p.nome}`]"
+                                   x-model="valores[`${chaveDe(comando)}.${p.nome}`]"
                                    class="w-full rounded-xl border border-input bg-background px-3 py-2 text-sm font-mono
                                           outline-none focus:border-ring focus:ring-2 focus:ring-ring/20 disabled:cursor-not-allowed disabled:bg-accent/40" />
                           </div>
@@ -228,7 +230,7 @@
                                  :maxlength="p.maxLength || undefined"
                                  :placeholder="p.placeholder || 'Digite o valor...'"
                                  :disabled="comandoBloqueado(comando)"
-                                 x-model="valores[`${comando.nome}.${p.nome}`]"
+                                 x-model="valores[`${chaveDe(comando)}.${p.nome}`]"
                                  class="max-w-sm w-full rounded-xl border border-input bg-background px-3 py-2 text-sm font-mono
                                         outline-none placeholder:text-muted-foreground focus:border-ring focus:ring-2 focus:ring-ring/20 disabled:cursor-not-allowed disabled:bg-accent/40" />
 

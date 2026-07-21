@@ -1,3 +1,4 @@
+import copy
 import json
 from pathlib import Path
 
@@ -7,6 +8,11 @@ DATA_DIR = Path(__file__).parent.parent / "data"
 def _load(nome_arquivo):
     with open(DATA_DIR / nome_arquivo, encoding="utf-8") as f:
         return json.load(f)
+
+
+def nome_arquivo_writeconfig(equipamento_id):
+    """Regra de negócio: jc182 gera config.txt, os demais geram writeconfig.txt."""
+    return "config.txt" if equipamento_id.lower() == "jc182" else "writeconfig.txt"
 
 
 # --- equipamentos.json ---
@@ -45,27 +51,81 @@ def get_template(equipamento_id, template_id):
     return next((t for t in templates if t["id"] == template_id), None)
 
 
+def _resolver_item_comando(equipamento, item):
+    """Resolve um item da lista `comandos` do template.
+
+    `item` pode ser:
+    - uma string simples: "APN" (comportamento original, sem mudanças)
+    - um objeto com múltipla instância do mesmo comando, ex.:
+      {"comando": "RECORDSW", "instancia": "ch1", "titulo": "Canal 1",
+       "overrides": {"canal": "1", "status": "ON"},
+       "ocultar": ["canal"]}
+
+    `overrides` sobrescreve o `padrao` de parâmetros existentes em
+    equipamentos.json, sem alterar o arquivo original (a alteração vive
+    só nesta cópia, montada em memória por request).
+
+    `ocultar` lista nomes de parâmetros que devem ficar travados e
+    invisíveis no formulário só para esta instância — o parâmetro vira
+    tipo "fixo" com o valor de `overrides` (ou o `padrao` original, se
+    não houver override), reaproveitando o mecanismo que o front já usa
+    para esconder parâmetros fixos.
+    """
+    if isinstance(item, str):
+        nome, instancia, titulo, overrides, ocultar = item, None, None, {}, []
+    else:
+        nome = item["comando"]
+        instancia = item.get("instancia")
+        titulo = item.get("titulo")
+        overrides = item.get("overrides", {})
+        ocultar = item.get("ocultar", [])
+
+    base = get_comando(equipamento, nome)
+    if not base:
+        raise ValueError(
+            f"Comando '{nome}' não existe em {equipamento['equipamento']}")
+
+    comando = copy.deepcopy(base)
+    # "chave" identifica essa instância de forma única no formulário/DOM.
+    # Sem instancia, cai no comportamento antigo (chave == nome).
+    comando["chave"] = f"{nome}::{instancia}" if instancia else nome
+    if titulo:
+        comando["titulo"] = titulo
+
+    if overrides:
+        for p in comando.get("parametros", []):
+            if p.get("nome") in overrides:
+                p["padrao"] = overrides[p["nome"]]
+
+    if ocultar:
+        for p in comando.get("parametros", []):
+            if p.get("nome") in ocultar:
+                # Trava o parâmetro como "fixo": some do formulário (front já sabe
+                # ocultar tipo 'fixo') e entra no comando final com valor travado.
+                valor_travado = overrides.get(p["nome"], p.get("padrao", ""))
+                p["tipo"] = "fixo"
+                p["valor"] = str(valor_travado)
+
+    return comando
+
+
 def resolver_comandos_do_template(equipamento_id, template):
     """Busca a definição completa (parâmetros, tipos, opções) de cada comando do template."""
     equipamento = get_equipamento(equipamento_id)
     if not equipamento:
         raise ValueError(f"Equipamento não encontrado: {equipamento_id}")
 
-    comandos = []
-    for nome_comando in template["comandos"]:
-        comando = get_comando(equipamento, nome_comando)
-        if not comando:
-            raise ValueError(
-                f"Comando '{nome_comando}' não existe em {equipamento['equipamento']}")
-        comandos.append(comando)
+    comandos = [_resolver_item_comando(equipamento, item)
+                for item in template["comandos"]]
     return equipamento, comandos
 
 
 # --- formulário / geração ---
 
 def campo_id(comando, parametro):
-    """Chave única do campo no formulário: 'APN.apn', 'SERVER.servidor', etc."""
-    return f"{comando['nome']}.{parametro['nome']}"
+    """Chave única do campo no formulário: 'APN.apn', 'RECORDSW::ch1.canal', etc."""
+    chave = comando.get("chave", comando["nome"])
+    return f"{chave}.{parametro['nome']}"
 
 
 def campos_editaveis(comando):
@@ -98,6 +158,11 @@ def _formatar_comando(comando, dados):
     """Monta a string final no MESMO formato que writeconfig.py espera: 'NOME,val1,val2#'."""
     valores = [_valor_parametro(comando, p, dados)
                for p in comando.get("parametros", [])]
+
+    if not comando.get("manterVazios"):
+        while valores and valores[-1] == "":
+            valores.pop()
+
     partes = [comando["nome"]] + valores
     linha = ",".join(partes) if valores else comando["nome"]
     linha += comando.get("sufixo", "")

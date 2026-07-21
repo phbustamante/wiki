@@ -126,12 +126,14 @@
               "nome": "nome_wifi",
               "tipo": "texto",
               "maxLength": 10,
+              "obrigatorio": false,
               "placeholder": "máx. 10, sem espaços"
             },
             {
               "nome": "senha_wifi",
               "tipo": "texto",
               "maxLength": 10,
+              "obrigatorio": false,
               "placeholder": "8 a 10 caracteres"
             }
           ],
@@ -2835,11 +2837,13 @@
             {
               "nome": "nome_wifi",
               "tipo": "texto",
+              "obrigatorio": false,
               "placeholder": "nome da rede"
             },
             {
               "nome": "senha_wifi",
               "tipo": "texto",
+              "obrigatorio": false,
               "placeholder": "senha da rede"
             }
           ],
@@ -5385,11 +5389,11 @@
                   "valor": "1"
                 },
                 {
-                  "label": "CH2 - interna USB",
+                  "label": "CH2 - USB DMS",
                   "valor": "2"
                 },
                 {
-                  "label": "CH3 - motorista DMS",
+                  "label": "CH3 - IP67",
                   "valor": "3"
                 }
               ]
@@ -8578,94 +8582,199 @@
       ],
       "linha": "jc"
     },
-    {
+{
       "id": "jc400",
       "equipamento": "JC400",
-      "descricao": "Dashcam ADAS/DMS 4G de 2 canais (também conhecido como JC261 / JC400AD). Comandos via SMS ou plataforma.",
+      "descricao": "Dashcam ADAS/DMS (também conhecido como JC261). Comandos de configuração via SMS ou plataforma.",
       "categoria": "Dashcam",
       "comandos": [
         {
-          "nome": "STATUS",
-          "descricao": "Status geral do dispositivo.",
-          "parametros": [],
-          "grupo": "Consultas"
-        },
-        {
-          "nome": "VERSION",
-          "descricao": "Versão de firmware.",
-          "parametros": [],
-          "grupo": "Consultas"
-        },
-        {
-          "nome": "PARAM",
-          "descricao": "IMEI e fuso horário configurado.",
-          "parametros": [],
-          "grupo": "Consultas"
-        },
-        {
-          "nome": "COREKITSW,0",
-          "descricao": "Desativa o protocolo proprietário TrackSolid. ENVIE ESTE COMANDO ANTES DE QUALQUER OUTRA CONFIGURAÇÃO ao usar plataformas não-TrackSolid.",
-          "parametros": [],
-          "grupo": "Sistema"
+          "nome": "COREKITSW",
+          "descricao": "Envie antes das demais configurações em plataformas externas (não TrackSolid).",
+          "parametros": [
+            {
+              "nome": "modo_plataforma",
+              "opcoes": [
+                {
+                  "label": "0 — Plataforma externa",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — TrackSolid",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            }
+          ],
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "APN",
-          "descricao": "Configura o APN da operadora. Dispositivo reinicia em 10 s.",
+          "descricao": "APN da operadora (formato posicional). protocol1 e protocol2 fixados em IPv4.",
+          "manterVazios": true,
           "parametros": [
+            {
+              "nome": "nome",
+              "tipo": "texto",
+              "placeholder": "nome do APN"
+            },
             {
               "nome": "apn",
               "tipo": "texto",
               "placeholder": "endereço do APN"
             },
             {
-              "nome": "usuario",
+              "tipo": "fixo",
+              "valor": "",
+              "nome": "_1"
+            },
+            {
+              "tipo": "fixo",
+              "valor": "",
+              "nome": "_2"
+            },
+            {
+              "tipo": "fixo",
+              "valor": "",
+              "nome": "_3"
+            },
+            {
+              "tipo": "fixo",
+              "valor": "",
+              "nome": "_4"
+            },
+            {
+              "tipo": "fixo",
+              "valor": "",
+              "nome": "_5"
+            },
+            {
+              "nome": "login",
               "tipo": "texto",
-              "obrigatorio": false,
-              "placeholder": "usuário (opcional)"
+              "obrigatorio": false
+            },
+            {
+              "tipo": "fixo",
+              "valor": "",
+              "nome": "_6"
             },
             {
               "nome": "senha",
               "tipo": "texto",
-              "obrigatorio": false,
-              "placeholder": "senha (opcional)"
+              "obrigatorio": false
+            },
+            {
+              "tipo": "fixo",
+              "valor": "",
+              "nome": "_7"
+            },
+            {
+              "tipo": "fixo",
+              "valor": "",
+              "nome": "_8"
+            },
+            {
+              "tipo": "fixo",
+              "valor": "",
+              "nome": "_9"
+            },
+            {
+              "tipo": "fixo",
+              "valor": "",
+              "nome": "_10"
+            },
+            {
+              "tipo": "fixo",
+              "valor": "IPv4",
+              "nome": "protocol1"
+            },
+            {
+              "tipo": "fixo",
+              "valor": "IPv4",
+              "nome": "protocol2"
+            },
+            {
+              "tipo": "fixo",
+              "valor": "",
+              "nome": "_11"
             }
           ],
           "grupo": "Configuração Inicial"
         },
+
         {
-          "nome": "DMSSW",
-          "descricao": "Habilita o módulo DMS externo (JC170). Envie DMSSW,3 para ativar.",
+          "nome": "VOICESW",
+          "descricao": "Idioma do pacote de voz. 100 usa o pacote baixado por AUDIOURL.",
           "parametros": [
             {
-              "nome": "modo",
+              "nome": "idioma",
               "opcoes": [
                 {
-                  "label": "3 — Ativar comunicação com JC170/DMS",
+                  "label": "0 — Inglês",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — Chinês",
+                  "valor": "1"
+                },
+                {
+                  "label": "2 — Tailandês",
+                  "valor": "2"
+                },
+                {
+                  "label": "3 — Árabe",
                   "valor": "3"
                 },
                 {
-                  "label": "0 — Desativar DMS",
-                  "valor": "0"
+                  "label": "4 — Inglês Britânico",
+                  "valor": "4"
+                },
+                {
+                  "label": "5 — Russo",
+                  "valor": "5"
+                },
+                {
+                  "label": "7 — Espanhol",
+                  "valor": "7"
+                },
+                {
+                  "label": "8 — Indonésio",
+                  "valor": "8"
                 }
               ],
-              "padrao": "3"
+              "padrao": "6"
+            }
+          ],
+          "grupo": "Sistema"
+        },
+        {
+          "nome": "DMS_VIRTUAL_SPEED",
+          "descricao": "Velocidade virtual para teste de bancada da DMS. Apaga ao desligar o ACC.",
+          "parametros": [
+            {
+              "nome": "velocidade_kmh",
+              "tipo": "numero",
+              "min": 1,
+              "max": 120,
+              "unidade": "km/h"
             }
           ],
           "grupo": "IA / ADAS / DMS"
         },
         {
           "nome": "SERVER",
-          "descricao": "Define servidor de comunicação. A=tipo (0=IP, 1=domínio), B=endereço, C=porta.",
+          "descricao": "Define o servidor. Ex.: SERVER,1,iothub.plataforma.com.br,21100.",
           "parametros": [
             {
               "nome": "tipo_destino",
               "opcoes": [
                 {
-                  "label": "0 — Endereço IP",
+                  "label": "0 — IP",
                   "valor": "0"
                 },
                 {
-                  "label": "1 — Domínio DNS",
+                  "label": "1 — Domínio",
                   "valor": "1"
                 }
               ],
@@ -8674,12 +8783,24 @@
             {
               "nome": "servidor",
               "tipo": "texto",
-              "placeholder": "domínio ou IP"
+              "placeholder": "host ou IP"
             },
             {
               "nome": "porta",
               "tipo": "texto",
               "placeholder": "ex.: 21100"
+            }
+          ],
+          "grupo": "Configuração Inicial"
+        },
+        {
+          "nome": "UPLOAD",
+          "descricao": "Servidor para upload de vídeos.",
+          "parametros": [
+            {
+              "nome": "url_upload_video",
+              "tipo": "texto",
+              "placeholder": "http://host:porta/upload"
             }
           ],
           "grupo": "Configuração Inicial"
@@ -8698,7 +8819,7 @@
         },
         {
           "nome": "WIFIAP",
-          "descricao": "Ativa/desativa o hotspot Wi-Fi do dispositivo.",
+          "descricao": "Hotspot Wi-Fi. Senha = 8 últimos dígitos do IMEI.",
           "parametros": [
             {
               "nome": "status",
@@ -8706,23 +8827,36 @@
                 "ON",
                 "OFF"
               ],
-              "padrao": "ON"
+              "padrao": "OFF"
             }
           ],
           "grupo": "Rede e WiFi"
         },
         {
           "nome": "SSID",
-          "descricao": "Conecta a uma rede Wi-Fi externa (desativa o hotspot).",
+          "descricao": "Conecta a uma rede Wi-Fi (o hotspot deve estar desativado).",
           "parametros": [
             {
-              "nome": "status",
+              "nome": "modo_wifi",
               "opcoes": [
-                "ON",
-                "OFF",
-                "RM"
+                {
+                  "label": "0 — Desligado",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — Ligado com ACC",
+                  "valor": "1"
+                },
+                {
+                  "label": "2 — Ligado sempre",
+                  "valor": "2"
+                },
+                {
+                  "label": "3 — Apagar rede salva",
+                  "valor": "3"
+                }
               ],
-              "padrao": "OFF"
+              "padrao": "0"
             },
             {
               "nome": "nome_wifi",
@@ -8740,32 +8874,23 @@
           "grupo": "Rede e WiFi"
         },
         {
-          "nome": "UPLOAD",
-          "descricao": "Define o servidor para upload de fotos periódicas. Deve começar com http:// ou https://.",
-          "parametros": [
-            {
-              "nome": "url_servidor",
-              "tipo": "texto",
-              "placeholder": "http://servidor.com/upload"
-            }
-          ],
-          "grupo": "Configuração Inicial"
-        },
-        {
           "nome": "TIMER",
-          "descricao": "Intervalo de envio de posição GPS com ACC ligado. A=ON, B=intervalo em segundos (1–600).",
+          "descricao": "Intervalo de posição com ACC ligado. ON envia mesmo parado; OFF só acima de 3 km/h.",
           "parametros": [
             {
-              "tipo": "fixo",
-              "valor": "ON",
-              "nome": "acc_on"
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
             },
             {
               "nome": "intervalo_segundos",
               "tipo": "numero",
               "min": 1,
               "max": 600,
-              "padrao": "30",
+              "padrao": "10",
               "unidade": "s"
             }
           ],
@@ -8773,19 +8898,22 @@
         },
         {
           "nome": "TIMER1",
-          "descricao": "Intervalo de envio de posição GPS com ACC desligado. A=OFF, B=intervalo em segundos (1–600).",
+          "descricao": "Intervalo de posição com ACC desligado.",
           "parametros": [
             {
-              "tipo": "fixo",
-              "valor": "OFF",
-              "nome": "acc_off"
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
             },
             {
               "nome": "intervalo_segundos",
               "tipo": "numero",
               "min": 1,
-              "max": 600,
-              "padrao": "600",
+              "max": 86400,
+              "padrao": "120",
               "unidade": "s"
             }
           ],
@@ -8793,7 +8921,7 @@
         },
         {
           "nome": "ANGLEREP",
-          "descricao": "Ângulo mínimo para envio adicional de posição. A=ON/OFF, B=ângulo 5–45°. Padrão: ON,5.",
+          "descricao": "Reporta posição ao mudar de direção. Padrão ON,5.",
           "parametros": [
             {
               "nome": "status",
@@ -8815,48 +8943,86 @@
           "grupo": "Rastreamento"
         },
         {
-          "nome": "SHUTDOWNTIME",
-          "descricao": "Atraso para corte de energia após ACC desligar. 0=sem atraso.",
+          "nome": "ACCREP",
+          "descricao": "Alerta de mudança de ignição.",
           "parametros": [
             {
-              "nome": "atraso_segundos",
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            },
+            {
+              "nome": "modo_envio",
+              "opcoes": [
+                {
+                  "label": "0 — Plataforma",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — Plataforma + SMS",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            },
+            {
+              "nome": "tempo_confirmacao_segundos",
               "tipo": "numero",
-              "min": 0,
-              "max": 64800,
-              "padrao": "0",
+              "min": 5,
+              "max": 60,
+              "padrao": "10",
               "unidade": "s"
+            },
+            {
+              "nome": "momento_alerta",
+              "opcoes": [
+                {
+                  "label": "0 — Liga e desliga",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — Só desliga",
+                  "valor": "1"
+                },
+                {
+                  "label": "2 — Só liga",
+                  "valor": "2"
+                }
+              ],
+              "padrao": "0"
             }
           ],
           "grupo": "Rastreamento"
         },
         {
-          "nome": "MILEAGE",
-          "descricao": "Define quilometragem inicial do hodômetro (em km, sem decimais).",
-          "parametros": [
-            {
-              "nome": "quilometragem_km",
-              "tipo": "numero",
-              "min": 0,
-              "max": 9999999,
-              "padrao": "0",
-              "unidade": "km"
-            }
-          ],
-          "grupo": "Rastreamento"
+          "nome": "REBOOT",
+          "descricao": "Reinicia o equipamento. Sem parâmetros.",
+          "parametros": [],
+          "grupo": "Controle"
         },
+        {
+          "nome": "RESTORE",
+          "descricao": "Restaura de fábrica e apaga configurações. Sem parâmetros.",
+          "parametros": [],
+          "grupo": "Controle"
+        },
+
         {
           "nome": "RATATION",
-          "descricao": "Rotação da câmera. A=IN (cabine) ou OUT (estrada), B=ângulo 0/90/180/270°.",
+          "descricao": "Rotação da imagem. IN = câmera DMS, OUT = câmera principal.",
           "parametros": [
             {
               "nome": "canal",
               "opcoes": [
                 {
-                  "label": "IN — Câmera interna/cabine",
+                  "label": "IN — DMS",
                   "valor": "IN"
                 },
                 {
-                  "label": "OUT — Câmera externa/estrada",
+                  "label": "OUT — Principal",
                   "valor": "OUT"
                 }
               ],
@@ -8876,119 +9042,118 @@
           "grupo": "Configuração Inicial"
         },
         {
+          "nome": "VIDEORESOLUTION_SUB",
+          "descricao": "Resolução do sub-stream.",
+          "parametros": [
+            {
+              "nome": "preset",
+              "opcoes": [
+                {
+                  "label": "0 — 640x360 0.5M",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — 720x480 1M",
+                  "valor": "1"
+                },
+                {
+                  "label": "2 — 720x480 1.5M",
+                  "valor": "2"
+                }
+              ],
+              "padrao": "0"
+            }
+          ],
+          "grupo": "Vídeo"
+        },
+        {
           "nome": "CAMERA",
-          "descricao": "Define resolução por canal. A=IN/OUT, B=preset de resolução.",
+          "descricao": "Resolução por canal. OUT: 0=1080P 8M, 1=720P 4M, 2=720x480 2M, 3=640x360 0.5M. IN: 0=720P 6M, 1=720P 3M, 2=720x480 2M, 3=640x360 0.5M.",
           "parametros": [
             {
               "nome": "canal",
               "opcoes": [
                 {
-                  "label": "IN — Câmera interna",
+                  "label": "IN — DMS",
                   "valor": "IN"
                 },
                 {
-                  "label": "OUT — Câmera externa",
+                  "label": "OUT — Principal",
                   "valor": "OUT"
                 }
               ],
               "padrao": "OUT"
             },
             {
-              "nome": "resolucao",
+              "nome": "preset",
               "opcoes": [
-                {
-                  "label": "1 — 1080p",
-                  "valor": "1"
-                },
-                {
-                  "label": "2 — 720p",
-                  "valor": "2"
-                },
-                {
-                  "label": "3 — 480p",
-                  "valor": "3"
-                },
-                {
-                  "label": "4 — 360p",
-                  "valor": "4"
-                }
+                "0",
+                "1",
+                "2",
+                "3"
               ],
-              "padrao": "1"
+              "padrao": "0"
             }
           ],
           "grupo": "Vídeo"
         },
         {
           "nome": "CAR",
-          "descricao": "Marca d'água com placa, frota e motorista. Sem acentos, símbolos ou espaços. Máx. 15 chars cada.",
+          "descricao": "Sobreposição de texto. Letras e números, até 15 caracteres por campo.",
           "parametros": [
             {
-              "nome": "placa",
+              "nome": "texto_superior_esq",
               "tipo": "texto",
               "maxLength": 15,
-              "placeholder": "ex.: ABC1234"
+              "obrigatorio": false
             },
             {
-              "nome": "frota",
+              "nome": "texto_superior_dir",
               "tipo": "texto",
               "maxLength": 15,
-              "obrigatorio": false,
-              "placeholder": "ex.: FROTANORTE"
+              "obrigatorio": false
             },
             {
-              "nome": "motorista",
+              "nome": "texto_inferior_dir",
               "tipo": "texto",
               "maxLength": 15,
-              "obrigatorio": false,
-              "placeholder": "ex.: JOAO"
+              "obrigatorio": false
             }
           ],
           "grupo": "Sistema"
         },
         {
-          "nome": "VOICESW",
-          "descricao": "Idioma do sistema de voz. 100=personalizado (requer AUDIOURL). Padrão: 0.",
+          "nome": "VOLUME",
+          "descricao": "Volume do alto-falante.",
           "parametros": [
             {
-              "nome": "idioma",
+              "nome": "nivel",
               "opcoes": [
                 {
-                  "label": "0 — English (padrão de fábrica)",
+                  "label": "0 — Desligado",
                   "valor": "0"
                 },
                 {
-                  "label": "2 — Português",
+                  "label": "1 — Baixo",
+                  "valor": "1"
+                },
+                {
+                  "label": "2 — Médio",
                   "valor": "2"
                 },
                 {
-                  "label": "3 — Español",
+                  "label": "3 — Alto",
                   "valor": "3"
-                },
-                {
-                  "label": "100 — Personalizado (use AUDIOURL)",
-                  "valor": "100"
                 }
               ],
-              "padrao": "6"
-            }
-          ],
-          "grupo": "Sistema"
-        },
-        {
-          "nome": "AUDIOURL",
-          "descricao": "URL para download do pacote de voz em Português. Use após VOICESW,100.",
-          "parametros": [
-            {
-              "nome": "url_pacote",
-              "tipo": "texto",
-              "placeholder": "http://servidor.com/audio_pt.zip"
+              "padrao": "2"
             }
           ],
           "grupo": "Sistema"
         },
         {
           "nome": "LED",
-          "descricao": "Controla os indicadores LED. Padrão: ON.",
+          "descricao": "LED indicador.",
           "parametros": [
             {
               "nome": "status",
@@ -9003,181 +9168,162 @@
         },
         {
           "nome": "TIMESYNC",
-          "descricao": "Modo de sincronização de horário. Padrão: ALL.",
+          "descricao": "Fonte de sincronização de horário (minúsculas).",
           "parametros": [
             {
-              "nome": "modo",
+              "nome": "origem_tempo",
               "opcoes": [
-                {
-                  "label": "ALL — GPS + rede",
-                  "valor": "ALL"
-                },
-                {
-                  "label": "NETWORK — Apenas rede",
-                  "valor": "NETWORK"
-                },
-                {
-                  "label": "GPS — Apenas GPS",
-                  "valor": "GPS"
-                }
+                "gps",
+                "network"
               ],
-              "padrao": "ALL"
+              "padrao": "gps"
             }
           ],
           "grupo": "Configuração Inicial"
         },
         {
-          "nome": "VOLUME",
-          "descricao": "Volume do alto-falante. Padrão: 2.",
+          "nome": "TIMEZONE",
+          "descricao": "Fuso horário no formato HH:mm com sinal.",
           "parametros": [
             {
-              "nome": "nivel",
+              "nome": "fuso",
               "opcoes": [
-                {
-                  "label": "0 — Mudo",
-                  "valor": "0"
-                },
-                {
-                  "label": "1 — Baixo",
-                  "valor": "1"
-                },
-                {
-                  "label": "2 — Médio (padrão)",
-                  "valor": "2"
-                },
-                {
-                  "label": "3 — Alto",
-                  "valor": "3"
-                }
+                "-02:00",
+                "-03:00",
+                "-04:00",
+                "-05:00"
               ],
-              "padrao": "2"
+              "padrao": "-03:00"
             }
           ],
-          "grupo": "Sistema"
+          "grupo": "Configuração Inicial"
         },
         {
           "nome": "RECORDAUDIO",
-          "descricao": "Ativa ou desativa o áudio na câmera especificada. A=1(externa)/2(interna), B=ON/OFF.",
+          "descricao": "Gravação de áudio no cartão SD.",
           "parametros": [
             {
-              "nome": "canal",
+              "nome": "status_audio_sd",
               "opcoes": [
                 {
-                  "label": "1 — Externa (estrada)",
-                  "valor": "1"
+                  "label": "0 — Desativado",
+                  "valor": "0"
                 },
                 {
-                  "label": "2 — Interna (cabine)",
-                  "valor": "2"
+                  "label": "1 — Ativado",
+                  "valor": "1"
                 }
               ],
               "padrao": "1"
-            },
+            }
+          ],
+          "grupo": "Vídeo"
+        },
+        {
+          "nome": "RECORDAUDIO_SUB",
+          "descricao": "Gravação de áudio no streaming.",
+          "parametros": [
             {
-              "nome": "status",
+              "nome": "status_audio_streaming",
               "opcoes": [
-                "ON",
-                "OFF"
+                {
+                  "label": "0 — Desativado",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — Ativado",
+                  "valor": "1"
+                }
               ],
-              "padrao": "ON"
+              "padrao": "1"
             }
           ],
           "grupo": "Vídeo"
         },
         {
           "nome": "RECORDSW",
-          "descricao": "Ativa ou desativa gravação no cartão SD por canal. A=1(externa)/2(interna), B=ON/OFF.",
+          "descricao": "Gravação de vídeo por canal.",
           "parametros": [
             {
               "nome": "canal",
               "opcoes": [
                 {
-                  "label": "1 — Externa (estrada)",
+                  "label": "1 — Frontal",
                   "valor": "1"
                 },
                 {
-                  "label": "2 — Interna (cabine)",
+                  "label": "2 — Interna",
                   "valor": "2"
                 }
               ],
               "padrao": "1"
             },
             {
-              "nome": "status",
+              "nome": "status_gravacao",
               "opcoes": [
-                "ON",
-                "OFF"
+                {
+                  "label": "0 — OFF",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — ON",
+                  "valor": "1"
+                }
               ],
-              "padrao": "ON"
+              "padrao": "1"
             }
           ],
           "grupo": "Vídeo"
         },
         {
-          "nome": "SENALM",
-          "descricao": "Alarme de vibração no estacionamento. Padrão: OFF.",
+          "nome": "RELAY",
+          "descricao": "Bloqueio (relé de corte), via plataforma.",
           "parametros": [
             {
-              "nome": "status",
-              "opcoes": [
-                "ON",
-                "OFF"
-              ],
-              "padrao": "OFF"
-            },
-            {
-              "nome": "sensibilidade",
+              "nome": "status_bloqueio",
               "opcoes": [
                 {
-                  "label": "1 — Baixa (26)",
+                  "label": "0 — Inativo",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — Ativo",
+                  "valor": "1"
+                }
+              ],
+              "padrao": "0"
+            }
+          ],
+          "grupo": "Controle"
+        },
+        {
+          "nome": "EXDEVICESW",
+          "descricao": "Dispositivo externo. Com RFID não é possível usar a JC170 simultaneamente.",
+          "parametros": [
+            {
+              "nome": "modo_dispositivo_externo",
+              "opcoes": [
+                {
+                  "label": "0 — Desligado",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — Leitor de cartão",
                   "valor": "1"
                 },
                 {
-                  "label": "2 — Média (20)",
+                  "label": "2 — RFID",
                   "valor": "2"
-                },
-                {
-                  "label": "3 — Alta (16)",
-                  "valor": "3"
                 }
               ],
-              "padrao": "2"
+              "padrao": "0"
             }
           ],
-          "grupo": "Eventos"
+          "grupo": "Sistema"
         },
         {
-          "nome": "SHOCK",
-          "descricao": "Sensibilidade do sensor de vibração. Lógica invertida: menor = mais sensível. Padrão: 20.",
-          "parametros": [
-            {
-              "nome": "nivel",
-              "tipo": "numero",
-              "min": 1,
-              "max": 255,
-              "padrao": "20"
-            }
-          ],
-          "grupo": "Eventos"
-        },
-        {
-          "nome": "SHAKEDELAY",
-          "descricao": "Tempo de silêncio após ligar ignição para evitar falsos alarmes de vibração. Padrão: 60 s.",
-          "parametros": [
-            {
-              "nome": "atraso_segundos",
-              "tipo": "numero",
-              "min": 10,
-              "max": 600,
-              "padrao": "60",
-              "unidade": "s"
-            }
-          ],
-          "grupo": "Eventos"
-        },
-        {
-          "nome": "CRASHALM",
-          "descricao": "Alarme de colisão. Padrão: ON,2.",
+          "nome": "MILEAGE",
+          "descricao": "Hodômetro em metros (não em km). Padrão ON,0.",
           "parametros": [
             {
               "nome": "status",
@@ -9188,43 +9334,126 @@
               "padrao": "ON"
             },
             {
-              "nome": "sensibilidade",
+              "nome": "valor_metros",
+              "tipo": "numero",
+              "min": 0,
+              "max": 1000000000,
+              "padrao": "0",
+              "unidade": "m"
+            }
+          ],
+          "grupo": "Rastreamento"
+        },
+        {
+          "nome": "FILTER",
+          "descricao": "Intervalo mínimo entre alertas do mesmo evento.",
+          "parametros": [
+            {
+              "nome": "tipo_evento",
+              "opcoes": [
+                "SOS",
+                "CRASH",
+                "VIBRATE",
+                "OVERSPEED",
+                "DRIVE",
+                "RAPIDACC",
+                "RAPIDDEC",
+                "RAPIDTURN"
+              ],
+              "padrao": "CRASH"
+            },
+            {
+              "nome": "intervalo_minutos",
+              "tipo": "numero",
+              "min": 1,
+              "max": 60,
+              "padrao": "5",
+              "unidade": "min"
+            }
+          ],
+          "grupo": "Sistema"
+        },
+        {
+          "nome": "HTTPUPLOADLIMIT",
+          "descricao": "Tentativas de upload HTTP.",
+          "parametros": [
+            {
+              "nome": "tentativas",
+              "tipo": "numero",
+              "min": 1,
+              "max": 10,
+              "padrao": "5"
+            },
+            {
+              "nome": "intervalo_minutos",
+              "tipo": "numero",
+              "min": 1,
+              "max": 30,
+              "padrao": "3",
+              "unidade": "min"
+            }
+          ],
+          "grupo": "Sistema"
+        },
+        {
+          "nome": "UPLOADSW",
+          "descricao": "Upload de mídia por evento. DMS/ADAS usam ON/OFF. Demais: ON=duas câmeras, 1=só frontal, 2=só interna.",
+          "parametros": [
+            {
+              "nome": "codigo_evento",
+              "opcoes": [
+                "YAWN",
+                "PHONECALLING",
+                "SHELTER",
+                "SMOKING",
+                "MISSINGFACE",
+                "DISTRACTION",
+                "CLOSEEYES",
+                "RAPIDACC",
+                "CRASH",
+                "RAPIDDEC",
+                "RAPIDTURN",
+                "SOS",
+                "OVERSPEED",
+                "VIBRATE",
+                "VOLTAGELOW",
+                "POWER",
+                "RELAYOFF",
+                "NOSDCARD",
+                "SDCARDMOUNT",
+                "DRIVE",
+                "RELAYRECOVERY"
+              ],
+              "padrao": "CRASH"
+            },
+            {
+              "nome": "modo_upload",
               "opcoes": [
                 {
-                  "label": "1 — Baixa (200)",
+                  "label": "OFF — Desligado",
+                  "valor": "OFF"
+                },
+                {
+                  "label": "ON — Duas câmeras",
+                  "valor": "ON"
+                },
+                {
+                  "label": "1 — Só frontal",
                   "valor": "1"
                 },
                 {
-                  "label": "2 — Média (150) — padrão",
+                  "label": "2 — Só interna",
                   "valor": "2"
-                },
-                {
-                  "label": "3 — Alta (120)",
-                  "valor": "3"
                 }
               ],
-              "padrao": "2"
+              "padrao": "ON"
             }
           ],
-          "grupo": "Eventos"
-        },
-        {
-          "nome": "SENSOR",
-          "descricao": "Sensibilidade avançada do acelerômetro em movimento. Lógica invertida: menor = mais sensível. Padrão: 150.",
-          "parametros": [
-            {
-              "nome": "nivel",
-              "tipo": "numero",
-              "min": 1,
-              "max": 255,
-              "padrao": "150"
-            }
-          ],
-          "grupo": "Eventos"
+          "grupo": "Sistema"
         },
         {
           "nome": "SPEED",
-          "descricao": "Alarme de excesso de velocidade. A=ON/OFF, B=tempo acima (5–600s), C=velocidade (1–255 km/h), D=modo envio. Padrão: OFF.",
+          "descricao": "Alarme de excesso de velocidade. Padrão OFF.",
           "parametros": [
             {
               "nome": "status",
@@ -9235,26 +9464,26 @@
               "padrao": "OFF"
             },
             {
-              "nome": "tempo_segundos",
+              "nome": "tempo_acima_limite_segundos",
               "tipo": "numero",
               "min": 5,
               "max": 600,
-              "padrao": "5",
+              "padrao": "20",
               "unidade": "s"
             },
             {
-              "nome": "velocidade_kmh",
+              "nome": "limite_kmh",
               "tipo": "numero",
               "min": 1,
               "max": 255,
-              "padrao": "100",
+              "padrao": "50",
               "unidade": "km/h"
             },
             {
               "nome": "modo_envio",
               "opcoes": [
                 {
-                  "label": "0 — GPRS (plataforma)",
+                  "label": "0 — GPRS",
                   "valor": "0"
                 },
                 {
@@ -9268,95 +9497,8 @@
           "grupo": "Eventos"
         },
         {
-          "nome": "RAPIDACC",
-          "descricao": "Alarme de aceleração brusca (janela de 3 s). Padrão: 0 (OFF).",
-          "parametros": [
-            {
-              "nome": "sensibilidade",
-              "opcoes": [
-                {
-                  "label": "0 — Desativado (padrão)",
-                  "valor": "0"
-                },
-                {
-                  "label": "1 — Baixa (45 km/h)",
-                  "valor": "1"
-                },
-                {
-                  "label": "2 — Média (35 km/h)",
-                  "valor": "2"
-                },
-                {
-                  "label": "3 — Alta (25 km/h)",
-                  "valor": "3"
-                }
-              ],
-              "padrao": "0"
-            }
-          ],
-          "grupo": "Eventos"
-        },
-        {
-          "nome": "RAPIDDEC",
-          "descricao": "Alarme de frenagem brusca (janela de 3 s). Padrão: 0 (OFF).",
-          "parametros": [
-            {
-              "nome": "sensibilidade",
-              "opcoes": [
-                {
-                  "label": "0 — Desativado (padrão)",
-                  "valor": "0"
-                },
-                {
-                  "label": "1 — Baixa (55 km/h)",
-                  "valor": "1"
-                },
-                {
-                  "label": "2 — Média (45 km/h)",
-                  "valor": "2"
-                },
-                {
-                  "label": "3 — Alta (25 km/h)",
-                  "valor": "3"
-                }
-              ],
-              "padrao": "0"
-            }
-          ],
-          "grupo": "Eventos"
-        },
-        {
-          "nome": "RAPIDTURN",
-          "descricao": "Alarme de curva brusca (janela de 3 s, ângulo fixo de 15°). Padrão: 0 (OFF).",
-          "parametros": [
-            {
-              "nome": "sensibilidade",
-              "opcoes": [
-                {
-                  "label": "0 — Desativado (padrão)",
-                  "valor": "0"
-                },
-                {
-                  "label": "1 — Baixa (60 km/h)",
-                  "valor": "1"
-                },
-                {
-                  "label": "2 — Média (40 km/h)",
-                  "valor": "2"
-                },
-                {
-                  "label": "3 — Alta (30 km/h)",
-                  "valor": "3"
-                }
-              ],
-              "padrao": "0"
-            }
-          ],
-          "grupo": "Eventos"
-        },
-        {
           "nome": "FATIGUE",
-          "descricao": "Alarme de fadiga ao volante. A=ON/OFF, T1=horas de direção (4–12h), T2=intervalo GPS em fadiga (1–30min). Padrão: OFF.",
+          "descricao": "Fadiga (condução contínua). Envia à plataforma sem afetar a fala do equipamento. Padrão 4h, 5min.",
           "parametros": [
             {
               "nome": "status",
@@ -9364,10 +9506,10 @@
                 "ON",
                 "OFF"
               ],
-              "padrao": "OFF"
+              "padrao": "ON"
             },
             {
-              "nome": "horas_conducao",
+              "nome": "horas_direcao",
               "tipo": "numero",
               "min": 4,
               "max": 12,
@@ -9375,7 +9517,7 @@
               "unidade": "h"
             },
             {
-              "nome": "intervalo_gps_minutos",
+              "nome": "intervalo_minutos",
               "tipo": "numero",
               "min": 1,
               "max": 30,
@@ -9387,7 +9529,7 @@
         },
         {
           "nome": "SOSALM",
-          "descricao": "Modo de alerta do botão SOS. Padrão: 2 (GPRS + SMS + Ligação).",
+          "descricao": "Alarme de SOS.",
           "parametros": [
             {
               "nome": "status",
@@ -9398,10 +9540,10 @@
               "padrao": "ON"
             },
             {
-              "nome": "modo_alerta",
+              "nome": "modo_envio",
               "opcoes": [
                 {
-                  "label": "0 — Apenas GPRS (plataforma)",
+                  "label": "0 — GPRS",
                   "valor": "0"
                 },
                 {
@@ -9424,55 +9566,337 @@
         },
         {
           "nome": "SOS",
-          "descricao": "Cadastra números para o alarme SOS. Use A (adicionar) ou D (deletar). Máximo 3 números.",
+          "descricao": "Números da central de ligação.",
           "parametros": [
             {
               "nome": "acao",
               "opcoes": [
                 {
-                  "label": "A — Adicionar números",
+                  "label": "A — Adicionar",
                   "valor": "A"
                 },
                 {
-                  "label": "D — Deletar números",
+                  "label": "D — Deletar",
                   "valor": "D"
                 }
               ],
               "padrao": "A"
             },
             {
-              "nome": "numero1",
+              "nome": "n1",
               "tipo": "texto",
-              "placeholder": "ex.: 11987654321"
+              "placeholder": "telefone 1"
             },
             {
-              "nome": "numero2",
+              "nome": "n2",
               "tipo": "texto",
               "obrigatorio": false,
-              "placeholder": "número 2 (opcional)"
+              "placeholder": "telefone 2"
             },
             {
-              "nome": "numero3",
+              "nome": "n3",
               "tipo": "texto",
               "obrigatorio": false,
-              "placeholder": "número 3 (opcional)"
+              "placeholder": "telefone 3"
+            }
+          ],
+          "grupo": "Eventos"
+        },
+        {
+          "nome": "CALL",
+          "descricao": "Tentativas de ligação do ciclo SOS.",
+          "parametros": [
+            {
+              "nome": "tentativas",
+              "opcoes": [
+                "1",
+                "2",
+                "3"
+              ],
+              "padrao": "3"
+            }
+          ],
+          "grupo": "Eventos"
+        },
+        {
+          "nome": "SENALM",
+          "descricao": "Alarme por vibração. Estado padrão OFF.",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "OFF"
+            },
+            {
+              "nome": "nivel_sensibilidade",
+              "opcoes": [
+                {
+                  "label": "1 — Baixa (26)",
+                  "valor": "1"
+                },
+                {
+                  "label": "2 — Média (20)",
+                  "valor": "2"
+                },
+                {
+                  "label": "3 — Alta (16)",
+                  "valor": "3"
+                }
+              ],
+              "padrao": "2"
+            }
+          ],
+          "grupo": "Eventos"
+        },
+        {
+          "nome": "SHOCK",
+          "descricao": "Sensibilidade de impacto. Lógica invertida: menor = mais sensível.",
+          "parametros": [
+            {
+              "nome": "nivel",
+              "tipo": "numero",
+              "min": 1,
+              "max": 255,
+              "padrao": "20"
+            }
+          ],
+          "grupo": "Eventos"
+        },
+        {
+          "nome": "SHAKEDELAY",
+          "descricao": "Silêncio após ACC ON para evitar falso alarme de vibração.",
+          "parametros": [
+            {
+              "nome": "tempo_segundos",
+              "tipo": "numero",
+              "min": 10,
+              "max": 600,
+              "padrao": "30",
+              "unidade": "s"
+            }
+          ],
+          "grupo": "Eventos"
+        },
+        {
+          "nome": "CRASHALM",
+          "descricao": "Alarme de colisão. Padrão ON,2.",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            },
+            {
+              "nome": "nivel_sensibilidade",
+              "opcoes": [
+                {
+                  "label": "1 — Baixa (200)",
+                  "valor": "1"
+                },
+                {
+                  "label": "2 — Média (150)",
+                  "valor": "2"
+                },
+                {
+                  "label": "3 — Alta (120)",
+                  "valor": "3"
+                }
+              ],
+              "padrao": "2"
+            }
+          ],
+          "grupo": "Eventos"
+        },
+        {
+          "nome": "COLLIDE",
+          "descricao": "Detecção avançada de colisão.",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            },
+            {
+              "nome": "modo_alerta",
+              "opcoes": [
+                {
+                  "label": "0 — Plataforma",
+                  "valor": "0"
+                }
+              ],
+              "padrao": "0"
+            },
+            {
+              "nome": "sensibilidade",
+              "tipo": "numero",
+              "min": 0,
+              "max": 255,
+              "padrao": "150"
+            },
+            {
+              "nome": "atraso_segundos",
+              "tipo": "numero",
+              "min": 0,
+              "max": 20,
+              "padrao": "0",
+              "unidade": "s"
+            },
+            {
+              "nome": "janela_verificacao_segundos",
+              "tipo": "numero",
+              "min": 10,
+              "max": 90,
+              "padrao": "15",
+              "unidade": "s"
+            },
+            {
+              "nome": "velocidade_minima_kmh",
+              "tipo": "numero",
+              "min": 5,
+              "max": 30,
+              "padrao": "6",
+              "unidade": "km/h"
+            },
+            {
+              "nome": "taxa_eixo1",
+              "tipo": "numero",
+              "min": 0,
+              "max": 100,
+              "padrao": "60"
+            },
+            {
+              "nome": "taxa_eixo2",
+              "tipo": "numero",
+              "min": 2,
+              "max": 300,
+              "padrao": "90"
+            }
+          ],
+          "grupo": "Eventos"
+        },
+        {
+          "nome": "SENSOR",
+          "descricao": "Sensibilidade do acelerômetro. Lógica invertida: menor = mais sensível.",
+          "parametros": [
+            {
+              "nome": "nivel",
+              "tipo": "numero",
+              "min": 1,
+              "max": 255,
+              "padrao": "150"
+            }
+          ],
+          "grupo": "Eventos"
+        },
+        {
+          "nome": "RAPIDACC",
+          "descricao": "Aceleração brusca (janela fixa de 3s).",
+          "parametros": [
+            {
+              "nome": "sensibilidade",
+              "opcoes": [
+                {
+                  "label": "0 — OFF",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — Baixo (45 km/h)",
+                  "valor": "1"
+                },
+                {
+                  "label": "2 — Médio (35 km/h)",
+                  "valor": "2"
+                },
+                {
+                  "label": "3 — Alto (25 km/h)",
+                  "valor": "3"
+                }
+              ],
+              "padrao": "0"
+            }
+          ],
+          "grupo": "Eventos"
+        },
+        {
+          "nome": "RAPIDDEC",
+          "descricao": "Frenagem brusca (janela fixa de 3s).",
+          "parametros": [
+            {
+              "nome": "sensibilidade",
+              "opcoes": [
+                {
+                  "label": "0 — OFF",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — Baixo (55 km/h)",
+                  "valor": "1"
+                },
+                {
+                  "label": "2 — Médio (45 km/h)",
+                  "valor": "2"
+                },
+                {
+                  "label": "3 — Alto (25 km/h)",
+                  "valor": "3"
+                }
+              ],
+              "padrao": "0"
+            }
+          ],
+          "grupo": "Eventos"
+        },
+        {
+          "nome": "RAPIDTURN",
+          "descricao": "Curva brusca (janela fixa de 3s, ângulo interno fixo de 15°).",
+          "parametros": [
+            {
+              "nome": "sensibilidade",
+              "opcoes": [
+                {
+                  "label": "0 — OFF",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — Baixo (60 km/h)",
+                  "valor": "1"
+                },
+                {
+                  "label": "2 — Médio (40 km/h)",
+                  "valor": "2"
+                },
+                {
+                  "label": "3 — Alto (30 km/h)",
+                  "valor": "3"
+                }
+              ],
+              "padrao": "0"
             }
           ],
           "grupo": "Eventos"
         },
         {
           "nome": "EXBATALM",
-          "descricao": "Alarme de bateria baixa. Voltagem sem decimal (11.8V=118). 12V: 90–130; 24V: 180–255.",
+          "descricao": "Alarme de bateria externa. Voltagem sem ponto (118=11.8V). 12V: 90–130; 24V: 180–255.",
           "parametros": [
             {
               "nome": "tipo_veiculo",
               "opcoes": [
                 {
-                  "label": "0 — 12V (carros)",
+                  "label": "0 — 12V",
                   "valor": "0"
                 },
                 {
-                  "label": "1 — 24V (caminhões/ônibus)",
+                  "label": "1 — 24V",
                   "valor": "1"
                 }
               ],
@@ -9483,14 +9907,14 @@
               "tipo": "numero",
               "min": 90,
               "max": 255,
-              "padrao": "118",
-              "placeholder": "ex.: 118 = 11.8V"
+              "padrao": "115",
+              "placeholder": "ex.: 118"
             },
             {
               "nome": "modo_alerta",
               "opcoes": [
                 {
-                  "label": "0 — Apenas plataforma",
+                  "label": "0 — Plataforma",
                   "valor": "0"
                 },
                 {
@@ -9504,347 +9928,360 @@
           "grupo": "Eventos"
         },
         {
-          "nome": "ADASVSP",
-          "descricao": "Velocidade virtual para testar ADAS em bancada (sem GPS). 0 desativa.",
+          "nome": "NOSDCARDALM",
+          "descricao": "Alerta de cartão SD ausente. Padrão ON,0.",
           "parametros": [
-            {
-              "nome": "velocidade_kmh",
-              "tipo": "numero",
-              "min": 0,
-              "max": 120,
-              "padrao": "0",
-              "unidade": "km/h"
-            }
-          ],
-          "grupo": "IA / ADAS / DMS"
-        },
-        {
-          "nome": "SNAPNUM",
-          "descricao": "Define quais câmeras gravam vídeo/foto para cada tipo de evento.",
-          "parametros": [
-            {
-              "nome": "tipo_evento",
-              "opcoes": [
-                {
-                  "label": "JJS — Aceleração brusca",
-                  "valor": "JJS"
-                },
-                {
-                  "label": "JDS — Frenagem brusca",
-                  "valor": "JDS"
-                },
-                {
-                  "label": "JZW — Curva brusca",
-                  "valor": "JZW"
-                },
-                {
-                  "label": "CRASH — Colisão",
-                  "valor": "CRASH"
-                },
-                {
-                  "label": "PARK — Vibração estacionamento",
-                  "valor": "PARK"
-                },
-                {
-                  "label": "SOS — Evento SOS",
-                  "valor": "SOS"
-                },
-                {
-                  "label": "CHAOSU — Excesso velocidade",
-                  "valor": "CHAOSU"
-                },
-                {
-                  "label": "LDW — Eventos ADAS",
-                  "valor": "LDW"
-                },
-                {
-                  "label": "DFW — Eventos DMS",
-                  "valor": "DFW"
-                }
-              ],
-              "padrao": "LDW"
-            },
-            {
-              "nome": "canais",
-              "tipo": "texto",
-              "placeholder": "ex.: 1-2 para câmeras 1 e 2"
-            }
-          ],
-          "grupo": "Vídeo"
-        },
-        {
-          "nome": "DMSSEP",
-          "descricao": "Ativa ou desativa eventos individuais de ADAS/DMS. Padrão: todos ativos exceto YCW.",
-          "parametros": [
-            {
-              "nome": "tipo_evento",
-              "opcoes": [
-                {
-                  "label": "1 — FCW (colisão frontal ADAS)",
-                  "valor": "1"
-                },
-                {
-                  "label": "2 — HMW (veículo próximo ADAS)",
-                  "valor": "2"
-                },
-                {
-                  "label": "3 — LDW (saída de faixa ADAS)",
-                  "valor": "3"
-                },
-                {
-                  "label": "5 — DFW (olhos fechados DMS)",
-                  "valor": "5"
-                },
-                {
-                  "label": "6 — YAWN (bocejo DMS)",
-                  "valor": "6"
-                },
-                {
-                  "label": "7 — FSW (distração DMS)",
-                  "valor": "7"
-                },
-                {
-                  "label": "8 — CALL (celular DMS)",
-                  "valor": "8"
-                },
-                {
-                  "label": "9 — SMOKE (cigarro DMS)",
-                  "valor": "9"
-                },
-                {
-                  "label": "10 — YCW (sem rosto DMS)",
-                  "valor": "10"
-                }
-              ],
-              "padrao": "1"
-            },
             {
               "nome": "status",
               "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            },
+            {
+              "nome": "modo_alerta",
+              "opcoes": [
                 {
-                  "label": "0 — Desativar",
+                  "label": "0 — Plataforma",
                   "valor": "0"
                 },
                 {
-                  "label": "1 — Ativar",
-                  "valor": "1"
-                }
-              ],
-              "padrao": "1"
-            }
-          ],
-          "grupo": "IA / ADAS / DMS"
-        },
-        {
-          "nome": "DMSSP",
-          "descricao": "Velocidade mínima para acionar alertas ADAS/DMS. Padrão: ADAS=57km/h, DMS=28km/h.",
-          "parametros": [
-            {
-              "nome": "sistema",
-              "opcoes": [
-                {
-                  "label": "1 — ADAS",
+                  "label": "1 — SMS + plataforma",
                   "valor": "1"
                 },
                 {
-                  "label": "2 — DMS",
+                  "label": "2 — Ligação + SMS + plataforma",
+                  "valor": "2"
+                },
+                {
+                  "label": "3 — Ligação + plataforma",
+                  "valor": "3"
+                }
+              ],
+              "padrao": "0"
+            }
+          ],
+          "grupo": "Eventos"
+        },
+        {
+          "nome": "SDABNORMAL",
+          "descricao": "Alerta de falha de gravação no cartão SD.",
+          "parametros": [
+            {
+              "nome": "status",
+              "opcoes": [
+                "ON",
+                "OFF"
+              ],
+              "padrao": "ON"
+            }
+          ],
+          "grupo": "Eventos"
+        },
+        {
+          "nome": "DMS_SWITCH",
+          "descricao": "Liga a DMS. Padrão 1,1,15.",
+          "parametros": [
+            {
+              "nome": "status_dms",
+              "opcoes": [
+                {
+                  "label": "1 — ON",
+                  "valor": "1"
+                },
+                {
+                  "label": "0 — OFF",
+                  "valor": "0"
+                }
+              ],
+              "padrao": "1"
+            },
+            {
+              "nome": "sensibilidade",
+              "opcoes": [
+                {
+                  "label": "1 — Padrão",
+                  "valor": "1"
+                },
+                {
+                  "label": "2 — Alta",
                   "valor": "2"
                 }
               ],
-              "padrao": "2"
+              "padrao": "1"
             },
             {
               "nome": "velocidade_kmh",
-              "tipo": "numero",
-              "min": 0,
-              "max": 150,
-              "padrao": "28",
-              "unidade": "km/h"
+              "opcoes": [
+                "0",
+                "15",
+                "30",
+                "60",
+                "90"
+              ],
+              "padrao": "15"
             }
           ],
           "grupo": "IA / ADAS / DMS"
         },
         {
-          "nome": "DMSPI",
-          "descricao": "Intervalo de upload de eventos ADAS/DMS. Padrão: 60 s para todos.",
+          "nome": "DMS_VOICE_CUSTOM",
+          "descricao": "Tempo de voz por evento DMS (s). Padrão 5,5,60,5,5,180.",
           "parametros": [
             {
-              "nome": "tipo_evento",
+              "nome": "olhos_fechados",
               "opcoes": [
-                {
-                  "label": "1 — FCW (ADAS)",
-                  "valor": "1"
-                },
-                {
-                  "label": "2 — HMW (ADAS)",
-                  "valor": "2"
-                },
-                {
-                  "label": "3 — LDW (ADAS)",
-                  "valor": "3"
-                },
-                {
-                  "label": "4 — DFW olhos (DMS)",
-                  "valor": "4"
-                },
-                {
-                  "label": "5 — YAWN bocejo (DMS)",
-                  "valor": "5"
-                },
-                {
-                  "label": "6 — FSW distração (DMS)",
-                  "valor": "6"
-                },
-                {
-                  "label": "7 — CALL celular (DMS)",
-                  "valor": "7"
-                },
-                {
-                  "label": "8 — SMOKE cigarro (DMS)",
-                  "valor": "8"
-                },
-                {
-                  "label": "9 — YCW sem rosto (DMS)",
-                  "valor": "9"
-                }
+                "0",
+                "5",
+                "10",
+                "30",
+                "60"
               ],
-              "padrao": "1"
+              "padrao": "5"
             },
             {
-              "nome": "intervalo_segundos",
+              "nome": "bocejo",
+              "opcoes": [
+                "0",
+                "5",
+                "10",
+                "30",
+                "60"
+              ],
+              "padrao": "5"
+            },
+            {
+              "nome": "distracao",
+              "opcoes": [
+                "0",
+                "5",
+                "10",
+                "30",
+                "60"
+              ],
+              "padrao": "60"
+            },
+            {
+              "nome": "cigarro",
+              "opcoes": [
+                "0",
+                "5",
+                "10",
+                "30",
+                "60"
+              ],
+              "padrao": "5"
+            },
+            {
+              "nome": "celular",
+              "opcoes": [
+                "0",
+                "5",
+                "10",
+                "30",
+                "60"
+              ],
+              "padrao": "5"
+            },
+            {
+              "nome": "sem_rosto",
+              "opcoes": [
+                "0",
+                "5",
+                "10",
+                "30",
+                "60",
+                "180"
+              ],
+              "padrao": "180"
+            }
+          ],
+          "grupo": "IA / ADAS / DMS"
+        },
+        {
+          "nome": "DMS_ALERT_CUSTOM",
+          "descricao": "Intervalo de alerta por evento DMS (s). Padrão 120 para todos.",
+          "parametros": [
+            {
+              "nome": "olhos_fechados",
+              "opcoes": [
+                "0",
+                "120",
+                "180",
+                "600",
+                "1800"
+              ],
+              "padrao": "120"
+            },
+            {
+              "nome": "bocejo",
+              "opcoes": [
+                "0",
+                "120",
+                "180",
+                "600",
+                "1800"
+              ],
+              "padrao": "120"
+            },
+            {
+              "nome": "distracao",
+              "opcoes": [
+                "0",
+                "120",
+                "180",
+                "600",
+                "1800"
+              ],
+              "padrao": "120"
+            },
+            {
+              "nome": "cigarro",
+              "opcoes": [
+                "0",
+                "120",
+                "180",
+                "600",
+                "1800"
+              ],
+              "padrao": "120"
+            },
+            {
+              "nome": "celular",
+              "opcoes": [
+                "0",
+                "120",
+                "180",
+                "600",
+                "1800"
+              ],
+              "padrao": "120"
+            },
+            {
+              "nome": "sem_rosto",
+              "opcoes": [
+                "0",
+                "120",
+                "180",
+                "600",
+                "1800"
+              ],
+              "padrao": "120"
+            }
+          ],
+          "grupo": "IA / ADAS / DMS"
+        },
+        {
+          "nome": "DMS_CONTINUITY",
+          "descricao": "Tempo de continuidade por evento DMS (s). 0 desativa. Padrão 2,2,2,3,3,10.",
+          "parametros": [
+            {
+              "nome": "olhos_fechados",
               "tipo": "numero",
               "min": 0,
-              "max": 3600,
-              "padrao": "60",
+              "max": 10,
+              "padrao": "2",
+              "unidade": "s"
+            },
+            {
+              "nome": "bocejo",
+              "tipo": "numero",
+              "min": 0,
+              "max": 10,
+              "padrao": "2",
+              "unidade": "s"
+            },
+            {
+              "nome": "distracao",
+              "tipo": "numero",
+              "min": 0,
+              "max": 10,
+              "padrao": "2",
+              "unidade": "s"
+            },
+            {
+              "nome": "fumando",
+              "tipo": "numero",
+              "min": 0,
+              "max": 10,
+              "padrao": "3",
+              "unidade": "s"
+            },
+            {
+              "nome": "celular",
+              "tipo": "numero",
+              "min": 0,
+              "max": 10,
+              "padrao": "3",
+              "unidade": "s"
+            },
+            {
+              "nome": "sem_rosto",
+              "tipo": "numero",
+              "min": 0,
+              "max": 10,
+              "padrao": "10",
               "unidade": "s"
             }
           ],
           "grupo": "IA / ADAS / DMS"
         },
         {
-          "nome": "ADAS,CALIBRATION",
-          "descricao": "Calibração manual do ADAS. Todas as medidas em mm (1 a 100000).",
+          "nome": "DMS_LOSTFACE_LIMIT",
+          "descricao": "Limite de avisos de rosto não detectado.",
           "parametros": [
             {
-              "nome": "altura_camera_mm",
+              "nome": "limite_avisos",
               "tipo": "numero",
-              "min": 1,
-              "max": 100000,
-              "unidade": "mm"
-            },
-            {
-              "nome": "dist_parachoque_mm",
-              "tipo": "numero",
-              "min": 1,
-              "max": 100000,
-              "unidade": "mm"
-            },
-            {
-              "nome": "dist_roda_esq_mm",
-              "tipo": "numero",
-              "min": 1,
-              "max": 100000,
-              "unidade": "mm"
-            },
-            {
-              "nome": "dist_roda_dir_mm",
-              "tipo": "numero",
-              "min": 1,
-              "max": 100000,
-              "unidade": "mm"
-            },
-            {
-              "nome": "dist_eixo_mm",
-              "tipo": "numero",
-              "min": 1,
-              "max": 100000,
-              "unidade": "mm"
+              "min": 3,
+              "max": 1024,
+              "padrao": "5"
             }
           ],
           "grupo": "IA / ADAS / DMS"
         },
         {
-          "nome": "ADASSEN",
-          "descricao": "Sensibilidade do ADAS por tipo de evento. Tipo 1 (LDW): B de -0.3 a 0.6, C=nível. Tipos 2/3: B de 0 a 10 s.",
+          "nome": "DMS_CALIB_ABNORMAL",
+          "descricao": "Alerta de falha de calibração da DMS. repeticoes_falha = 0 desliga.",
           "parametros": [
             {
-              "nome": "tipo_evento",
+              "nome": "repeticoes_falha",
+              "tipo": "numero",
+              "min": 0,
+              "max": 10,
+              "padrao": "3"
+            },
+            {
+              "nome": "buzzer",
               "opcoes": [
                 {
-                  "label": "1 — LDW (saída de faixa)",
+                  "label": "0 — Não",
+                  "valor": "0"
+                },
+                {
+                  "label": "1 — Sim",
                   "valor": "1"
-                },
-                {
-                  "label": "2 — FCW (colisão frontal)",
-                  "valor": "2"
-                },
-                {
-                  "label": "3 — HMW (veículo próximo)",
-                  "valor": "3"
                 }
               ],
               "padrao": "1"
             },
             {
-              "nome": "valor_b",
-              "tipo": "numero",
-              "min": -0.3,
-              "max": 10,
-              "step": 0.1
-            },
-            {
-              "nome": "nivel_c",
+              "nome": "plataforma",
               "opcoes": [
                 {
-                  "label": "0 — Baixo",
+                  "label": "0 — Não",
                   "valor": "0"
                 },
                 {
-                  "label": "1 — Médio",
+                  "label": "1 — Sim",
                   "valor": "1"
-                },
-                {
-                  "label": "2 — Alto",
-                  "valor": "2"
                 }
               ],
-              "obrigatorio": false
+              "padrao": "1"
             }
           ],
           "grupo": "IA / ADAS / DMS"
-        },
-        {
-          "nome": "ADAS,CENTERPOINT",
-          "descricao": "Replica a linha do horizonte de outro equipamento já calibrado (ex.: 320,271).",
-          "parametros": [
-            {
-              "nome": "x",
-              "tipo": "numero",
-              "min": 0,
-              "max": 10000,
-              "placeholder": "ex.: 320"
-            },
-            {
-              "nome": "y",
-              "tipo": "numero",
-              "min": 0,
-              "max": 10000,
-              "placeholder": "ex.: 271"
-            }
-          ],
-          "grupo": "IA / ADAS / DMS"
-        },
-        {
-          "nome": "REBOOT",
-          "descricao": "Reinício simples.",
-          "parametros": [],
-          "grupo": "Controle"
-        },
-        {
-          "nome": "RESTORE",
-          "descricao": "Restaura padrão de fábrica. ATENÇÃO: apaga todas as configurações.",
-          "parametros": [],
-          "grupo": "Controle"
         }
       ],
       "linha": "jc"
